@@ -1,0 +1,114 @@
+/* ContactPage.module.css */
+
+.page {
+  --navy: #0f172a;
+  --gold: #d4af37;
+  --bg-light: #f8fafc;
+  --text-main: #334155;
+  --border: #e2e8f0;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.section { padding: 4rem 0 8rem 0; }
+.inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+/* ── Header ── */
+.header { text-align: center; max-width: 800px; margin: 0 auto 4rem auto; }
+.eyebrow { font-size: 0.85rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem; }
+.headerTitle { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--navy); font-weight: 800; margin: 0 0 1rem 0; line-height: 1.1; }
+.headerSubtitle { color: var(--text-main); font-size: 1.1rem; line-height: 1.6; }
+
+/* ── Grid Layout ── */
+.grid { 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 3rem; 
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: 3fr 2fr; gap: 4rem; }
+}
+
+/* ── Form Styling ── */
+.formContainer { background: var(--bg-light); padding: 3rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+.formTitle { font-size: 1.8rem; color: var(--navy); font-weight: 800; margin: 0 0 0.5rem 0; }
+.formDivider { width: 40px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .formGrid { grid-template-columns: 1fr 1fr; }
+}
+
+.field label, .fieldFull label { display: block; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; font-size: 0.9rem; }
+.required { color: #ef4444; }
+.optional { color: #94a3b8; font-weight: 400; font-size: 0.8rem; }
+.fieldFull { grid-column: 1 / -1; }
+
+.input, .select, .textarea { 
+  width: 100%; 
+  padding: 0.8rem 1rem; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 6px; 
+  font-family: inherit; 
+  font-size: 1rem; 
+  transition: all 0.2s; 
+  box-sizing: border-box; 
+  background: #ffffff;
+}
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+
+.submitBtn { 
+  background: var(--gold); 
+  color: #fff; 
+  width: 100%; 
+  padding: 1.2rem; 
+  font-size: 1.1rem; 
+  font-weight: 700; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  transition: background 0.2s; 
+  margin-top: 1.5rem;
+}
+.submitBtn:hover { background: #b8962c; }
+.submitBtn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+/* ── Info & Map Styling ── */
+.infoContainer { padding: 1rem 0; }
+.infoTitle { font-size: 1.8rem; color: var(--navy); font-weight: 800; margin: 0 0 0.5rem 0; }
+.infoDivider { width: 40px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+.contactList { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2.5rem; }
+.contactItem { display: flex; gap: 1.2rem; align-items: flex-start; }
+.contactIcon { width: 45px; height: 45px; background: #f1f5f9; color: var(--gold); display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
+.contactIcon svg { width: 22px; height: 22px; }
+.contactItemTitle { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin: 0 0 0.2rem 0; }
+.contactItemText { color: var(--text-main); line-height: 1.6; margin: 0; font-size: 0.95rem; }
+
+/* WhatsApp Button */
+.whatsappBtn { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 0.8rem; 
+  background: #25D366; 
+  color: #fff; 
+  padding: 1rem; 
+  border-radius: 6px; 
+  text-decoration: none; 
+  font-weight: 700; 
+  transition: all 0.2s; 
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 6px -1px rgba(37, 211, 102, 0.2);
+}
+.whatsappBtn:hover { background: #1ebd5a; transform: translateY(-2px); }
+.whatsappIcon { width: 24px; height: 24px; }
+
+/* Map */
+.mapSection { margin-top: 2rem; }
+.mapWrapper { border-radius: 12px; overflow: hidden; height: 250px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+.mapWrapper iframe { width: 100%; height: 100%; border: none; }

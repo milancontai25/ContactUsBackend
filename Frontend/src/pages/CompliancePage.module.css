@@ -1,0 +1,28 @@
+.page { min-height: 100vh; background-color: var(--bg-primary); color: var(--text-primary); transition: background-color 0.3s, color 0.3s; }
+.section { padding-top: 8rem; padding-bottom: 6rem; }
+.inner { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+.header { text-align: center; margin-bottom: 5rem; }
+.eyebrow { font-family: 'Manrope', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.25rem; }
+.headerTitle { font-family: 'Manrope', sans-serif; font-size: 3rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1.5rem 0; line-height: 1.1; }
+@media (min-width: 768px) { .headerTitle { font-size: 4.5rem; } }
+.headerSubtitle { font-family: 'Manrope', sans-serif; font-size: 0.9rem; line-height: 1.9; color: var(--text-secondary); max-width: 48rem; margin: 0 auto; }
+.sectionTitle { font-family: 'Manrope', sans-serif; font-size: 2.25rem; font-weight: 700; color: var(--text-primary); text-align: center; margin: 0 0 1rem 0; }
+@media (min-width: 768px) { .sectionTitle { font-size: 3rem; } }
+.sectionDivider { width: 3rem; height: 1px; background-color: var(--gold); margin: 0 auto 3rem auto; }
+
+.certSection { margin-bottom: 6rem; }
+.certGrid { display: grid; gap: 1px; background-color: var(--border-subtle); }
+@media (min-width: 768px) { .certGrid { grid-template-columns: repeat(4, 1fr); } }
+.certCard { background-color: var(--bg-primary); padding: 2.5rem 1.5rem; text-align: center; transition: background-color 0.25s; }
+.certCard:hover { background-color: var(--bg-hover); }
+.certIcon { font-size: 2.5rem; display: block; margin-bottom: 1.25rem; }
+.certTitle { font-family: 'Manrope', sans-serif; font-size: 1.25rem; font-weight: 500; color: var(--gold); margin: 0 0 0.5rem 0; }
+.certDesc { font-family: 'Manrope', sans-serif; font-size: 0.775rem; color: var(--text-secondary); margin: 0; line-height: 1.7; }
+
+.faqList { max-width: 52rem; margin: 0 auto; display: flex; flex-direction: column; gap: 1px; background-color: var(--border-subtle); }
+.faqItem { background-color: var(--bg-primary); padding: 2rem 2.5rem; transition: background-color 0.25s; position: relative; }
+.faqItem::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background-color: var(--gold); transform: scaleY(0); transition: transform 0.3s ease; }
+.faqItem:hover { background-color: var(--bg-hover); }
+.faqItem:hover::before { transform: scaleY(1); }
+.faqQuestion { font-family: 'Manrope', sans-serif; font-size: 1.2rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.875rem 0; }
+.faqAnswer { font-family: 'Manrope', sans-serif; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.9; margin: 0; }

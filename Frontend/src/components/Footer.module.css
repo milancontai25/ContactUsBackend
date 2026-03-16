@@ -1,0 +1,77 @@
+/* .footer {
+  background-color: var(--navy);
+  border-top: 2px solid var(--gold);
+  box-shadow: 0 -4px 24px rgba(10,37,64,0.3);
+}
+.footerInner { max-width: 80rem; margin: 0 auto; padding: 5rem 1.5rem; }
+.footerGrid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+@media (min-width: 768px) { .footerGrid { grid-template-columns: repeat(4, 1fr); } }
+
+.brandRow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+.footerLogoImg { width: 2.5rem; height: 2.5rem; object-fit: contain; border-radius: 3px; border: 1px solid rgba(201,162,39,0.4); }
+.brandName { font-family: 'Manrope', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--gold); letter-spacing: 0.03em; margin: 0; }
+.brandDesc { font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1.8; margin: 0; }
+
+.columnTitle {
+  font-family: 'Manrope', sans-serif; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  margin: 0 0 1.25rem 0; padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(201,162,39,0.25);
+}
+.linkList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; }
+.linkList li { font-family: 'Manrope', sans-serif; font-size: 0.825rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.footerLink { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.25s; }
+.footerLink:hover { color: var(--gold); }
+
+.bottomBar {
+  border-top: 1px solid rgba(201,162,39,0.15);
+  margin-top: 4rem; padding-top: 2rem; text-align: center;
+}
+.bottomBar p { font-family: 'Manrope', sans-serif; font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; margin: 0; } */
+
+
+
+/* Footer.module.css */
+.footer {
+  background-color: #020617; /* Very Dark Navy */
+  color: #94a3b8;
+  padding-top: 5rem;
+}
+.footerInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .footerGrid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+}
+
+.brandRow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.footerLogoImg { height: 40px; border-radius: 4px; }
+.brandName { color: #fff; font-size: 1.2rem; font-weight: 800; margin: 0; letter-spacing: 1px; }
+.brandDesc { line-height: 1.6; margin: 0; max-width: 300px; }
+
+.columnTitle { color: #fff; font-size: 1.1rem; font-weight: 700; margin: 0 0 1.5rem 0; }
+.linkList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+.linkList li { font-size: 0.95rem; }
+.footerLink { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+.footerLink:hover { color: #d4af37; /* Gold hover */ }
+
+.socialRow { display: flex; gap: 1rem; margin-top: 1.5rem; }
+.socialLink { color: #94a3b8; transition: color 0.2s; }
+.socialLink:hover { color: #25D366; /* WhatsApp Green */ }
+.socialIcon { width: 24px; height: 24px; }
+
+.bottomBar {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.bottomBar p { margin: 0; }
