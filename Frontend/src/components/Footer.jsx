@@ -51,7 +51,17 @@ const Footer = () => (
       </div>
 
       <div className={styles.bottomBar}>
-        <p>&copy; 2026 Ramsam Trends. All rights reserved. &nbsp;|&nbsp; Certified ITAR & ISO Compliant</p>
+        <p>&copy; 2026 Ramsam Trends. All rights reserved. &nbsp;</p>
+        <p>
+          Powered by<span> </span>
+          <a 
+            href="https://statgrow.cloud" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+             StatGrow
+          </a>
+        </p>
       </div>
     </div>
   </footer>

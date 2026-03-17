@@ -90,9 +90,9 @@ const COMMODITIES = [
 ];
 
 const TESTIMONIALS = [
-  { name: 'Ahmed Al-Farsi', role: 'CEO, Gulf Food Importers', text: 'Powerhouse Trading has been our trusted partner for 5 years. Their reliability and quality are unmatched in the industry.', country: '🇦🇪' },
+  { name: 'Ahmed Al-Farsi', role: 'CEO, Gulf Food Importers', text: 'Ramsam Trends has been our trusted partner for 5 years. Their reliability and quality are unmatched in the industry.', country: '🇦🇪' },
   { name: 'Priya Sharma', role: 'Director, Mumbai Commodities Ltd', text: 'Exceptional service from sourcing to delivery. The team handles every shipment with precision and full documentation.', country: '🇮🇳' },
-  { name: 'James Whitfield', role: 'VP Procurement, EuroFood Group', text: 'We have sourced rice and grains through Powerhouse for 3 years. Always on time, always compliant. Highly recommended.', country: '🇬🇧' },
+  { name: 'James Whitfield', role: 'VP Procurement, EuroFood Group', text: 'We have sourced rice and grains through Ramsam Trends for 3 years. Always on time, always compliant. Highly recommended.', country: '🇬🇧' },
 ];
 
 /* ─── Main Page ─── */
@@ -138,7 +138,7 @@ const HomePage = () => {
       };
 
       // Send to FastAPI backend
-      await axios.post('http://localhost:8000/api/contact', payload); 
+      await axios.post('/api/contact', payload); 
 
       toast.success('Quote request submitted! We will contact you shortly.');
       setFormData({ full_name:'', contact_number:'', email:'', product_name:'', enquiry_type:'', company_name:'', country:'', additional_details:'' });

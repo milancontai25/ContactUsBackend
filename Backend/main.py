@@ -10,11 +10,15 @@ load_dotenv()
 
 app = FastAPI(title="Universal Mail Relay")
 
+origins = [
+    "http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],  # you can restrict later
     allow_credentials=True,
-    allow_methods=["POST"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -76,3 +80,9 @@ async def send_email(payload: MailPayload, background_tasks: BackgroundTasks):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Failed to send email")
+
+
+
+@app.get("/")
+def run():
+    return {"message": "App running"}

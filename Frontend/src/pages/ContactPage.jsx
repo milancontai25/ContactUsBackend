@@ -56,7 +56,7 @@ const ContactPage = () => {
       };
 
       // Point this to your actual deployed FastAPI server URL eventually
-      await axios.post('http://localhost:8000/api/contact', payload); 
+      await axios.post('/api/contact', payload);
       
       toast.success('Enquiry sent successfully! Our team will contact you shortly.');
       
