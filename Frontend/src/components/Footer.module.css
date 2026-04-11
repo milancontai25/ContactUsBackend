@@ -210,6 +210,7 @@ a.contactValue:hover {
 }
 
 /* ── Bottom Section ── */
+/* ── Bottom Section ── */
 .orangeDivider {
   width: 100%;
   height: 1px;
@@ -220,18 +221,12 @@ a.contactValue:hover {
 
 .bottomBar {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: center; /* This centers the content */
+  align-items: center;
   color: var(--text-muted);
   font-size: 0.85rem;
-}
-
-@media (min-width: 768px) {
-  .bottomBar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+  width: 100%;
+  text-align: center;
 }
 
 .bottomBar a {
@@ -243,6 +238,22 @@ a.contactValue:hover {
 .bottomBar a:hover {
   color: var(--skylink-orange);
 }
+
+.copyrightText {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .bottomBar {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+
+
 
 .legalLinks {
   display: flex;

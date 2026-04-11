@@ -32,7 +32,7 @@ export const MAIN_CATEGORIES = [
       { id: 'en-590', name: 'EN 590', img: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=600' },
       { id: 'jet-fuel', name: 'JET A1 FUEL', img: 'https://images.unsplash.com/photo-1559087316-6b27308e53f6?q=80&w=600' },
       { id: 'aluminium-ingots', name: 'Aluminium Ingots A7,A8,A9', img: 'https://images.unsplash.com/photo-1518542331925-4e91e9aa0074?q=80&w=600' },
-      { id: 'scraps', name: 'COPPER & ALUMINIUM SCRAPS', img: 'https://images.unsplash.com/photo-1620023447999-528205d210ba?q=80&w=600' },
+      { id: 'scraps', name: 'COPPER & ALUMINIUM SCRAPS', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNmA3l-0xkIWSJDRAqUmPRVQWJ1sf6FOpd-Q&s' },
     ]
   }
 ];
@@ -111,14 +111,14 @@ export const DETAILED_PRODUCTS = [
   },
 
   // ─── SPICES (From earlier) ───
-  { 
-    id: 1, 
-    subcategoryId: 'organic-spices', 
-    name: 'Premium Turmeric Powder', 
-    category: 'Spices', 
-    description: 'High curcumin content turmeric sourced directly from organic farms. Perfect for culinary and wellness applications.', 
-    image_url: 'https://images.unsplash.com/photo-1615486171448-4fd1ff965df4?q=80&w=600', 
-    origin: 'India', 
-    specifications: { purity: '99%', curcumin: '5-7%', packaging: 'Bulk / Custom' } 
-  }
+  // { 
+  //   id: 1, 
+  //   subcategoryId: 'organic-spices', 
+  //   name: 'Premium Turmeric Powder', 
+  //   category: 'Spices', 
+  //   description: 'High curcumin content turmeric sourced directly from organic farms. Perfect for culinary and wellness applications.', 
+  //   image_url: 'https://images.unsplash.com/photo-1615486171448-4fd1ff965df4?q=80&w=600', 
+  //   origin: 'India', 
+  //   specifications: { purity: '99%', curcumin: '5-7%', packaging: 'Bulk / Custom' } 
+  // }
 ];

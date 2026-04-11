@@ -162,7 +162,7 @@ const ServiceDetailPage = () => {
                   </div>
                   <div className={styles.phoneText}>
                     <span>Need Help? Call Us now</span>
-                    <strong>(917) 672-6581</strong>
+                    <strong>+1 (613) 663-0578</strong>
                   </div>
                 </div>
               </div>

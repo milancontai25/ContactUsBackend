@@ -110,21 +110,24 @@ const Footer = () => {
 
         <div className={styles.bottomBar}>
           <div className={styles.copyrightText}>
-            Copyright © 2024- 2026. Ramsam Trends LLC 
-            {/* Powered by <a href="https://statgrow.cloud" target="_blank" rel="noopener noreferrer">StatGrow</a> */}
+            Copyright © 2024- 2026. Ramsam Trends LLC. <br/>
+            Powered by StatGrow 
+            {/* <a href="https://statgrow.cloud" target="_blank" rel="noopener noreferrer"> */}
+            {/* StatGrow */}
+            {/* </a> */}
           </div>
-          <div className={styles.legalLinks}>
+          {/* <div className={styles.legalLinks}>
             <Link to="/privacy">Privacy & Policy</Link> / <Link to="/disclaimer">Disclaimer</Link>
-          </div>
+          </div> */}
         </div>
 
         {/* Scroll To Top Button */}
-        <button onClick={scrollToTop} className={styles.scrollToTopBtn} aria-label="Scroll to Top">
+        {/* <button onClick={scrollToTop} className={styles.scrollToTopBtn} aria-label="Scroll to Top">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
             <line x1="12" y1="19" x2="12" y2="5"></line>
             <polyline points="5 12 12 5 19 12"></polyline>
           </svg>
-        </button>
+        </button> */}
         
       </div>
     </footer>
