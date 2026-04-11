@@ -1,0 +1,176 @@
+.testimonialSection {
+  padding: 6rem 0;
+  background-color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+/* Faint Background Elements matching the screenshots */
+.bgQuoteMark {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40rem;
+  color: rgba(5, 44, 52, 0.03); /* Extremely faint dark teal */
+  font-family: Georgia, serif;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bgMapPattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(5, 44, 52, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px; /* Creates a faint dotted map effect */
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  margin-bottom: 4rem;
+}
+
+.pill {
+  display: inline-block;
+  background-color: #f97316;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #052c34;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* ── Slider Area ── */
+.sliderArea {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Central Active Testimonial */
+.activeContent {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.activeAvatarWrapper {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem auto;
+  border-radius: 50%;
+  padding: 8px; /* Creates the gap for the double border */
+  background: #ffffff;
+  border: 2px solid #bce4e1; /* Light teal border matching screenshot */
+}
+
+.activeAvatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.quoteText {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+  .quoteText { font-size: 1.35rem; }
+}
+
+.clientName {
+  color: #052c34;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+}
+
+.clientRole {
+  color: #14b8a6; /* Vibrant Teal/Green */
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ── Floating Avatars (Desktop Only) ── */
+.floatingAvatars {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .floatingAvatars { display: block; }
+}
+
+.floatImg {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 5;
+}
+.floatImg:hover {
+  transform: scale(1.15);
+}
+
+/* Preset positions for the scattered look */
+.floatPos0 { top: 10%; left: 5%; }
+.floatPos1 { bottom: 20%; left: 10%; }
+.floatPos2 { top: 30%; right: 5%; }
+.floatPos3 { bottom: 15%; right: 10%; }
+
+/* ── Pagination Dots ── */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 3rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.activeDot {
+  background-color: #ffffff;
+  border: 2px solid #f97316; /* Orange ring */
+  transform: scale(1.2);
+}

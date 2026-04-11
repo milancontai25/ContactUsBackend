@@ -9,143 +9,97 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* ─── HERO SECTION ─── */
+.hero {
+  background-color: var(--skylink-dark-teal);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  height: 350px;
+  display: flex;
+  align-items: center;
+}
+
+.heroInner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroContent {
+  max-width: 60%;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  letter-spacing: -1px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.breadcrumbs a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumbs a:hover {
+  color: var(--skylink-orange);
+}
+
+.currentCrumb {
+  color: var(--skylink-orange);
+}
+
+/* Right Side Cutoff Image */
+.heroImageWrapper {
+  position: absolute;
+  right: -5%;
+  top: -50px;
+  width: 50%;
+  height: 450px;
+  transform: skewX(-15deg);
+  overflow: hidden;
+  border-left: 5px solid var(--skylink-orange);
+}
+@media (max-width: 900px) {
+  .heroImageWrapper { display: none; }
+  .heroContent { max-width: 100%; }
+}
+.heroImageWrapper img {
+  width: 120%;
+  height: 100%;
+  object-fit: cover;
+  transform: skewX(15deg) translateX(-10%); 
+}
+
+
+/* ─── PRODUCTS SECTION ─── */
+.section { padding: 5rem 0 8rem 0; }
+
 .inner { 
   max-width: 1300px; 
   margin: 0 auto; 
   padding: 0 2rem; 
-  position: relative;
-}
-
-/* =========================================
-   VIEW 1: CATEGORIES OVERVIEW 
-   ========================================= */
-.categorySection {
-  padding: 6rem 0;
-  border-bottom: 1px dashed rgba(5, 44, 52, 0.1);
-}
-.categorySection:nth-child(even) {
-  background-color: #ffffff; 
-}
-
-.categoryHeader { 
-  text-align: center; 
-  max-width: 800px; 
-  margin: 0 auto 4rem auto; 
-}
-
-.pill { 
-  display: inline-block;
-  background-color: var(--skylink-orange); 
-  color: #fff; 
-  font-size: 0.85rem; 
-  font-weight: 700; 
-  padding: 0.4rem 1.2rem; 
-  border-radius: 50px; 
-  text-transform: uppercase; 
-  letter-spacing: 1px; 
-  margin-bottom: 1rem; 
-}
-
-.categoryTitle { 
-  font-size: clamp(2rem, 4vw, 3rem); 
-  color: var(--skylink-dark-teal); 
-  font-weight: 800; 
-  margin: 0 0 1rem 0; 
-  line-height: 1.2; 
-  letter-spacing: -0.5px;
-}
-
-.categoryDesc { 
-  color: var(--text-main); 
-  font-size: 1.05rem; 
-  line-height: 1.6; 
-}
-
-.subCatGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-@media (min-width: 768px) {
-  .subCatGrid { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-}
-
-.subCatCard {
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-  cursor: pointer; /* Indicates it's clickable */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-.subCatCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
-}
-.subCatCard:hover .subCatImg {
-  transform: scale(1.05);
-}
-
-.subCatImgWrapper {
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: #f1f5f9;
-}
-.subCatImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.subCatLabel {
-  padding: 1.25rem 1rem;
-  text-align: center;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--skylink-dark-teal);
-  background: #ffffff;
-}
-
-/* =========================================
-   VIEW 2: DETAILED PRODUCT GRID (SS 85)
-   ========================================= */
-.productsView {
-  background-color: #ffffff;
-}
-.section { padding: 3rem 0 8rem 0; }
-
-.backNav {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.backBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  background-color: #f1f5f9;
-  color: var(--skylink-dark-teal);
-  border: 1px solid transparent;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-.backBtn:hover {
-  background-color: #e2e8f0;
-  color: var(--skylink-orange);
 }
 
 .header { text-align: center; max-width: 800px; margin: 0 auto 4rem auto; }
-.headerTitle { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--skylink-dark-teal); font-weight: 800; margin: 0 0 1rem 0; letter-spacing: -1px;}
-.headerSubtitle { color: var(--text-main); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem; }
+.headerTitle { font-size: clamp(2rem, 4vw, 2.5rem); color: var(--skylink-dark-teal); font-weight: 800; margin: 0 0 1rem 0; letter-spacing: -1px;}
+.headerSubtitle { color: var(--text-main); font-size: 1.1rem; line-height: 1.6; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
 
@@ -215,7 +169,7 @@
   flex-grow: 1; 
 }
 
-/* Specifications Block matching SS 85 */
+/* Specifications Block */
 .specsSection { 
   background: #f8fafc; 
   border-radius: 8px; 
@@ -246,7 +200,7 @@
 .specKey { color: #64748b; text-transform: capitalize; font-weight: 500; }
 .specValue { font-weight: 700; color: var(--skylink-dark-teal); text-align: right; }
 
-/* Footer matching SS 85 */
+/* Footer */
 .detailCardFooter { 
   display: flex; 
   justify-content: space-between; 
@@ -264,7 +218,7 @@
 
 /* Dark Request Quote Button */
 .quoteBtnDark { 
-  background: #0f172a; /* Dark Navy/Black */
+  background: #0f172a; 
   color: #fff; 
   padding: 0.7rem 1.4rem; 
   border-radius: 6px; 
@@ -278,7 +232,7 @@
   transform: translateY(-2px);
 }
 
-.emptyState { text-align: center; padding: 5rem 2rem; color: var(--text-main); background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1; max-width: 600px; margin: 0 auto; }
+.emptyState { text-align: center; padding: 5rem 2rem; }
 .emptyStateIcon { color: #cbd5e1; margin-bottom: 1rem; }
-.emptyState h3 { color: var(--skylink-dark-teal); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 800; }
-.emptyState p { font-size: 1.05rem; }
+.emptyState h2 { color: var(--skylink-dark-teal); font-size: 2rem; margin-bottom: 1rem; font-weight: 800; }
+.emptyState a { color: var(--skylink-orange); font-weight: 700; }

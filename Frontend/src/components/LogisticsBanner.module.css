@@ -1,0 +1,227 @@
+.wrapper {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem; /* This adds the space between the two sections */
+  padding-bottom: 6rem;
+  background-color: #f8fafc; /* Matches your page background */
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================
+   TOP STATS SECTION
+   ========================================= */
+.statsSection {
+  background-color: #052c34;
+  position: relative;
+  padding: 6rem 0; /* Removed the extra bottom padding */
+  background-image: url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2000');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.statsBgOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 44, 52, 0.85); /* Deep teal overlay */
+  z-index: 1;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .statsGrid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+}
+
+.statCard {
+  background-color: #0d3a45; /* Solid dark teal background */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.statCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.statIcon {
+  color: #f97316; /* Skylink Orange */
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+}
+.statIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNumber {
+  color: #ffffff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+  line-height: 1;
+}
+
+.statLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* =========================================
+   BOTTOM CTA BANNER SECTION
+   ========================================= */
+.ctaSection {
+  background-color: transparent; 
+  position: relative;
+  z-index: 10;
+}
+
+.ctaBanner {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2);
+}
+
+.ctaDashedBorder {
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ctaContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  padding: 3rem 2rem 5rem 2rem; /* Extra bottom padding for mobile to fit phone pill */
+}
+@media (min-width: 1024px) {
+  .ctaContent {
+    flex-direction: row;
+    align-items: center;
+    padding: 4rem;
+    gap: 3rem;
+  }
+}
+
+.ctaTextContainer {
+  flex: 1;
+  color: #ffffff;
+  margin-bottom: 3rem;
+}
+@media (min-width: 1024px) {
+  .ctaTextContainer { margin-bottom: 0; max-width: 55%; }
+}
+
+.ctaTitle {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.ctaText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+.ctaText strong {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+/* Right Side Visuals */
+.ctaVisuals {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.deliveryImg {
+  width: 100%;
+  max-width: 450px; 
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Phone Pill Overlay */
+.phonePill {
+  position: absolute;
+  bottom: -25px; /* Adjusted slightly */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 0.75rem 1.5rem 0.75rem 0.75rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  .phonePill {
+    bottom: 30px;
+    left: -50px; 
+    transform: none;
+  }
+}
+
+.phoneIcon {
+  background-color: #f97316;
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.phoneIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.phoneNumber {
+  color: #052c34;
+  font-weight: 800;
+  font-size: 1.1rem;
+}

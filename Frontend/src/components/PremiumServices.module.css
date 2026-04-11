@@ -1,0 +1,183 @@
+.premiumSection {
+  --skylink-dark-teal: #052c34;
+  --skylink-orange: #f97316;
+  --text-main: #475569;
+  --bg-light: #f8fafc;
+  
+  padding: 6rem 0 8rem 0;
+  background-color: var(--bg-light);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+.inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Abstract Background Lines */
+.bgLines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 100% 50%, transparent 20%, rgba(5, 44, 52, 0.03) 21%, rgba(5, 44, 52, 0.03) 34%, transparent 35%, transparent),
+                    radial-gradient(circle at 0% 0%, transparent 20%, rgba(5, 44, 52, 0.03) 21%, rgba(5, 44, 52, 0.03) 34%, transparent 35%, transparent);
+  background-size: 800px 800px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.premiumHeader {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+}
+
+.pill {
+  display: inline-block;
+  background-color: var(--skylink-orange);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.premiumTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--skylink-dark-teal);
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.5px;
+}
+
+.premiumSubtitle {
+  color: var(--text-main);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.premiumGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .premiumGrid { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+}
+
+.premiumCard {
+  position: relative; 
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* ── INTERACTIVE HOVER BLOB ── */
+.orangeBlob {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 90px;
+  height: 90px;
+  background-color: var(--skylink-orange);
+  border-radius: 24px;
+  z-index: -1; 
+  
+  /* Hidden and scaled down by default */
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.orangeBlob::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 50px;
+  height: 50px;
+  border: 1px dashed var(--skylink-orange);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* Show the blob when the card is hovered */
+.premiumCard:hover .orangeBlob {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.premiumCardInner {
+  background-color: #ffffff;
+  border-radius: 24px; 
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  border-bottom: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+@media (min-width: 640px) {
+  .premiumCardInner {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Lift the card and add orange border on hover */
+.premiumCard:hover .premiumCardInner {
+  border-bottom-color: var(--skylink-orange);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.premiumIconOuter {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 2px dashed var(--skylink-dark-teal); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.premiumIconInner {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: rgba(5, 44, 52, 0.05); 
+  color: var(--skylink-dark-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.premiumText {
+  display: flex;
+  flex-direction: column;
+}
+
+.premiumCardTitle {
+  color: var(--skylink-dark-teal);
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+}
+
+.premiumCardDesc {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0;
+}

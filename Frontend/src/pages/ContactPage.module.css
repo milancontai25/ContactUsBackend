@@ -1,38 +1,174 @@
-/* ContactPage.module.css */
-
 .page {
-  --navy: #0f172a;
-  --gold: #d4af37;
-  --bg-light: #f8fafc;
-  --text-main: #334155;
+  --skylink-dark-teal: #052c34;
+  --skylink-orange: #f97316;
+  --skylink-green: #108c7f; /* Gradient color from SS 63 */
+  --bg-light: #f4f7f9;
+  --text-main: #475569;
   --border: #e2e8f0;
-  background-color: #ffffff;
+  background-color: var(--bg-light);
   min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-.section { padding: 4rem 0 8rem 0; }
-.inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+.inner { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 2rem; 
+  position: relative;
+  z-index: 2;
+}
 
-/* ── Header ── */
-.header { text-align: center; max-width: 800px; margin: 0 auto 4rem auto; }
-.eyebrow { font-size: 0.85rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem; }
-.headerTitle { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--navy); font-weight: 800; margin: 0 0 1rem 0; line-height: 1.1; }
-.headerSubtitle { color: var(--text-main); font-size: 1.1rem; line-height: 1.6; }
+/* =========================================
+   TOP INFO CARDS SECTION (SS 63)
+   ========================================= */
+.infoCardsSection { 
+  padding: 5rem 0 0 0; 
+  position: relative;
+  z-index: 10; /* Keeps cards above the lower section */
+}
 
-/* ── Grid Layout ── */
-.grid { 
-  display: grid; 
-  grid-template-columns: 1fr; 
-  gap: 3rem; 
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
 }
 @media (min-width: 1024px) {
-  .grid { grid-template-columns: 3fr 2fr; gap: 4rem; }
+  .cardsGrid { 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; 
+  }
 }
 
-/* ── Form Styling ── */
-.formContainer { background: var(--bg-light); padding: 3rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-.formTitle { font-size: 1.8rem; color: var(--navy); font-weight: 800; margin: 0 0 0.5rem 0; }
-.formDivider { width: 40px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Optional: Make middle card slightly pop out if desired */
+.cardMiddle {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.cardImageWrapper {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating Orange Rounded Square Icon */
+.floatingIcon {
+  position: absolute;
+  top: 185px; /* 220px image height - 35px half height */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--skylink-orange);
+  color: #ffffff;
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+  z-index: 2;
+}
+
+.cardContent {
+  padding: 4rem 2rem 2.5rem 2rem; /* Top padding clears the floating icon */
+  text-align: center;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  color: var(--skylink-dark-teal);
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+}
+
+.cardText {
+  color: var(--text-main);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+.cardText strong {
+  color: var(--skylink-dark-teal);
+}
+
+/* =========================================
+   DROP US A LINE SECTION (Form)
+   ========================================= */
+.dropLineSection {
+  margin-top: 4rem;
+  padding: 6rem 0 8rem 0;
+  background: linear-gradient(135deg, var(--skylink-green) 0%, var(--skylink-dark-teal) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Abstract faint waves in the background */
+.bgPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-radial-gradient(
+    circle at 0 100%, 
+    transparent 0, 
+    transparent 40px, 
+    rgba(255,255,255,0.03) 40px, 
+    rgba(255,255,255,0.03) 80px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dropLineHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #ffffff;
+}
+
+.dropLineTitle {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -1px;
+}
+
+.dropLineSubtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* Form Container */
+.formContainer { 
+  background: #ffffff; 
+  padding: 3rem; 
+  border-radius: 16px; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15); 
+  max-width: 900px;
+  margin: 0 auto;
+}
 
 .formGrid {
   display: grid;
@@ -43,72 +179,54 @@
   .formGrid { grid-template-columns: 1fr 1fr; }
 }
 
-.field label, .fieldFull label { display: block; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; font-size: 0.9rem; }
+.field label, .fieldFull label { 
+  display: block; 
+  font-weight: 600; 
+  color: var(--skylink-dark-teal); 
+  margin-bottom: 0.5rem; 
+  font-size: 0.95rem; 
+}
 .required { color: #ef4444; }
-.optional { color: #94a3b8; font-weight: 400; font-size: 0.8rem; }
 .fieldFull { grid-column: 1 / -1; }
 
 .input, .select, .textarea { 
   width: 100%; 
-  padding: 0.8rem 1rem; 
+  padding: 0.9rem 1rem; 
   border: 1px solid #cbd5e1; 
-  border-radius: 6px; 
+  border-radius: 8px; 
   font-family: inherit; 
   font-size: 1rem; 
   transition: all 0.2s; 
   box-sizing: border-box; 
+  background: #f8fafc;
+}
+.input:focus, .select:focus, .textarea:focus { 
+  outline: none; 
+  border-color: var(--skylink-orange); 
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15); 
   background: #ffffff;
 }
-.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+
+.submitWrapper {
+  text-align: center;
+  margin-top: 2rem;
+}
 
 .submitBtn { 
-  background: var(--gold); 
+  background: var(--skylink-orange); 
   color: #fff; 
-  width: 100%; 
-  padding: 1.2rem; 
+  padding: 1.2rem 3rem; 
   font-size: 1.1rem; 
   font-weight: 700; 
   border: none; 
-  border-radius: 6px; 
+  border-radius: 50px; 
   cursor: pointer; 
-  transition: background 0.2s; 
-  margin-top: 1.5rem;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s; 
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
 }
-.submitBtn:hover { background: #b8962c; }
+.submitBtn:hover { 
+  background: #ea580c; 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
 .submitBtn:disabled { opacity: 0.7; cursor: not-allowed; }
-
-/* ── Info & Map Styling ── */
-.infoContainer { padding: 1rem 0; }
-.infoTitle { font-size: 1.8rem; color: var(--navy); font-weight: 800; margin: 0 0 0.5rem 0; }
-.infoDivider { width: 40px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
-
-.contactList { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2.5rem; }
-.contactItem { display: flex; gap: 1.2rem; align-items: flex-start; }
-.contactIcon { width: 45px; height: 45px; background: #f1f5f9; color: var(--gold); display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
-.contactIcon svg { width: 22px; height: 22px; }
-.contactItemTitle { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin: 0 0 0.2rem 0; }
-.contactItemText { color: var(--text-main); line-height: 1.6; margin: 0; font-size: 0.95rem; }
-
-/* WhatsApp Button */
-.whatsappBtn { 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  gap: 0.8rem; 
-  background: #25D366; 
-  color: #fff; 
-  padding: 1rem; 
-  border-radius: 6px; 
-  text-decoration: none; 
-  font-weight: 700; 
-  transition: all 0.2s; 
-  margin-bottom: 3rem;
-  box-shadow: 0 4px 6px -1px rgba(37, 211, 102, 0.2);
-}
-.whatsappBtn:hover { background: #1ebd5a; transform: translateY(-2px); }
-.whatsappIcon { width: 24px; height: 24px; }
-
-/* Map */
-.mapSection { margin-top: 2rem; }
-.mapWrapper { border-radius: 12px; overflow: hidden; height: 250px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-.mapWrapper iframe { width: 100%; height: 100%; border: none; }

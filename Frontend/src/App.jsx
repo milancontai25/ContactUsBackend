@@ -7,7 +7,10 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import ProductsPage from './pages/ProductsPage';
 import CompliancePage from './pages/CompliancePage';
-import TrackingPage from './pages/TrackingPage';
+import ServicesPage from './pages/ServicesPage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
+import BlogDetailPage from './pages/BlogDetailPage';
+import ProductCategoryPage from './pages/ProductCategoryPage';
 
 function App() {
   return (
@@ -18,8 +21,12 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/products" element={<ProductsPage />} />
+
+        <Route path="/products/:categoryId" element={<ProductCategoryPage />} />
         <Route path="/compliance" element={<CompliancePage />} />
-        <Route path="/tracking" element={<TrackingPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/service/:slug" element={<ServiceDetailPage />} />
+        <Route path="/blog/:slug" element={<BlogDetailPage />} />
       </Routes>
     </Router>
   );

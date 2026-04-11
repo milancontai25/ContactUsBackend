@@ -1,31 +1,46 @@
-/* HomePage.module.css */
 .page {
   --navy: #0f172a;
+  --skylink-dark-teal: #052c34;
+  --skylink-orange: #f97316;
   --gold: #d4af37;
   --bg-light: #f8fafc;
   --text-main: #334155;
   
-  /* CRITICAL FIX: Stops the page from horizontal scrolling on mobile */
   overflow-x: hidden; 
   width: 100%;
 }
 
-/* Hero Section with YT Background */
-.hero {
+/* ── Hero Slider Section ── */
+.heroSlider {
   position: relative;
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
+  height: 90vh;
+  min-height: 600px;
+  background-color: var(--skylink-dark-teal);
   overflow: hidden;
 }
-.ytBgWrapper {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; background: var(--navy);
+
+.slideWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
+
+.heroImgBg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+}
+
 .ytPlayer {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 100vw; height: 56.25vw; /* 16:9 aspect ratio */
-  min-height: 100vh; min-width: 177.77vh; /* Cover screen */
+  width: 100vw; height: 56.25vw; 
+  min-height: 100vh; min-width: 177.77vh; 
   pointer-events: none;
+  z-index: 1;
 }
 
 .ytPlayer iframe {
@@ -33,36 +48,132 @@
   height: 100% !important;
   border: none;
 }
-.heroVideoOverlay {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to right, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.6) 100%); z-index: -1;
-}
-.heroGoldLine {
-  position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: var(--gold); z-index: 10;
+
+/* Deep Teal Gradient Overlay matching screenshot */
+.heroOverlay {
+  position: absolute; 
+  inset: 0; 
+  background: linear-gradient(to right, rgba(5, 44, 52, 0.95) 0%, rgba(5, 44, 52, 0.4) 100%); 
+  z-index: 2;
 }
 
-/* Hero Content */
+/* ── Hero Content ── */
 .heroInner {
-  max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; width: 100%; z-index: 10; position: relative;
+  position: relative;
+  z-index: 3;
+  max-width: 1300px; 
+  margin: 0 auto; 
+  padding: 0 2rem; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-/* Slightly adjusted clamps for better mobile text sizing */
-.heroTitle { font-size: clamp(2.5rem, 8vw, 5rem); color: #fff; font-weight: 800; line-height: 1.1; margin: 0; }
-.heroTitleLine2 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem; }
-.heroTitleHighlight { color: var(--gold); }
-.heroTitleSub { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #cbd5e1; font-weight: 400; margin-bottom: 1.5rem; }
-.heroSubtitle { font-size: 1.1rem; color: #94a3b8; max-width: 600px; line-height: 1.6; margin-bottom: 2.5rem; }
 
-.heroActions { display: flex; gap: 1rem; margin-bottom: 4rem; flex-wrap: wrap; }
-.heroBtnPrimary { background: var(--gold); color: #fff; padding: 1rem 2rem; font-weight: 600; text-decoration: none; border-radius: 4px; transition: 0.2s; border: 2px solid var(--gold); }
-.heroBtnPrimary:hover { background: transparent; color: var(--gold); }
-.heroBtnSecondary { background: transparent; color: #fff; padding: 1rem 2rem; font-weight: 600; text-decoration: none; border-radius: 4px; transition: 0.2s; border: 2px solid #fff; }
-.heroBtnSecondary:hover { background: #fff; color: var(--navy); }
+/* Pill Tag */
+.heroPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+.heroPillDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--skylink-orange);
+  border-radius: 50%;
+}
 
-.heroStats { display: flex; gap: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; flex-wrap: wrap; }
-.heroStatNum { font-size: 2rem; font-weight: 800; color: #fff; margin: 0; }
-.heroStatLabel { font-size: 0.85rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+/* Typography matching screenshot */
+.heroTitle { 
+  font-size: clamp(3rem, 6vw, 4.5rem); 
+  color: #fff; 
+  font-weight: 800; 
+  line-height: 1.1; 
+  margin: 0 0 1.5rem 0; 
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -1px;
+}
 
-/* Sections Shared */
+.heroSubtitle { 
+  font-size: clamp(1rem, 2vw, 1.25rem); 
+  color: rgba(255, 255, 255, 0.8); 
+  max-width: 600px; 
+  line-height: 1.6; 
+  margin-bottom: 3rem; 
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Custom Orange Button ── */
+.heroCtaWrapper {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+}
+.heroCtaWrapper:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+}
+
+.heroCtaMain {
+  background-color: var(--skylink-orange);
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  padding: 1rem 1.8rem;
+  font-size: 1rem;
+}
+
+.heroCtaIconBox {
+  background-color: #ffffff;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.heroCtaIconBox svg {
+  width: 20px;
+  height: 20px;
+  color: var(--skylink-orange); /* Orange checkmark/arrow inside white box */
+}
+
+/* ── Slider Navigation Dots ── */
+.sliderDots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.dotActive {
+  background: var(--skylink-orange);
+  width: 30px;
+  border-radius: 10px; /* Stretches the active dot into a pill shape */
+}
+
 /* Reduced padding for mobile, expands on desktop */
 .sectionInner { max-width: 1280px; margin: 0 auto; padding: 4rem 1.5rem; }
 @media (min-width: 768px) {

@@ -1,0 +1,288 @@
+.page {
+  --skylink-dark-teal: #052c34;
+  --skylink-orange: #f97316;
+  --text-main: #475569;
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+}
+
+.notFound {
+  text-align: center;
+  padding: 10rem 2rem;
+  min-height: 50vh;
+}
+.notFound a {
+  color: var(--skylink-orange);
+  font-weight: 700;
+}
+
+/* ─── HERO SECTION ─── */
+.hero {
+  background-color: var(--skylink-dark-teal);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  height: 350px;
+  display: flex;
+  align-items: center;
+}
+
+.heroInner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroContent {
+  max-width: 60%;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  letter-spacing: -1px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.breadcrumbs a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumbs a:hover {
+  color: var(--skylink-orange);
+}
+
+.currentCrumb {
+  color: var(--skylink-orange);
+}
+
+/* Right Side Cutoff Image */
+.heroImageWrapper {
+  position: absolute;
+  right: -5%;
+  top: -50px;
+  width: 50%;
+  height: 450px;
+  transform: skewX(-15deg);
+  overflow: hidden;
+  border-left: 5px solid var(--skylink-orange);
+}
+@media (max-width: 900px) {
+  .heroImageWrapper { display: none; }
+  .heroContent { max-width: 100%; }
+}
+
+.heroImageWrapper img {
+  width: 120%;
+  height: 100%;
+  object-fit: cover;
+  transform: skewX(15deg) translateX(-10%); /* Un-skew the image inside the skewed container */
+}
+
+
+/* ─── MAIN CONTENT LAYOUT ─── */
+.mainContent {
+  padding: 5rem 0 8rem 0;
+}
+
+.innerLayout {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+@media (min-width: 1024px) {
+  .innerLayout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Left Side Content */
+.detailsSide {
+  flex: 1;
+}
+
+.contentTitle {
+  color: var(--skylink-dark-teal);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+}
+
+.contentSubtitle {
+  color: var(--skylink-dark-teal);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 2rem 0;
+  border-bottom: 2px solid var(--skylink-orange);
+  padding-bottom: 1rem;
+  display: inline-block;
+}
+
+.text {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.listTitle {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.list svg {
+  color: var(--skylink-orange);
+  background: #ffedd5;
+  border-radius: 50%;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.imagesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.gridImg {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.subHeading {
+  color: var(--skylink-dark-teal);
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+}
+
+
+/* Right Side CTA Sidebar */
+.sidebar {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 350px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px; /* Sticks when scrolling */
+  }
+}
+
+.ctaCard {
+  background-color: var(--skylink-dark-teal);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.ctaCardHeader {
+  height: 150px;
+  background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600');
+  background-size: cover;
+  background-position: center;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.ctaCardBody {
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.ctaCardBody h3 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0 0 2rem 0;
+  line-height: 1.3;
+}
+
+.phoneBox {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  position: relative;
+  border: 1px solid var(--skylink-orange);
+}
+
+.phoneIcon {
+  position: absolute;
+  left: -20px;
+  background-color: var(--skylink-orange);
+  color: #ffffff;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+}
+
+.phoneText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 1.5rem;
+}
+
+.phoneText span {
+  color: var(--skylink-orange);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.phoneText strong {
+  color: var(--skylink-dark-teal);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
