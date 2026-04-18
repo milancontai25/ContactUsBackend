@@ -221,7 +221,7 @@
 
 .ctaCardHeader {
   height: 150px;
-  background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600');
+  background-image: url('http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/aboutus.jpg');
   background-size: cover;
   background-position: center;
   border-bottom-left-radius: 40px;

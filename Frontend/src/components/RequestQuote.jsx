@@ -110,7 +110,7 @@ const RequestQuote = () => {
 
           {/* RIGHT SIDE: Banner Image */}
           <div className={styles.imageSide}>
-            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1000" alt="Global Logistics" className={styles.bannerImg} />
+            <img src="http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Global Sourcing Made Easy.jpg" alt="Global Logistics" className={styles.bannerImg} />
             <div className={styles.imageOverlay}>
               <h3>Global Sourcing Made Easy</h3>
               <p>Connect with trusted suppliers worldwide. We handle the logistics, compliance, and delivery.</p>

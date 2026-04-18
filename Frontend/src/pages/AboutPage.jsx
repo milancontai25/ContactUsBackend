@@ -44,7 +44,7 @@ const AboutPage = () => {
           <div className={styles.missionGrid}>
             <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <div className={styles.missionImgWrapper}>
-                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="Global Logistics" className={styles.missionImg} />
+                <img src="http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/aboutus.jpg" alt="Global Logistics" className={styles.missionImg} />
                 {/* Decorative offset box */}
                 <div className={styles.missionImgDecoration}></div>
               </div>

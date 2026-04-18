@@ -49,7 +49,7 @@
 }
 
 .subtitle {
-  color: var(--skylink-orange);
+  color: var(--text-main);
   font-size: 1.1rem;
   line-height: 1.6;
   font-weight: 500;

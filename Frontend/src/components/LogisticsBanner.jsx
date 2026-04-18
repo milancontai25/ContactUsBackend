@@ -97,7 +97,7 @@ const LogisticsBanner = () => {
               <div className={styles.ctaVisuals}>
                 {/* Image */}
                 <img 
-                  src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800" 
+                  src="http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/aboutus.jpg" 
                   alt="Delivery Professional" 
                   className={styles.deliveryImg}
                 />

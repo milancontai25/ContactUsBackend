@@ -33,7 +33,7 @@ export const TRANSPORT_SERVICES = [
     slug: 'maritime-transportation',
     title: 'Maritime transportation',
     desc: 'Global Shipping with Trusted Ocean Freight Solutions...',
-    img: 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?q=80&w=800',
+    img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Maritime Freight Transportation.png',
     icon: <ShipIcon />
   },
   {
@@ -41,7 +41,7 @@ export const TRANSPORT_SERVICES = [
     slug: 'land-freight-transportation',
     title: 'Land Freight transportation',
     desc: 'Efficient Ground Logistics You Can Count On...',
-    img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800',
+    img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/ChatGPT Image Apr 17, 2026, 10_50_51 PM.png',
     icon: <TruckIcon />
   },
   {
@@ -49,7 +49,7 @@ export const TRANSPORT_SERVICES = [
     slug: 'intermodal-shipping',
     title: 'Intermodal Shipping',
     desc: 'Smarter Logistics Through Multi-Mode Transport...',
-    img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800',
+    img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
     icon: <PlaneIcon />
   }
 ];

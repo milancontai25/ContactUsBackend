@@ -57,7 +57,7 @@ const HERO_SLIDES = [
   {
     id: 1,
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000', // Airplane
+    src: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/banner1.jpg', // Airplane
     pill: 'Ramsam Trends',
     title: 'Global Export &\nImport Solutions',
     desc: 'Bring premium products to your market. Ramsam Trends connects you to the finest commodities globally.',
@@ -67,7 +67,7 @@ const HERO_SLIDES = [
   {
     id: 2,
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2000', // Cargo Ship
+    src: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/banner2.jpg', // Cargo Ship
     pill: 'Streamlined Logistics',
     title: 'Streamlined\nFreight & Logistics',
     desc: 'Deliver faster and smarter with Ramsam’s global freight solutions. Reliable shipping made easy.',
@@ -76,8 +76,8 @@ const HERO_SLIDES = [
   },
   {
     id: 3,
-    type: 'video',
-    src: 'KEFt2quibkg', // Your YouTube Video ID
+    type: 'image',
+    src: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/banner3.jpg', // Your YouTube Video ID
     pill: 'Trusted Partner',
     title: 'Empowering\nGlobal Trade',
     desc: 'A dedicated export house connecting international buyers with the finest agricultural commodities.',
