@@ -9,7 +9,7 @@ export const MAIN_CATEGORIES = [
       { id: 'pulses-rice', name: 'Pulses & Rice', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Pulses and Rice.png' },
       { id: 'edible-oils', name: 'Edible Oils', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/3 edible oils.jpeg' },
       // { id: 'dry-fruits', name: 'Dry Fruits', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/4 dry ffruits.png' },
-      { id: 'seeds-herbs', name: 'Seeds & Herbs', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Seeds & Herbs.png' },
+      { id: 'seeds-herbs', name: 'Seeds & Herbs', img: 'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Seeds & Herbs.png' },
     ]
   },
   {
