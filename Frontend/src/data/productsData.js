@@ -5,8 +5,8 @@ export const MAIN_CATEGORIES = [
     title: 'Organic & Non-Organic Products',
     desc: 'At Ramsam Trends, we specialize in the export and import of premium organic and agricultural products, connecting wellness-focused brands and retailers with trusted global suppliers.',
     subcategories: [
-      { id: 'organic-spices', name: 'Organic Spices', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Organic SpicesOrganic Spices.png' },
-      { id: 'pulses-grains', name: 'Pulses and Grains', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/2 Pulses and Grains.png' },
+      { id: 'organic-spices', name: 'Organic & Spices', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Organic SpicesOrganic Spices.png' },
+      { id: 'pulses-rice', name: 'Pulses & Rice', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Pulses and Rice.png' },
       { id: 'edible-oils', name: 'Edible Oils', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/3 edible oils.jpeg' },
       // { id: 'dry-fruits', name: 'Dry Fruits', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/4 dry ffruits.png' },
       { id: 'seeds-herbs', name: 'Seeds & Herbs', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Seeds & Herbs.png' },
