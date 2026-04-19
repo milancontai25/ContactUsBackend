@@ -33,7 +33,7 @@ export const TRANSPORT_SERVICES = [
     slug: 'maritime-transportation',
     title: 'Maritime transportation',
     desc: 'Global Shipping with Trusted Ocean Freight Solutions...',
-    img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Maritime Freight Transportation.png',
+    img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/1%20Maritime%20Freight%20Transportation.png',
     icon: <ShipIcon />
   },
   {
@@ -41,7 +41,7 @@ export const TRANSPORT_SERVICES = [
     slug: 'land-freight-transportation',
     title: 'Land Freight transportation',
     desc: 'Efficient Ground Logistics You Can Count On...',
-    img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/ChatGPT Image Apr 17, 2026, 10_50_51 PM.png',
+    img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChatGPT%20Image%20Apr%2017,%202026,%2010_50_51%20PM.png',
     icon: <TruckIcon />
   },
   {
@@ -49,10 +49,11 @@ export const TRANSPORT_SERVICES = [
     slug: 'intermodal-shipping',
     title: 'Intermodal Shipping',
     desc: 'Smarter Logistics Through Multi-Mode Transport...',
-    img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
+    img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/airplane.jpeg',
     icon: <PlaneIcon />
   }
 ];
+
 
 const TransportServices = () => {
   return (
