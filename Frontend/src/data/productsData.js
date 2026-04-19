@@ -7,8 +7,9 @@ export const MAIN_CATEGORIES = [
     subcategories: [
       { id: 'organic-spices', name: 'Organic Spices', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Organic SpicesOrganic Spices.png' },
       { id: 'pulses-grains', name: 'Pulses and Grains', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/2 Pulses and Grains.png' },
-      { id: 'edible-oils', name: 'Edible Oils', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/3 edible oils.png' },
-      { id: 'dry-fruits', name: 'Dry Fruits', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/4 dry ffruits.png' },
+      { id: 'edible-oils', name: 'Edible Oils', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/3 edible oils.jpeg' },
+      // { id: 'dry-fruits', name: 'Dry Fruits', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/4 dry ffruits.png' },
+      { id: 'seeds-herbs', name: 'Seeds & Herbs', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Seeds & Herbs.png' },
     ]
   },
   {
@@ -30,7 +31,7 @@ export const MAIN_CATEGORIES = [
     desc: 'Ramsam Trends offers comprehensive export-import services for a wide range of industrial and non-industrial products, serving businesses across manufacturing, infrastructure, retail, and more.',
     subcategories: [
       { id: 'en-590', name: 'EN 590', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/9 EN 590.png' },
-      { id: 'jet-fuel', name: 'JET A1 FUEL', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/10 JET A1 FUEL.png' },
+      { id: 'jet-fuel', name: 'JET A1 FUEL', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/10 JET A1 FUEL.jpeg' },
       { id: 'aluminium-ingots', name: 'Aluminium Ingots A7,A8,A9', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/11 Aluminium Ingots A7,A8,A9.png' },
       { id: 'scraps', name: 'COPPER & ALUMINIUM SCRAPS', img: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/12 COPPER & ALUMINIUM SCRAPS.png' },
     ]
