@@ -10,7 +10,7 @@ const SERVICES_DETAILS_DATA = {
   'maritime-transportation': {
     title: 'Maritime Freight Transportation',
     subtitle: 'Global Shipping with Trusted Ocean Freight Solutions',
-    heroImg: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Maritime Freight Transportation.png',
+    heroImg: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/1%20Maritime%20Freight%20Transportation.png',
     intro: 'Ramsam Trends delivers seamless maritime freight transportation across key international trade routes. From port-to-port to door-to-door, our ocean logistics are designed for businesses that demand reliable, secure, and scalable shipping solutions.',
     listTitle: 'Our Maritime Freight Services Cover:',
     list: [
@@ -23,14 +23,14 @@ const SERVICES_DETAILS_DATA = {
     contentTitle: 'Your Cargo, Our Priority',
     contentDesc: 'With an extensive network of global shipping lines and port agents, Ramsam Trends ensures on-time, cost-efficient ocean transport that aligns with your schedule and compliance needs.',
     images: [
-      'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/1 Maritime Freight Transportation.png',
-      'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/2 Maritime Freight Transportation.png'
+      'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/1%20Maritime%20Freight%20Transportation.png',
+      'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/2%20Maritime%20Freight%20Transportation.png'
     ]
   },
   'land-freight-transportation': {
     title: 'Land Freight transportation',
     subtitle: 'Efficient Ground Logistics You Can Count On',
-    heroImg: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/ChatGPT Image Apr 17, 2026, 10_50_51 PM.png',
+    heroImg: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChatGPT%20Image%20Apr%2017,%202026,%2010_50_51%20PM.png',
     intro: 'At Ramsam Trends, we provide reliable and cost-effective land freight transportation services across North America and beyond. Whether you need full truckload (FTL), less-than-truckload (LTL), or last-mile delivery solutions, our ground logistics network ensures your cargo reaches its destination safely and on time.',
     listTitle: 'Our Land Freight Services Include:',
     list: [
@@ -43,14 +43,14 @@ const SERVICES_DETAILS_DATA = {
     contentTitle: 'Why Choose Ramsam for Land Freight?',
     contentDesc: 'We prioritize safety, speed, and transparency—leveraging strategic carrier partnerships and cutting-edge logistics tools. Our team ensures optimized routes and minimal transit times while keeping your cargo secure from origin to destination.',
     images: [
-      'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/ChatGPT Image Apr 17, 2026, 10_50_51 PM.png',
-      'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/M70z2CFbFOhj-qdNdh7HWcPmL0EdaaHnmFJP0979rlrb5PwMWzE64Qp3lP00p8FneKwHU9TydaLUzhY4YDY7CQvgMXJHC1vpYYt3gFd6tBLoBvIlYUMM5tCTtbf_hMNEIH0jGUY9gkrwO4SNfxmcGc-lzrdplnddCEvO14Zax4TPgR3siCFrXb0tUvY2B70s.jpg'
+      'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChatGPT%20Image%20Apr%2017,%202026,%2010_50_51%20PM.png',
+      'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/M70z2CFbFOhj-qdNdh7HWcPmL0EdaaHnmFJP0979rlrb5PwMWzE64Qp3lP00p8FneKwHU9TydaLUzhY4YDY7CQvgMXJHC1vpYYt3gFd6tBLoBvIlYUMM5tCTtbf_hMNEIH0jGUY9gkrwO4SNfxmcGc-lzrdplnddCEvO14Zax4TPgR3siCFrXb0tUvY2B70s.jpg'
     ]
   },
   'intermodal-shipping': {
     title: 'Intermodal Shipping',
     subtitle: 'Smarter Logistics Through Multi-Mode Transport',
-    heroImg: 'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
+    heroImg: 'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
     intro: 'Ramsam Trends offers fully integrated intermodal shipping solutions—combining land, sea, and rail transport to maximize efficiency and reduce costs. This hybrid freight strategy allows us to move goods across countries and continents with speed and precision.',
     listTitle: 'What We Offer in Intermodal Transport:',
     list: [
@@ -63,8 +63,8 @@ const SERVICES_DETAILS_DATA = {
     contentTitle: 'Optimized Supply Chains, End to End',
     contentDesc: 'Intermodal shipping with Ramsam means flexibility, transparency, and reliability at every stage. Our tailored routes and logistics expertise ensure reduced transit times and competitive pricing—no matter how complex your shipping needs.',
     images: [
-      'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
-      'http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/file_00000000585c720b924c16ab6be66e44.png'
+      'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
+      'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/file_00000000585c720b924c16ab6be66e44.png'
     ]
   }
 };
