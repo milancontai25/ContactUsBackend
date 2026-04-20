@@ -4,7 +4,7 @@ export const BLOG_DATA = [
     slug: 'commitment-to-reliable-en590-diesel-export',
     title: 'Ramsam Trends ‘Commitment To The Best Reliable En 590 Diesel Export In The USA',
     date: 'FEBRUARY 24, 2026',
-    image: 'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/box.jpeg',
+    image: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/box.jpeg',
     excerpt: 'Stay informed with expert-written articles on global logistics, import-export strategies, sourcing trends, and supply chain best practices.',
     content: `
       <p>Global trade networks move <strong>nearly eleven billion tons of freight annually, fueling every modern economy</strong>. Finding a trusted partner for such massive logistics remains a significant challenge for many businesses. This organisation acts as a <strong>vital bridge between international manufacturers and American buyers</strong>.</p>
@@ -44,7 +44,7 @@ export const BLOG_DATA = [
     slug: 'trusted-name-en590-diesel',
     title: 'Ramsam Trends is a trusted name in the best quality En590 Diesel Exports & Imports',
     date: 'FEBRUARY 23, 2026',
-    image: 'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/track.jpeg',
+    image: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/track.jpeg',
     excerpt: 'Discover why leading industries rely on Ramsam Trends for their critical energy imports and exports worldwide.',
     content: `
       <p>In the fast-paced world of industrial energy, having a reliable supplier for EN 590 Diesel is paramount to maintaining operational efficiency and cost-effectiveness. <strong>Ramsam Trends</strong> stands at the forefront of this sector.</p>
