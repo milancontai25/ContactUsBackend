@@ -94,7 +94,7 @@ const ContactPage = () => {
             {/* Card 1: Mail */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className={styles.card}>
               <div className={styles.cardImageWrapper}>
-                <img src="http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/send mail.jpg" alt="Send Us Mail" className={styles.cardImg} />
+                <img src="http://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/send%20mail.jpg" alt="Send Us Mail" className={styles.cardImg} />
               </div>
               <div className={styles.floatingIcon}>
                 <MailIcon />
@@ -108,7 +108,7 @@ const ContactPage = () => {
             {/* Card 2: Call */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className={`${styles.card} ${styles.cardMiddle}`}>
               <div className={styles.cardImageWrapper}>
-                <img src="http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/Call us.jpg" alt="Call Us Anytime" className={styles.cardImg} />
+                <img src="http://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Call%20us.jpg" alt="Call Us Anytime" className={styles.cardImg} />
               </div>
               <div className={styles.floatingIcon}>
                 <PhoneIcon />
@@ -127,7 +127,7 @@ const ContactPage = () => {
             {/* Card 3: Visit */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className={styles.card}>
               <div className={styles.cardImageWrapper}>
-                <img src="http://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/visit office.jpg" alt="Visit Our Office" className={styles.cardImg} />
+                <img src="https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/visit%20office.jpg" alt="Visit Our Office" className={styles.cardImg} />
               </div>
               <div className={styles.floatingIcon}>
                 <LocationIcon />
