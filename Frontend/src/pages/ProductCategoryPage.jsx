@@ -7,9 +7,8 @@ import { MAIN_CATEGORIES, DETAILED_PRODUCTS } from '../data/productsData';
 import styles from './ProductCategoryPage.module.css';
 
 const ProductCategoryPage = () => {
-  const { categoryId } = useParams(); // Gets the ID from URL (e.g., 'edible-oils')
+  const { categoryId } = useParams();
 
-  // 1. Find the category details for the Hero Banner
   let categoryInfo = null;
   MAIN_CATEGORIES.forEach(mainCat => {
     const found = mainCat.subcategories.find(sub => sub.id === categoryId);
@@ -18,7 +17,6 @@ const ProductCategoryPage = () => {
     }
   });
 
-  // 2. Find all products that belong to this category
   const currentProducts = DETAILED_PRODUCTS.filter(p => p.subcategoryId === categoryId);
 
   useEffect(() => {
@@ -42,7 +40,7 @@ const ProductCategoryPage = () => {
     <div className={styles.page} data-testid="product-category-page">
       <Navbar />
       
-      {/* ─── HERO SECTION (Like Services SS 86) ─── */}
+      {/* ─── HERO SECTION ─── */}
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
@@ -55,14 +53,13 @@ const ProductCategoryPage = () => {
               <span className={styles.currentCrumb}>{categoryInfo.name.toUpperCase()}</span>
             </div>
           </div>
-          {/* Half-cut right image effect */}
           <div className={styles.heroImageWrapper}>
             <img src={categoryInfo.img} alt={categoryInfo.name} />
           </div>
         </div>
       </section>
 
-      {/* ─── PRODUCT GRID (Like SS 85) ─── */}
+      {/* ─── PRODUCT GRID ─── */}
       <section className={styles.section}>
         <div className={styles.inner}>
           
@@ -131,6 +128,54 @@ const ProductCategoryPage = () => {
             </div>
           )}
 
+        </div>
+      </section>
+
+      {/* ─── TRUST & TRADE ASSURANCE (Like SS 135) ─── */}
+      <section className={styles.assuranceSection}>
+        <div className={styles.inner}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }}
+            className={styles.assuranceBanner}
+          >
+            <div className={styles.assuranceDashedBorder}></div>
+            
+            <div className={styles.assuranceContent}>
+              <div className={styles.assuranceTextContainer}>
+                <h2 className={styles.assuranceTitle}>
+                  Trust & Trade Assurance
+                </h2>
+                <p className={styles.assuranceText}>
+                  <strong>Ramsam Trends LLC</strong> is a globally connected export-import company specializing in high-volume commodities, industrial materials, and agro products. We work directly with verified suppliers and serious buyers to ensure consistent quality, competitive pricing, and secure international transactions.
+                </p>
+                <p className={styles.assuranceText}>
+                  All shipments are handled with strict compliance to global standards, including third-party inspection (SGS / BV / Intertek), proper documentation, and transparent communication at every stage. We operate on secure payment terms such as 100% Letter of Credit (LC at Sight), SBLC, and mutually agreed trade instruments.
+                </p>
+                <p className={styles.assuranceText}>
+                  From sourcing to delivery, our focus remains on long-term partnerships, operational transparency, and deal execution with professionalism and integrity.
+                </p>
+              </div>
+
+              <div className={styles.assuranceVisuals}>
+                <img 
+                  src="https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/aboutus.jpg" 
+                  alt="Global Logistics" 
+                  className={styles.assuranceImg}
+                />
+                
+                <div className={styles.phonePill}>
+                  <div className={styles.phoneIcon}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </div>
+                  <span className={styles.phoneNumber}>+1 (917) 672-6581</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

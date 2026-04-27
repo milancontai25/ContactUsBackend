@@ -97,12 +97,17 @@ const Navbar = () => {
             <div className={styles.navRight}>
               
               {/* Refined Marketplace Button */}
-              <Link to="/marketplace" className={styles.marketplaceBtn}>
+              <a 
+                href="https://statgrow.cloud/ramsam-trends-1" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.marketplaceBtn}
+              >
                 Marketplace
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className={styles.marketplaceIcon}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </Link>
+              </a>
 
               {/* Phone Layout */}
               <div className={styles.phoneContainer}>
