@@ -625,7 +625,7 @@ export const DETAILED_PRODUCTS = [
     description: 'High-grade stainless steel scrap sorted by grade (304 and 316), processed and ready for direct foundry application.', 
     image_url: 'https://images.unsplash.com/photo-1601370216672-04414eb1afbf?q=80&w=600', 
     origin: 'Global', specifications: { SS_Grades: '304 / 316', Form: 'Solids / Turnings', Condition: 'Clean' } 
-  }
+  },
 
   // ==========================================
   // 12. INDUSTRIAL RAW MATERIALS
