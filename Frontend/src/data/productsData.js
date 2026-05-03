@@ -41,17 +41,17 @@ export const MAIN_CATEGORIES = [
       {
         id: 'beverage-raw-materials',
         name: 'Beverage Raw Materials',
-        img: 'https://images.unsplash.com/photo-1597481499750-3e6b22687e12?q=80&w=600'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Beverage.jpeg'
       },
       {
         id: 'bulk-commodities',
         name: 'Bulk Commodities Supply',
-        img: 'https://images.unsplash.com/photo-1587049352847-4d4b126a61b5?q=80&w=600'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Bulkcommmodities.jpeg'
       },
       {
         id: 'animal-feed',
         name: 'Animal Feed & Feed Ingredients',
-        img: 'https://images.unsplash.com/photo-1584346853240-3b10ec87db8c?q=80&w=600'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Animal.jpg'
       }
     ]
   },
@@ -243,7 +243,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 302, subcategoryId: 'pulses-rice', name: 'Pusa Basmati Rice', category: 'Rice', 
     description: 'A highly aromatic, long-grain Basmati variant known for its soft texture, rich flavor, and excellent cooking qualities.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/DesiChana.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/PusaBasmatiRice.png', 
     origin: 'India', specifications: { Grain_Length: '7.50mm+', Sortex: '100% Clean', Moisture: '13% Max' } 
   },
   { 
@@ -331,7 +331,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 403, subcategoryId: 'seeds-herbs', name: 'Cumin Seeds', category: 'Seeds', 
     description: 'Aromatic, machine-cleaned whole cumin seeds essential for global spice blending, culinary uses, and essential oil distillation.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cumin.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/cuminseed.png', 
     origin: 'India / Syria', specifications: { Grade: 'Singapore / Europe', Purity: '99%', Moisture: '9% Max' } 
   },
   { 
@@ -392,13 +392,13 @@ export const DETAILED_PRODUCTS = [
     id: 413, subcategoryId: 'seeds-herbs', name: 'Chia Seeds', category: 'Seeds', 
     description: 'Nutrient-dense black and white chia seeds, packed with plant-based protein, dietary fiber, and Omega-3 fatty acids.', 
     image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChiaSeeds.png', 
-    origin: 'South America', specifications: { Purity: '99.9%', Moisture: '8% Max', Packaging: '25kg Kraft Bags' } 
+    origin: 'India', specifications: { Purity: '99.9%', Moisture: '8% Max', Packaging: '25kg Kraft Bags' } 
   },
   { 
     id: 414, subcategoryId: 'seeds-herbs', name: 'Pumpkin Seeds (Pepitas)', category: 'Seeds', 
     description: 'Premium AA-grade pumpkin seed kernels, raw or roasted, excellent for retail snacking, baking, and health food formulations.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/.png', 
-    origin: 'China / Eastern Europe', specifications: { Grade: 'AA / A', Purity: '99.9%', Moisture: '7.5% Max' } 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/PumpkinSeeds.png', 
+    origin: 'India', specifications: { Grade: 'AA / A', Purity: '99.9%', Moisture: '7.5% Max' } 
   },
   { 
     id: 415, subcategoryId: 'seeds-herbs', name: 'Sunflower Seeds', category: 'Seeds', 
@@ -413,25 +413,25 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 501, subcategoryId: 'dry-fruits-nuts', name: 'Almonds (All Grades)', category: 'Nuts', 
     description: 'High-grade nonpareil almonds, rich in protein and ideal for snacking or commercial roasting.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Almonds(AllGrades).png', 
     origin: 'USA', specifications: { Size: '23/25 per Oz', Type: 'Nonpareil', Packaging: '25lbs / 50lbs Carton' } 
   },
   { 
     id: 502, subcategoryId: 'dry-fruits-nuts', name: 'Cashew Nuts (Processed & Raw)', category: 'Nuts', 
     description: 'Premium white whole cashew nuts, carefully processed for maximum crunch and flavor.', 
-    image_url: 'https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CashewNuts.png', 
     origin: 'Vietnam / Africa', specifications: { Grade: 'W320 / W240', Moisture: '5% Max', Packaging: 'Vacuum Tins' } 
   },
   { 
     id: 503, subcategoryId: 'dry-fruits-nuts', name: 'Walnuts & Kernels', category: 'Nuts', 
     description: 'Light halves and pieces of premium walnuts, loaded with Omega-3 and natural oils.', 
-    image_url: 'https://images.unsplash.com/photo-1581452296796-03f538ee591f?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Walnuts&Kernels.png', 
     origin: 'Chile / USA', specifications: { Color: 'Extra Light', Type: 'Halves (80%)', Packaging: '10kg Cartons' } 
   },
   { 
     id: 504, subcategoryId: 'dry-fruits-nuts', name: 'Raisins (All Varieties)', category: 'Dry Fruits', 
     description: 'Sun-dried, naturally sweet raisins. Thoroughly washed and laser sorted.', 
-    image_url: 'https://images.unsplash.com/photo-1528659550796-1070e633d74f?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Raisins.png', 
     origin: 'Afghanistan / India', specifications: { Size: 'Jumbo', Moisture: '15% Max', Processing: 'Stemless' } 
   },
 
@@ -441,19 +441,19 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 601, subcategoryId: 'beverage-raw-materials', name: 'Tea (Bulk & Premium)', category: 'Tea', 
     description: 'Rich, full-bodied black tea leaves sourced directly from high-altitude estates.', 
-    image_url: 'https://images.unsplash.com/photo-1597481499750-3e6b22687e12?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Tea(Bulk&Premium).png', 
     origin: 'India / Kenya', specifications: { Type: 'CTC / Dust / Leaf', Infusion: 'Bright Red', Packaging: 'Paper Sacks' } 
   },
   { 
     id: 602, subcategoryId: 'beverage-raw-materials', name: 'Coffee (Beans & Powder)', category: 'Coffee', 
     description: 'Single-origin green coffee beans, ready for commercial roasting with distinct flavor profiles.', 
-    image_url: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Coffee(Beans&Powder).png',
     origin: 'Colombia / Vietnam', specifications: { Grade: 'AA / Screen 18', Moisture: '11% Max', Processing: 'Washed / Unwashed' } 
   },
   { 
     id: 603, subcategoryId: 'beverage-raw-materials', name: 'Herbal Tea & Infusions', category: 'Herbal', 
     description: 'Bulk organic herbs like Chamomile, Peppermint, and Hibiscus for specialty tea blending.', 
-    image_url: 'https://images.unsplash.com/photo-1576092762791-dd9e2220dac1?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/HerbalTea&Infusions.png', 
     origin: 'Global', specifications: { Cut: 'TBC (Tea Bag Cut)', Purity: '99%', Certified: 'Organic' } 
   },
 
@@ -463,37 +463,37 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 701, subcategoryId: 'bulk-commodities', name: 'Refined & Raw Sugar (ICUMSA Grades)', category: 'Sugar', 
     description: 'Sparkling white highly refined sugar suitable for human consumption and beverage manufacturing.', 
-    image_url: 'https://images.unsplash.com/photo-1587049352847-4d4b126a61b5?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Refined&RawSugar.png', 
     origin: 'Brazil / India', specifications: { Color: 'ICUMSA 45 Max', Polarization: '99.80% Min', Moisture: '0.04% Max' } 
   },
   { 
     id: 702, subcategoryId: 'bulk-commodities', name: 'Edible & Industrial Salt', category: 'Salt', 
     description: 'Pure refined salt for food processing, as well as raw sea salt and rock salt for industrial applications.', 
-    image_url: 'https://images.unsplash.com/photo-1518110925485-6447e1329d2f?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Edible&IndustrialSalt.png', 
     origin: 'Egypt / India', specifications: { NaCl: '99% Min', Iodine: 'Optional (Food Grade)', Packaging: '50kg / Jumbo Bags' } 
   },
   { 
     id: 703, subcategoryId: 'bulk-commodities', name: 'Wheat & Wheat Products', category: 'Grains', 
     description: 'Hard and soft wheat varieties intended for human consumption, flour milling, and bakeries.', 
-    image_url: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Wheat&WheatProducts.png', 
     origin: 'Russia / Australia', specifications: { Protein: '11.5% - 12.5%', Moisture: '13% Max', Test_Weight: '78 kg/hl Min' } 
   },
   { 
     id: 704, subcategoryId: 'bulk-commodities', name: 'Maize (Corn) Products', category: 'Grains', 
     description: 'High-grade yellow corn for food processing, starch extraction, and human consumption.', 
-    image_url: 'https://images.unsplash.com/photo-1601646845347-19d854497678?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Maize(Corn)Products.png', 
     origin: 'Brazil / USA', specifications: { Moisture: '14% Max', Broken: '3% Max', Aflatoxin: '20ppb Max' } 
   },
   { 
     id: 705, subcategoryId: 'bulk-commodities', name: 'Barley & Feed Grains', category: 'Grains', 
     description: 'Bulk barley suitable for malting, brewing, and animal feed manufacturing. Cleaned and graded for export.', 
-    image_url: 'https://images.unsplash.com/photo-1582285513220-41bf8f6bdf1a?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/rley&FeedGrains.png', 
     origin: 'Ukraine / Australia', specifications: { Protein: '10% - 11.5%', Moisture: '13% Max', Plump_Grains: '85% Min' } 
   },
   { 
     id: 706, subcategoryId: 'bulk-commodities', name: 'Animal Feed & Agro Byproducts', category: 'Byproducts', 
     description: 'Bulk agricultural byproducts including Corn DDGS, Wheat Bran, and beet pulp pellets for high-efficiency livestock feeding.', 
-    image_url: 'https://images.unsplash.com/photo-1595166318970-13f5367b6fcf?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/AnimalFeed&AgroByproducts.png', 
     origin: 'USA / India', specifications: { Protein: 'Varied (15-28%)', Fiber: 'High', Form: 'Pellets / Meal' } 
   },
 
@@ -503,31 +503,31 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 801, subcategoryId: 'animal-feed', name: 'Soybean Meal (SBM 46%)', category: 'Feed', 
     description: 'High-protein soybean meal primarily used as a highly digestible staple in poultry, swine, and livestock feed formulations.', 
-    image_url: 'https://images.unsplash.com/photo-1584346853240-3b10ec87db8c?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SoybeanMeal(SBM).png', 
     origin: 'USA / Argentina', specifications: { Protein: '46% Min', Fiber: '3.5% Max', Moisture: '12% Max' } 
   },
   { 
     id: 802, subcategoryId: 'animal-feed', name: 'Yellow Maize (Feed Grade)', category: 'Feed', 
     description: 'Bulk yellow corn specifically sorted and graded for animal feed production, providing essential energy for livestock.', 
-    image_url: 'https://images.unsplash.com/photo-1588607147775-f0bfb1ff0881?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/YellowMaize(FeedGrade).png', 
     origin: 'Brazil / Ukraine', specifications: { Moisture: '14.5% Max', Damage: '5% Max', Protein: '8% Min' } 
   },
   { 
     id: 803, subcategoryId: 'animal-feed', name: 'Rice Bran (Raw & De-oiled)', category: 'Feed', 
     description: 'Highly nutritious raw and De-Oiled Rice Bran (DORB), serving as an excellent source of bypass protein and fiber for cattle and poultry.', 
-    image_url: 'https://images.unsplash.com/photo-1542010589005-d1eacc3918f2?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/RiceBran(RawDeoiled).png', 
     origin: 'India / Thailand', specifications: { Protein: '16% Min (DORB)', Sand_Silica: '2.5% Max', Moisture: '10% Max' } 
   },
   { 
     id: 804, subcategoryId: 'animal-feed', name: 'Sunflower Meal', category: 'Feed', 
     description: 'Extracted sunflower meal available in pelleted or loose form, providing a cost-effective, high-fiber protein source for ruminants.', 
-    image_url: 'https://images.unsplash.com/photo-1595844730298-b960ff885b11?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SunflowerMeal.png', 
     origin: 'Ukraine / Russia', specifications: { Protein: '35% Min', Fiber: '14% Max', Form: 'Pellets / Meal' } 
   },
   { 
     id: 805, subcategoryId: 'animal-feed', name: 'Corn Gluten Meal (60% Protein)', category: 'Feed', 
     description: 'Premium corn gluten meal offering exceptionally high protein content, rich in amino acids for aquafeed, poultry, and pet food.', 
-    image_url: 'https://images.unsplash.com/photo-1627909543329-8f9f2dd0a56f?q=80&w=600', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CornGlutenMea(Protein).png', 
     origin: 'USA / China', specifications: { Protein: '60% Min', Moisture: '10% Max', Fat: '2.5% Max' } 
   },
 

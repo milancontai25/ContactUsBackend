@@ -81,9 +81,12 @@ const TransportServices = () => {
               transition={{ delay: idx * 0.1 }}
             >
               <div className={styles.imgWrapper}>
-                <img src={service.img} alt={service.title} className={styles.img} loading="lazy" />
+                {/* NEW: Wrap only the image in an inner div */}
+                <div className={styles.imgInner}>
+                  <img src={service.img} alt={service.title} className={styles.img} loading="lazy" />
+                </div>
                 
-                {/* Floating Center Icon */}
+                {/* Floating Center Icon stays OUTSIDE the imgInner */}
                 <div className={styles.iconWrapper}>
                   <div className={styles.icon}>
                     {service.icon}

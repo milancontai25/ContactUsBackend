@@ -154,7 +154,7 @@ const ProductCategoryPage = () => {
                   All shipments are handled with strict compliance to global standards, including third-party inspection (SGS / BV / Intertek), proper documentation, and transparent communication at every stage. We operate on secure payment terms such as 100% Letter of Credit (LC at Sight), SBLC, and mutually agreed trade instruments.
                 </p>
                 <p className={styles.assuranceText}>
-                  From sourcing to delivery, our focus remains on long-term partnerships, operational transparency, and deal execution with professionalism and integrity.
+                  <strong>From sourcing to delivery, our focus remains on long-term partnerships, operational transparency, and deal execution with professionalism and integrity.</strong>
                 </p>
               </div>
 

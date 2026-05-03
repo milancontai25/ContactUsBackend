@@ -110,8 +110,7 @@ const Footer = () => {
 
         <div className={styles.bottomBar}>
           <div className={styles.copyrightText}>
-            Copyright © 2024- 2026. Ramsam Trends LLC. <br/>
-            Powered by StatGrow 
+            Copyright © 2024- 2026. Ramsam Trends LLC. 
             {/* <a href="https://statgrow.cloud" target="_blank" rel="noopener noreferrer"> */}
             {/* StatGrow */}
             {/* </a> */}
