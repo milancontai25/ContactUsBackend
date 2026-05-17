@@ -44,7 +44,7 @@ const SERVICES_DETAILS_DATA = {
     contentDesc: 'We prioritize safety, speed, and transparency—leveraging strategic carrier partnerships and cutting-edge logistics tools. Our team ensures optimized routes and minimal transit times while keeping your cargo secure from origin to destination.',
     images: [
       'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChatGPT%20Image%20Apr%2017,%202026,%2010_50_51%20PM.png',
-      'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/M70z2CFbFOhj-qdNdh7HWcPmL0EdaaHnmFJP0979rlrb5PwMWzE64Qp3lP00p8FneKwHU9TydaLUzhY4YDY7CQvgMXJHC1vpYYt3gFd6tBLoBvIlYUMM5tCTtbf_hMNEIH0jGUY9gkrwO4SNfxmcGc-lzrdplnddCEvO14Zax4TPgR3siCFrXb0tUvY2B70s.jpg'
+      'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/M70z2CFbFOhj-qdNdh7HWcPmL0EdaaHnmFJP0979rlrb5PwMWzE64Qp3lP00p8FneKwHU9TydaLUzhY4YDY7CQvgMXJHC1vpYYt3gFd6tBLoBvIlYUMM5tCTtbf_hMNEIH0jGUY9gkrwO4SNfxmcGc-lzrdplnddCEvO14Zax4TPgR3siCFrXb0tUvY2B70s.jpg'
     ]
   },
   'intermodal-shipping': {

@@ -98,7 +98,7 @@ const Navbar = () => {
               
               {/* Refined Marketplace Button */}
               <a 
-                href="https://statgrow.cloud/ramsam-trends-1" 
+                href="https://enterprize.statgrow.in/ramsam-trends" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className={styles.marketplaceBtn}
@@ -166,8 +166,17 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+          <a 
+                href="https://enterprize.statgrow.in/ramsam-trends" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.marketplaceBtn}
+              >
+                Visit Marketplace
+               
+              </a>
           <Link to="/marketplace" onClick={closeMenu} className={styles.mobileMarketplaceBtn}>
-            Visit Marketplace
+            
           </Link>
         </div>
 
