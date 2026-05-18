@@ -50,7 +50,7 @@ const SERVICES_DETAILS_DATA = {
   'intermodal-shipping': {
     title: 'Intermodal Shipping',
     subtitle: 'Smarter Logistics Through Multi-Mode Transport',
-    heroImg: 'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
+    heroImg: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/airplane.jpeg',
     intro: 'Ramsam Trends offers fully integrated intermodal shipping solutions—combining land, sea, and rail transport to maximize efficiency and reduce costs. This hybrid freight strategy allows us to move goods across countries and continents with speed and precision.',
     listTitle: 'What We Offer in Intermodal Transport:',
     list: [
@@ -63,8 +63,8 @@ const SERVICES_DETAILS_DATA = {
     contentTitle: 'Optimized Supply Chains, End to End',
     contentDesc: 'Intermodal shipping with Ramsam means flexibility, transparency, and reliability at every stage. Our tailored routes and logistics expertise ensure reduced transit times and competitive pricing—no matter how complex your shipping needs.',
     images: [
-      'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/airplane.jpeg',
-      'https://ramsam-trends-bucket.s3-website.ap-south-1.amazonaws.com/images/file_00000000585c720b924c16ab6be66e44.png'
+      'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/airplane.jpeg',
+      'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/file_00000000585c720b924c16ab6be66e44.png'
     ]
   }
 };
