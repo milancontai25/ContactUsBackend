@@ -175,9 +175,7 @@ const Navbar = () => {
                 Visit Marketplace
                
               </a>
-          <Link to="/marketplace" onClick={closeMenu} className={styles.mobileMarketplaceBtn}>
-            
-          </Link>
+          
         </div>
 
         <div className={styles.mobileMenuFooter}>
