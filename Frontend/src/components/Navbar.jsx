@@ -170,7 +170,7 @@ const Navbar = () => {
                 href="https://enterprize.statgrow.in/ramsam-trends" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className={styles.marketplaceBtn}
+                className={styles.mobileMarketplaceBtn}
               >
                 Visit Marketplace
                
