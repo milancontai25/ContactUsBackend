@@ -120,6 +120,8 @@ const ContactPage = () => {
                   <strong>India:</strong> +91 9749715695<br/>                  
                   <strong>UAE:</strong> +1 (408) 548-7143<br/>
                   <strong>EU:</strong> +36 20 366 7390<br/>
+                  <strong>CANADA:</strong> +1 (613) 663-0578<br/>
+        
                 </p>
               </div>
             </motion.div>

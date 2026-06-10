@@ -1,0 +1,432 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+// Removed useParams since we are pulling the slug from .env
+import { useNavigate, useLocation } from 'react-router-dom'; 
+import { ArrowLeft, CreditCard, Loader2, CheckCircle, User, Phone, Mail, Upload, FileText, ShieldCheck } from 'lucide-react';
+import '../assets/css/storefront.css';
+
+const Checkout = () => {
+  const navigate = useNavigate();
+  const location = useLocation(); 
+
+  // Pull slug directly from .env
+  const slug = import.meta.env.VITE_STORE_SLUG;
+
+  // Extract Buy Now data from router state (if it exists)
+  const isBuyNow = location.state?.isBuyNow || false;
+  const buyNowItem = location.state?.buyNowItems?.[0] || null;
+
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [placingOrder, setPlacingOrder] = useState(false);
+  
+  // Form State
+  const [paymentMethod, setPaymentMethod] = useState('CASH'); 
+  const [onlineType, setOnlineType] = useState('UPI'); 
+  const [specialNotes, setSpecialNotes] = useState('');
+  const [attachment, setAttachment] = useState(null);
+  const [paymentProof, setPaymentProof] = useState(null);
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+
+  const getHeaders = () => {
+    const token = localStorage.getItem('customer_token');
+    return token ? { headers: { Authorization: `Bearer ${token}` } } : null;
+  };
+
+  useEffect(() => {
+    const fetchPreview = async () => {
+      const config = getHeaders();
+      // UPDATED PATH: navigate to root instead of /slug
+      if (!config) return navigate(`/`);
+
+      try {
+        setLoading(true);
+        
+        // 1. DYNAMIC PREVIEW URL (Handles both Cart and Buy Now)
+        let previewUrl = `${API_BASE_URL}/api/v1/customer/cart/checkout/preview/`;
+        if (isBuyNow && buyNowItem) {
+            previewUrl += `?is_buy_now=true&item_id=${buyNowItem.product_id}&quantity=${buyNowItem.quantity}`;
+        }
+
+        const res = await axios.get(previewUrl, config);
+        const data = res.data;
+        setPreview(data);
+
+        // Smart Defaults based on available_methods array
+        const availableMethods = data?.payment?.available_methods || [];
+        
+        if (availableMethods.includes('CASH') || availableMethods.length === 0) {
+            setPaymentMethod('CASH');
+        } else if (availableMethods.includes('GATEWAY') || availableMethods.includes('UPI')) {
+            setPaymentMethod('ONLINE');
+            if (availableMethods.includes('GATEWAY')) setOnlineType('GATEWAY');
+            else setOnlineType('UPI');
+        }
+
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        alert(err.response?.data?.error || "Failed to load checkout preview.");
+        // UPDATED PATH
+        navigate(`/`);
+      }
+    };
+    fetchPreview();
+  }, [slug, navigate, isBuyNow, buyNowItem]); 
+
+  // --- RAZORPAY INTEGRATION ---
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handleGatewayPayment = async () => {
+    const res = await loadRazorpayScript();
+    if (!res) {
+      alert('Failed to load Payment Gateway SDK.');
+      setPlacingOrder(false);
+      return;
+    }
+
+    const token = localStorage.getItem('customer_token');
+    try {
+      // 2. Pass Buy Now data to Gateway Order creation
+      const payload = { special_notes: specialNotes };
+      if (isBuyNow && buyNowItem) {
+          payload.is_buy_now = true;
+          payload.item_id = buyNowItem.product_id;
+          payload.quantity = buyNowItem.quantity;
+      }
+
+      const orderRes = await axios.post(
+        `${API_BASE_URL}/api/v1/customer/cart/checkout/create-gateway-order/`,
+        payload,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const { rzp_order_id, amount, currency } = orderRes.data;
+      const options = {
+        key: preview.payment.gateway.public_key, 
+        amount: amount,
+        currency: currency,
+        name: preview.customer.name,
+        description: "Store Purchase",
+        order_id: rzp_order_id, 
+        handler: async function (response) {
+          try {
+             await axios.post(
+                `${API_BASE_URL}/api/v1/customer/cart/checkout/verify-gateway/`,
+                {
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature
+                },
+                { headers: { Authorization: `Bearer ${token}` } }
+             );
+             alert("Payment Successful!");
+             // UPDATED PATH
+             navigate(`/marketplace/orders`);
+          } catch (verifyErr) {
+             alert("Payment verification failed! Please contact support.");
+             setPlacingOrder(false);
+          }
+        },
+        prefill: {
+          name: preview.customer.name,
+          email: preview.customer.email,
+          contact: preview.customer.phone,
+        },
+        theme: { color: "#0EA5E9" } 
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+      
+      paymentObject.on('payment.failed', function (response){
+          alert("Payment Failed: " + response.error.description);
+          setPlacingOrder(false);
+      });
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.error || "Failed to initiate payment gateway.");
+      setPlacingOrder(false);
+    }
+  };
+
+// --- MASTER SUBMIT HANDLER ---
+  const handlePlaceOrder = async () => {
+    // 1. FRONTEND VALIDATION
+    if (paymentMethod === 'ONLINE' && onlineType === 'UPI' && !paymentProof) {
+      alert("Please upload your payment screenshot before confirming the order.");
+      return;
+    }
+
+    setPlacingOrder(true);
+    
+    // 2. GATEWAY FLOW
+    if (paymentMethod === 'ONLINE' && onlineType === 'GATEWAY') {
+        await handleGatewayPayment();
+        return; 
+    }
+
+    const token = localStorage.getItem('customer_token');
+    if (!token) {
+        setPlacingOrder(false);
+        return;
+    }
+
+    try {
+      const formData = new FormData();
+      
+      const finalMethodToSend = paymentMethod === 'ONLINE' ? onlineType : 'CASH';
+      formData.append('payment_method', finalMethodToSend); 
+      formData.append('special_notes', specialNotes);
+      
+      // 3. APPEND BUY NOW DATA TO FORMDATA
+      if (isBuyNow && buyNowItem) {
+          formData.append('is_buy_now', 'true');
+          formData.append('item_id', buyNowItem.product_id);
+          formData.append('quantity', buyNowItem.quantity);
+      }
+
+      if (attachment) {
+          formData.append('attachment', attachment); 
+      }
+      
+      if (finalMethodToSend === 'UPI' && paymentProof) {
+          formData.append('payment_proof', paymentProof); 
+      }
+
+      await axios.post(
+        `${API_BASE_URL}/api/v1/customer/cart/checkout/process/`, 
+        formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      alert("Order Placed Successfully!");
+      // UPDATED PATH
+      navigate(`/marketplace/orders`);
+      
+    } catch (err) {
+      console.error("Backend Error Details:", err.response?.data || err);
+      
+      const errorData = err.response?.data;
+      if (errorData && typeof errorData === 'object' && !errorData.error) {
+          const errorMessages = Object.entries(errorData)
+              .map(([key, msg]) => `${key.replace('_', ' ')}: ${msg}`)
+              .join('\n');
+          alert(`Failed to place order. Please fix the following:\n\n${errorMessages}`);
+      } else {
+          alert(errorData?.error || "Failed to place order. Please check your inputs.");
+      }
+      
+      setPlacingOrder(false);
+    }
+  };
+
+  const handleFileChange = (e, setFile) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  if (loading) return <div className="loading-container"><Loader2 className="animate-spin" /> Loading...</div>;
+
+  const availableMethods = preview?.payment?.available_methods || [];
+  const allowCash = availableMethods.includes('CASH') || availableMethods.length === 0;
+  const allowGateway = availableMethods.includes('GATEWAY') && !!preview?.payment?.gateway;
+  const allowUpi = availableMethods.includes('UPI') && !!preview?.payment?.upi;
+  const hasOnlineOptions = allowGateway || allowUpi;
+
+  const qrCodeUrl = preview?.payment?.upi?.upi_qrcode_url;
+  const upiId = preview?.payment?.upi?.upi_id;
+
+  return (
+    <div className="checkout-page">
+      <div className="checkout-container">
+        
+        <div className="checkout-header">
+           <button className="back-btn" onClick={() => navigate(-1)}><ArrowLeft size={20}/></button>
+           <h2>Checkout</h2>
+        </div>
+
+        <div className="checkout-grid">
+           
+           {/* LEFT COLUMN: Customer & Payment */}
+           <div className="checkout-main">
+              <div className="section-card">
+                 <div className="card-header"><User size={18} /> Customer Details</div>
+                 <div className="card-body">
+                    <p className="info-row"><User size={16} color="#6B7280" /> <strong>{preview?.customer?.name}</strong></p>
+                    <p className="info-row"><Phone size={16} color="#6B7280" /> {preview?.customer?.phone}</p>
+                    <p className="info-row"><Mail size={16} color="#6B7280" /> {preview?.customer?.email}</p>
+                    {preview?.customer?.address && (
+                        <p className="info-row"><CheckCircle size={16} color="#6B7280" /> {preview.customer.address}</p>
+                    )}
+                 </div>
+              </div>
+
+              <div className="section-card">
+                 <div className="card-header"><CreditCard size={18} /> Payment Method</div>
+                 <div className="card-body">
+                    
+                    {/* Pay at Store Option */}
+                    {allowCash && (
+                        <label className={`payment-option ${paymentMethod === 'CASH' ? 'active' : ''}`}>
+                           <input type="radio" name="payment" checked={paymentMethod === 'CASH'} onChange={() => setPaymentMethod('CASH')} />
+                           <span>Payment at Store (Cash)</span>
+                        </label>
+                    )}
+
+                    {/* Online Payment Master Toggle */}
+                    {hasOnlineOptions && (
+                        <label className={`payment-option ${paymentMethod === 'ONLINE' ? 'active' : ''}`}>
+                           <input type="radio" name="payment" checked={paymentMethod === 'ONLINE'} onChange={() => {
+                               setPaymentMethod('ONLINE');
+                               if (allowGateway) setOnlineType('GATEWAY');
+                               else if (allowUpi) setOnlineType('UPI');
+                           }} />
+                           <span>Pay Online</span>
+                        </label>
+                    )}
+
+                    {/* Online Sub-Options & Upload Box */}
+                    {paymentMethod === 'ONLINE' && hasOnlineOptions && (
+                        <div className="online-sub-options" style={{ padding: '16px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0', marginTop: '10px' }}>
+                           
+                           {allowGateway && (
+                               <label className={`payment-option ${onlineType === 'GATEWAY' ? 'active' : ''}`} style={{ background: 'white', marginBottom: '12px' }}>
+                                   <input type="radio" name="online_type" checked={onlineType === 'GATEWAY'} onChange={() => setOnlineType('GATEWAY')} />
+                                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                       <ShieldCheck size={18} color="#0EA5E9" />
+                                       <span>Cards, UPI, Netbanking (Instant)</span>
+                                   </div>
+                               </label>
+                           )}
+
+                           {allowUpi && (
+                               <label className={`payment-option ${onlineType === 'UPI' ? 'active' : ''}`} style={{ background: 'white', marginBottom: '0' }}>
+                                   <input type="radio" name="online_type" checked={onlineType === 'UPI'} onChange={() => setOnlineType('UPI')} />
+                                   <span>Manual UPI Transfer</span>
+                               </label>
+                           )}
+
+                           {onlineType === 'UPI' && qrCodeUrl && (
+                               <div className="qr-payment-box">
+                                   <div className="qr-wrapper">
+                                       <img src={qrCodeUrl} alt="Pay via UPI" className="upi-qr-img" />
+                                   </div>
+                                   <p className="qr-instruction">
+                                       Scan to pay <strong>₹{preview?.summary?.net_payable || preview?.net_payable || preview?.summary?.total_value || preview?.total_value || 0}</strong> 
+                                       {upiId ? ` to ${upiId}` : ''}
+                                   </p>
+                                   
+                                   <div className="file-upload-box">
+                                       <label className="upload-label">Upload Payment Screenshot <span className="req">*</span></label>
+                                       <div className="custom-file-input">
+                                           <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, setPaymentProof)} />
+                                           <div className="file-display">
+                                               <Upload size={16} /> 
+                                               <span>{paymentProof ? paymentProof.name : "Choose File"}</span>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           )}
+                        </div>
+                    )}
+
+                 </div>
+              </div>
+           </div>
+
+           {/* RIGHT COLUMN: Additional Info & Summary */}
+           <div className="checkout-sidebar">
+              <div className="section-card" style={{ marginBottom: '24px' }}>
+                 <div className="card-header"><FileText size={18} /> Additional Information</div>
+                 <div className="card-body">
+                    <div className="form-group">
+                        <label>Special Notes (Optional)</label>
+                        <textarea className="checkout-textarea" placeholder="Any instructions for your order..." rows="3" value={specialNotes} onChange={(e) => setSpecialNotes(e.target.value)}></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label>Attach Document (Optional)</label>
+                        <div className="custom-file-input">
+                            <input type="file" onChange={(e) => handleFileChange(e, setAttachment)} />
+                            <div className="file-display">
+                                <Upload size={16} /> 
+                                <span>{attachment ? attachment.name : "Upload File"}</span>
+                            </div>
+                        </div>
+                        <small className="hint-text">Any prescription or reference document.</small>
+                    </div>
+                 </div>
+              </div>
+
+              {/* DETAILED ORDER SUMMARY */}
+              <div className="summary-card">
+                 <h3>Order Summary</h3>
+                 <div className="summary-items">
+                    {preview?.items?.map((item, idx) => (
+                      <div key={idx} className="summary-item">
+                        <span>{item.qty || item.quantity} x {item.name || item.item_name}</span>
+                        <span>₹{item.total_value || item.price}</span>
+                      </div>
+                    ))}
+                 </div>
+                 
+                 <div className="summary-divider"></div>
+
+                 <div className="summary-breakdown">
+                    <div className="summary-row">
+                        <span>Item Total</span>
+                        <span>₹{preview?.summary?.total_base_amount || preview?.total_base_amount || preview?.total_amount || 0}</span>
+                    </div>
+
+                    {(preview?.summary?.discount_amount || preview?.discount_amount) && parseFloat(preview?.summary?.discount_amount || preview?.discount_amount) > 0 ? (
+                        <div className="summary-row text-success">
+                            <span>Discount</span>
+                            <span>- ₹{preview?.summary?.discount_amount || preview?.discount_amount}</span>
+                        </div>
+                    ) : null}
+
+                    {(preview?.summary?.total_tax || preview?.total_tax || preview?.total_gst) && parseFloat(preview?.summary?.total_tax || preview?.total_tax || preview?.total_gst) > 0 ? (
+                        <div className="summary-row">
+                            <span>Taxes</span>
+                            <span>+ ₹{preview?.summary?.total_tax || preview?.total_tax || preview?.total_gst}</span>
+                        </div>
+                    ) : null}
+
+                    {(preview?.summary?.round_off || preview?.round_off) && parseFloat(preview?.summary?.round_off || preview?.round_off) !== 0 ? (
+                        <div className="summary-row text-muted">
+                            <span>Round Off</span>
+                            <span>{parseFloat(preview?.summary?.round_off || preview?.round_off) > 0 ? '+' : ''} ₹{preview?.summary?.round_off || preview?.round_off}</span>
+                        </div>
+                    ) : null}
+                 </div>
+
+                 <div className="summary-divider"></div>
+                 
+                 <div className="summary-total">
+                    <span>Net Payable</span>
+                    <span>₹{preview?.summary?.net_payable || preview?.net_payable || preview?.summary?.total_value || preview?.total_value || 0}</span>
+                 </div>
+                 
+                 <button className="place-order-btn" onClick={handlePlaceOrder} disabled={placingOrder}>
+                    {placingOrder ? <Loader2 className="animate-spin" /> : "Confirm Order"}
+                 </button>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Checkout;

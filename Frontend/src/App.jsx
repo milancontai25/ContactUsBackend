@@ -11,6 +11,11 @@ import ServicesPage from './pages/ServicesPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import ProductCategoryPage from './pages/ProductCategoryPage';
+import StoreFront from './components/StoreFront'
+import StoreCategory from './components/StoreCategory'
+import Checkout from './components/Checkout'
+import StoreProductDetail from './components/StoreProductDetail';
+import OrderHistory from './components/OrderHistory';
 
 function App() {
   return (
@@ -27,6 +32,12 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/service/:slug" element={<ServiceDetailPage />} />
         <Route path="/blog/:slug" element={<BlogDetailPage />} />
+
+        <Route path="/marketplace" element={<StoreCategory />} />
+        <Route path="/marketplace/items" element={<StoreFront />} />
+        <Route path="/marketplace/item/:itemSlug" element={<StoreProductDetail />} />
+        <Route path="/marketplace/checkout" element={<Checkout />} />
+        <Route path="/marketplace/orders" element={<OrderHistory />} />
       </Routes>
     </Router>
   );
