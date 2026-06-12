@@ -117,10 +117,10 @@ const ContactPage = () => {
                 <h3 className={styles.cardTitle}>Call Us Anytime</h3>
                 <p className={styles.cardText}>
                   <strong>USA:</strong> +1 (408) 548-7143<br/>
-                  <strong>India:</strong> +91 9749715695<br/>                  
-                  <strong>UAE:</strong> +1 (408) 548-7143<br/>
-                  <strong>EU:</strong> +36 20 366 7390<br/>
+                  <strong>India:</strong> +91 9749 715 695<br/>                  
                   <strong>CANADA:</strong> +1 (613) 663-0578<br/>
+                  <strong>EU:</strong> +36 20 366 7390<br/>
+                  
         
                 </p>
               </div>

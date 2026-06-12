@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Store, Mail, Phone } from 'lucide-react';
+// ✅ Keep generic icons from lucide-react
+import { Store, Mail, Phone, MessageCircle } from 'lucide-react';
+// ✅ Import brand icons from react-icons to prevent crashes
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import '../assets/css/storefooter.css';
 
-// Note: slug is still accepted as a prop so parent components don't break, 
-// but it is no longer used for the Link paths.
 const StoreFooter = ({ slug, businessName, businessLogo, socialLinks, contactInfo }) => {
   return (
     <footer className="modern-footer">
@@ -29,6 +29,7 @@ const StoreFooter = ({ slug, businessName, businessLogo, socialLinks, contactInf
             <span className="footer-brand-name">{businessName}</span>
           </div>
           <div className="social-links">
+            {/* ✅ Swapped to FaIcons */}
             {socialLinks?.instagram && <a href={socialLinks.instagram} target="_blank" rel="noreferrer"><FaInstagram size={20} /></a>}
             {socialLinks?.facebook && <a href={socialLinks.facebook} target="_blank" rel="noreferrer"><FaFacebook size={20} /></a>}
             {socialLinks?.youtube && <a href={socialLinks.youtube} target="_blank" rel="noreferrer"><FaYoutube size={20} /></a>}
@@ -40,10 +41,10 @@ const StoreFooter = ({ slug, businessName, businessLogo, socialLinks, contactInf
         <div className="footer-col">
           <h4>Quick Links</h4>
           <ul>
-            {/* UPDATED: Clean routing paths */}
-            <li><Link to="/marketplace">Category</Link></li>
-            <li><Link to="/marketplace/items">Shop Now</Link></li>
-            <li><Link to="/marketplace/orders">Track Your Order</Link></li>
+            {/* ✅ Updated to clean routing URLs */}
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/items">Shop Now</Link></li>
+            <li><Link to="/orders">Track Your Order</Link></li>
           </ul>
         </div>
 
@@ -57,11 +58,29 @@ const StoreFooter = ({ slug, businessName, businessLogo, socialLinks, contactInf
           </ul>
         </div>
 
-        {/* Column 4: Contact */}
+        {/* Column 4: Contact (ALL CLICKABLE NOW) */}
         <div className="footer-col contact-col">
           <h4>Contact Us</h4>
-          <p><Mail size={16} /> {contactInfo?.email || 'contact@store.com'}</p>
-          <p><Phone size={16} /> {contactInfo?.phone || '+91-0000000000'}</p>
+          
+          {/* Email Link */}
+          <a href={`mailto:${contactInfo?.email || 'contact@store.com'}`} className="contact-link">
+            <Mail size={16} /> {contactInfo?.email || 'contact@store.com'}
+          </a>
+          
+          {/* Phone Link */}
+          <a href={`tel:${contactInfo?.phone || '+910000000000'}`} className="contact-link">
+            <Phone size={16} /> {contactInfo?.phone || '+91-0000000000'}
+          </a>
+          
+          {/* WhatsApp Link (Strips non-numbers to trigger wa.me properly) */}
+          <a 
+            href={socialLinks?.wp?.startsWith('http') ? socialLinks.wp : `https://wa.me/${(socialLinks?.wp || contactInfo?.phone || '0000000000').replace(/[^0-9]/g, '')}`} 
+            target="_blank" 
+            rel="noreferrer" 
+            className="contact-link"
+          >
+            <MessageCircle size={16} /> {socialLinks?.wp || 'WhatsApp Us'}
+          </a>
         </div>
       </div>
       
