@@ -289,9 +289,9 @@ const StoreProductDetail = () => {
       <div className="detail-header">
         <div className="breadcrumb-nav">
             {/* UPDATED LINKS TO REMOVE /${slug} */}
-            <Link to={`/`} className="crumb-link">HOME</Link> 
+            <Link to={`/marketplace`} className="crumb-link">HOME</Link> 
             <span className="crumb-sep">{'>'}</span>
-            <Link to={`/items`} className="crumb-link">{product.category?.toUpperCase() || 'ITEMS'}</Link>
+            <Link to={`/marketplace/items`} className="crumb-link">{product.category?.toUpperCase() || 'ITEMS'}</Link>
             <span className="crumb-sep">{'>'}</span>
             <span className="crumb-current">{product.item_name?.toUpperCase()}</span>
         </div>

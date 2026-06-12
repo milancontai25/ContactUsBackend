@@ -166,20 +166,20 @@ const StoreHeader = ({
       {/* --- NEW: MOBILE NAVIGATION DROPDOWN --- */}
       {isMobileMenuOpen && (
         <div className="mobile-nav-dropdown">
-          <Link to={`/${slug}`} className={`mobile-nav-link ${isCategoriesActive ? 'active' : ''}`}>
+          <Link to={`/marketplace`} className={`mobile-nav-link ${isCategoriesActive ? 'active' : ''}`}>
             Categories
           </Link>
           {hasProducts && (
-            <Link to={`/${slug}/items?type=goods`} className={`mobile-nav-link ${isProductsActive ? 'active' : ''}`}>
+            <Link to={`/marketplace/items?type=goods`} className={`mobile-nav-link ${isProductsActive ? 'active' : ''}`}>
               Products
             </Link>
           )}
           {hasServices && (
-            <Link to={`/${slug}/items?type=services`} className={`mobile-nav-link ${isServicesActive ? 'active' : ''}`}>
+            <Link to={`/marketplace/items?type=services`} className={`mobile-nav-link ${isServicesActive ? 'active' : ''}`}>
               Services
             </Link>
           )}
-          <Link to={`/${slug}`} className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
+          <Link to={`/marketplace`} className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
             Our Story
           </Link>
         </div>

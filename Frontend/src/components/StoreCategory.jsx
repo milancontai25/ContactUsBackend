@@ -120,7 +120,7 @@ const StoreCategory = () => {
 
   useEffect(() => {
      if (searchTerm && searchTerm.trim() !== '') {
-         navigate(`/items?search=${encodeURIComponent(searchTerm)}`); 
+         navigate(`/marketplace/items?search=${encodeURIComponent(searchTerm)}`); 
      }
   }, [searchTerm, navigate]);
   
@@ -166,7 +166,7 @@ const StoreCategory = () => {
 
     return (
         <div key={product.id} className="elegant-product-card">
-        <Link to={`/item/${product.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+        <Link to={`/marketplace/item/${product.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
             <div className="elegant-image-box">
                 {badgeLabel && !isOutOfStock && <div className="elegant-badge">{badgeLabel}</div>}
                 {isOutOfStock && <div className="elegant-badge out-of-stock">SOLD OUT</div>}
@@ -309,7 +309,7 @@ const StoreCategory = () => {
                 <div className="category-blocks-grid">
                     {summaryData.categories.map((cat, idx) => (
                         <Link 
-                            to={`/items#${encodeURIComponent(cat.category)}`}
+                            to={`/marketplace/items#${encodeURIComponent(cat.category)}`}
                             key={idx} 
                             className="cat-block"
                         >

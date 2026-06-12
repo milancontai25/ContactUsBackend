@@ -250,7 +250,7 @@ const StoreFront = () => {
     return (
       <div key={product.id} className="min-product-card">
         {/* UPDATED: Link path to remove /${slug} */}
-        <Link to={`/item/${product.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+        <Link to={`/marketplace/item/${product.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
             <div className="min-image-box">
                 {isOutOfStock && <div className="min-out-badge">SOLD OUT</div>}
 
