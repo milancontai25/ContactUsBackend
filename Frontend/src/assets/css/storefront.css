@@ -2217,3 +2217,79 @@ body { margin: 0; padding: 0; }
         padding-bottom: 8px !important;
     }
 }
+
+
+
+/* ==========================================================================
+   DESKTOP FIX: PREVENT HORIZONTAL SCROLL & TEXT OVERFLOW
+   ========================================================================== */
+
+/* 1. Stop the entire page from ever scrolling horizontally */
+.product-detail-page {
+    overflow-x: hidden !important; 
+    width: 100%;
+}
+
+/* 2. Constrain the description container to match the rest of the page */
+.full-width-description-container {
+    width: 100%;
+    max-width: 1200px !important; /* Matches your top detail container */
+    margin: 0 auto 60px auto;
+    padding: 0 24px;
+    box-sizing: border-box !important;
+}
+
+.desc-body {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 3. The Magic Fix: Force all text inside the description to wrap */
+.desc-text {
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important; /* Breaks long continuous strings */
+    white-space: normal !important; /* Overrides any nowrap rules */
+}
+
+/* 4. Bulletproof elements rendered from the database (dangerouslySetInnerHTML) */
+.desc-text * {
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Stops images, videos, or tables in the description from breaking the layout */
+.desc-text img, 
+.desc-text iframe, 
+.desc-text video, 
+.desc-text table {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+}
+
+/* ==========================================================================
+   DESKTOP & MOBILE FIX: HORIZONTAL RATINGS
+   ========================================================================== */
+.rating-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 20px !important;
+}
+
+.stars {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+/* Ensure the Lucide icons don't stack */
+.stars svg {
+    display: block !important;
+}
