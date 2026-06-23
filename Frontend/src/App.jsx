@@ -16,6 +16,7 @@ import StoreCategory from './components/StoreCategory'
 import Checkout from './components/Checkout'
 import StoreProductDetail from './components/StoreProductDetail';
 import OrderHistory from './components/OrderHistory';
+import StoreInfo from './pages/StoreInfo';
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/blog/:slug" element={<BlogDetailPage />} />
 
         <Route path="/marketplace" element={<StoreCategory />} />
+        {/* Replace "marketplace" with ":slug" if your stores are dynamic! */}
+        <Route path="/marketplace/our-story" element={<StoreInfo />} />
         <Route path="/marketplace/items" element={<StoreFront />} />
         <Route path="/marketplace/item/:itemSlug" element={<StoreProductDetail />} />
         <Route path="/marketplace/checkout" element={<Checkout />} />

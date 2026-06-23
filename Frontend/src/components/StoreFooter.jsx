@@ -42,9 +42,9 @@ const StoreFooter = ({ slug, businessName, businessLogo, socialLinks, contactInf
           <h4>Quick Links</h4>
           <ul>
             {/* ✅ Updated to clean routing URLs */}
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/items">Shop Now</Link></li>
-            <li><Link to="/orders">Track Your Order</Link></li>
+            <li><Link to="/marketplace">Categories</Link></li>
+            <li><Link to="/marketplace/items">Shop Now</Link></li>
+            <li><Link to="/marketplace/orders">Track Your Order</Link></li>
           </ul>
         </div>
 
@@ -52,9 +52,9 @@ const StoreFooter = ({ slug, businessName, businessLogo, socialLinks, contactInf
         <div className="footer-col">
           <h4>About</h4>
           <ul>
-            <li><a href="#">Our Story</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><Link to="/marketplace/our-story#story">Our Story</Link></li>
+            <li><Link to="/marketplace/our-story#terms">Terms of Service</Link></li>
+            <li><Link to="/marketplace/our-story#privacy">Privacy Policy</Link></li>
           </ul>
         </div>
 

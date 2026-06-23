@@ -1,0 +1,293 @@
+/* ==========================================================================
+   INFORMATIONAL PAGES (Story, Terms, Privacy)
+   ========================================================================== */
+
+/* Main Wrapper ensures the whole page is left-aligned and doesn't scroll horizontally */
+.info-page-wrapper {
+  overflow-x: hidden !important;
+  width: 100%;
+  background-color: #FCFBF8; /* Matches your elegant theme cream color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container holds the Sidebar and the Content */
+.info-main-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 24px;
+  gap: 60px;
+  flex: 1; /* Pushes footer to bottom */
+}
+
+/* --- SIDEBAR NAVIGATION --- */
+.info-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px; /* Sticks to the screen when scrolling down */
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748B;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 12px;
+}
+
+.info-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-nav-btn {
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: #475569;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.info-nav-btn:hover {
+  background-color: #F1F5F9;
+  color: #111827;
+}
+
+.info-nav-btn.active {
+  background-color: #111827;
+  color: #FFFFFF;
+}
+
+/* --- MAIN CONTENT AREA --- */
+.info-content-area {
+  flex: 1;
+  max-width: 800px; /* Optimal reading width so text isn't too wide */
+  background-color: #FFFFFF;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  border: 1px solid #F1F5F9;
+}
+
+.info-header-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+.info-text-block {
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.8;
+  word-wrap: break-word !important; 
+  overflow-wrap: break-word !important;
+}
+
+.info-text-block p {
+  margin-bottom: 24px;
+}
+
+.lead-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: #1E293B;
+  line-height: 1.6;
+}
+
+.info-text-block h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 40px 0 16px 0;
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 12px;
+}
+
+.info-hero-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 32px 0;
+}
+
+/* Simple fade animation when switching tabs */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .info-main-container {
+    flex-direction: column;
+    gap: 30px;
+    margin: 30px auto;
+  }
+
+  .info-sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+
+  .info-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .info-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .info-nav-btn {
+    white-space: nowrap;
+  }
+
+  .info-content-area {
+    padding: 30px 24px;
+    border-radius: 12px;
+  }
+
+  .info-header-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .info-main-container {
+    padding: 0 16px;
+  }
+
+  .info-hero-image {
+    height: 200px;
+  }
+
+  .lead-text {
+    font-size: 18px;
+  }
+}
+
+
+/* ==========================================================================
+   INFORMATIONAL PAGES (Story, Terms, Privacy) - SINGLE COLUMN
+   ========================================================================== */
+
+/* Main Wrapper ensures the whole page is left-aligned and doesn't scroll horizontally */
+.info-page-wrapper {
+  overflow-x: hidden !important;
+  width: 100%;
+  background-color: #FCFBF8; /* Matches your elegant theme cream color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Single Column Container for text readability */
+.info-single-column {
+  width: 100%;
+  max-width: 1200px; /* 👈 Changed from 800px to 1200px to match your header/footer width */
+  margin: 60px auto 40px auto; /* Centered */
+  padding: 0 24px;
+  box-sizing: border-box;
+  scroll-margin-top: 100px; 
+}
+
+/* --- TYPOGRAPHY --- */
+.info-header-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+.info-text-block {
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.8;
+  word-wrap: break-word !important; 
+  overflow-wrap: break-word !important;
+}
+
+.info-text-block p {
+  margin-bottom: 24px;
+}
+
+.lead-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: #1E293B;
+  line-height: 1.6;
+}
+
+.info-text-block h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 40px 0 16px 0;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 12px;
+}
+
+.info-hero-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 32px 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .info-single-column {
+    margin-top: 40px;
+  }
+
+  .info-header-title {
+    font-size: 32px;
+  }
+
+  .info-hero-image {
+    height: 250px;
+  }
+
+  .lead-text {
+    font-size: 18px;
+  }
+}

@@ -83,7 +83,7 @@ const StoreHeader = ({
               Services
             </Link>
           )}
-          <Link to={`/marketplace`} className={`header-nav-link ${isOurStoryActive ? 'active' : ''}`}>
+          <Link to={`/marketplace/our-story`} className={`header-nav-link ${isOurStoryActive ? 'active' : ''}`}>
             Our Story
           </Link>
         </nav>
@@ -179,7 +179,7 @@ const StoreHeader = ({
               Services
             </Link>
           )}
-          <Link to={`/marketplace`} className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
+          <Link to={`/marketplace/our-story`} className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
             Our Story
           </Link>
         </div>
