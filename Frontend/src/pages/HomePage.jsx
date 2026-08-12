@@ -14,6 +14,7 @@ import TransportServices from '../components/TransportServices';
 import RequestQuote from '../components/RequestQuote';
 import TestimonialsSlider from '../components/TestimonialsSlider';
 import BlogList from '../components/BlogList';
+import { Helmet } from "react-helmet-async";
 
 /* ─── YouTube Background Player ─── */
 const YouTubeBG = ({ videoId }) => {
@@ -183,6 +184,40 @@ const HomePage = () => {
 
   return (
     <div className={styles.page} data-testid="home-page">
+      <Helmet>
+  <title>Ramsam Trends | Business Solutions & Services</title>
+
+  <meta
+    name="description"
+    content="Ramsam Trends provides quality products, global sourcing, trading, logistics, compliance support and business solutions."
+  />
+
+  <link
+    rel="canonical"
+    href="https://www.ramsamtrends.com/"
+  />
+
+  <meta
+    property="og:title"
+    content="Ramsam Trends | Business Solutions & Services"
+  />
+
+  <meta
+    property="og:description"
+    content="Explore Ramsam Trends products, services, global sourcing, logistics and business solutions."
+  />
+
+  <meta
+    property="og:url"
+    content="https://www.ramsamtrends.com/"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+</Helmet>
+
       <Navbar />
 
       {/* ── Hero Slider Section ── */}

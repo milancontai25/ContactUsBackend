@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './AboutPage.module.css';
+import { Helmet } from "react-helmet-async";
 
 // ─── Sleek SVG Icons to replace emojis ───
 const Icons = {
@@ -21,6 +22,39 @@ const AboutPage = () => {
 
   return (
     <div className={styles.page} data-testid="about-page">
+      <Helmet>
+        <title>About Us | Ramsam Trends</title>
+
+        <meta
+          name="description"
+          content="Learn more about Ramsam Trends, a global trading and sourcing company providing quality products and dependable logistics solutions."
+        />
+
+        <link
+          rel="canonical"
+          href="https://www.ramsamtrends.com/about"
+        />
+
+        <meta
+          property="og:title"
+          content="About Us | Ramsam Trends"
+        />
+
+        <meta
+          property="og:description"
+          content="Learn more about Ramsam Trends, a global trading and sourcing company providing quality products and dependable logistics solutions."
+        />
+
+        <meta
+          property="og:url"
+          content="https://www.ramsamtrends.com/about"
+        />
+
+        <meta
+          property="og:type"
+          content="website"
+        />
+      </Helmet>
       <Navbar />
       
       {/* ─── Hero Section ─── */}

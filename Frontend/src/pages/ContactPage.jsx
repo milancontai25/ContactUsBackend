@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './ContactPage.module.css';
+import { Helmet } from "react-helmet-async";
 
 // ─── SVG Icons ───
 const MailIcon = () => (
@@ -84,6 +85,40 @@ const ContactPage = () => {
 
   return (
     <div className={styles.page} data-testid="contact-page">
+      <Helmet>
+  <title>Contact Us | Ramsam Trends</title>
+
+  <meta
+    name="description"
+    content="Contact Ramsam Trends to discuss your sourcing, trading, logistics and business requirements."
+  />
+
+  <link
+    rel="canonical"
+    href="https://www.ramsamtrends.com/contact"
+  />
+
+  <meta
+    property="og:title"
+    content="Contact Us | Ramsam Trends"
+  />
+
+  <meta
+    property="og:description"
+    content="Get in touch with Ramsam Trends for sourcing, trading, logistics and business solutions."
+  />
+
+  <meta
+    property="og:url"
+    content="https://www.ramsamtrends.com/contact"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+</Helmet>
+
       <Navbar />
       
       {/* ─── Top Info Cards Section (Matches SS 63) ─── */}
