@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'; 
-import { Link, useNavigate, useLocation } from 'react-router-dom'; 
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'; 
 import { Loader2, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react'; 
 import StoreHeader from './StoreHeader';
 import StoreFooter from './StoreFooter';
@@ -13,13 +13,13 @@ const StoreFront = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
 
-  // Pull slug directly from .env
-  const slug = import.meta.env.VITE_STORE_SLUG;
-
   // Grab parameters from the URL
   const queryParams = new URLSearchParams(location.search);
   const currentType = queryParams.get('type'); 
   const initialSearch = queryParams.get('search') || ''; 
+  
+  // Capture the Main Category from the URL
+  const categoryParam = queryParams.get('category') || 'All'; 
   
   // --- STATE ---
   const [searchTerm, setSearchTerm] = useState(initialSearch); 
@@ -36,16 +36,18 @@ const StoreFront = () => {
   const [contactInfo, setContactInfo] = useState({});
   
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState('All'); 
+  
+  const [selectedSubcategory, setSelectedSubcategory] = useState('All'); 
+  
   const [showAuthCustomer, setShowAuthCustomer] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  // NEW: Ref for category scrolling
   const categoryScrollRef = useRef(null);
 
+  const slug = import.meta.env.VITE_STORE_SLUG;
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
   
   const GOODS_API_URL = `${API_BASE_URL}/api/v1/business/${slug}/items/goods/`;
@@ -58,6 +60,7 @@ const StoreFront = () => {
     }
     return `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`; 
   };
+
 
   const toTitleCase = (str) => {
     if (!str) return '';
@@ -134,52 +137,46 @@ const StoreFront = () => {
     fetchStoreData();
   }, [slug]);
 
-  // 1. Filter master products list based on the Header Link clicked
+  // --- FILTERING LOGIC ---
+
+  // 1. Filter master products list by Goods/Services
   const typeFilteredProducts = products.filter(p => {
     if (currentType === 'goods') return p._local_item_type === 'goods';
     if (currentType === 'services' || currentType === 'service') return p._local_item_type === 'services';
     return true; 
   });
 
-  // 2. Extract Categories ONLY from the filtered products
-  const categoryMap = new Map();
-  typeFilteredProducts.forEach(p => {
-    if (p.category) {
-      const catName = toTitleCase(p.category);
-      if (!categoryMap.has(catName)) {
-        categoryMap.set(catName, p.category_image_url || p.category_image || null);
+  // 2. Filter by Main Category (From the URL)
+  const categoryFilteredProducts = typeFilteredProducts.filter(p => {
+    if (categoryParam === 'All') return true;
+    const cat = p.category || '';
+    return cat.toLowerCase() === categoryParam.toLowerCase();
+  });
+
+  // 3. Extract SUBCATEGORIES ONLY from the matching category products
+  const subcategoryMap = new Map();
+  categoryFilteredProducts.forEach(p => {
+    const subCatRaw = p.sub_category || p.subcategory || p.category;
+    if (subCatRaw) {
+      const subCatName = toTitleCase(subCatRaw);
+      if (!subcategoryMap.has(subCatName)) {
+        subcategoryMap.set(subCatName, p.sub_category_image_url || p.category_image_url || p.category_image || null);
       }
     }
   });
 
-  const categories = [];
-  categoryMap.forEach((image, name) => {
-    categories.push({ name, image });
+  const subcategories = [];
+  subcategoryMap.forEach((image, name) => {
+    subcategories.push({ name, image });
   });
 
-  // 3. Reset Selected Category if the user switches tabs
+  // 4. Reset Selected Subcategory if the URL Category changes
   useEffect(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (typeFilteredProducts.length > 0 && categories.length > 0) {
-      if (hash) {
-        const decodedHash = decodeURIComponent(hash);
-        const matchedCategory = categories.find(c => c.name.toLowerCase() === decodedHash.toLowerCase());
-        if (matchedCategory) {
-          setSelectedCategory(matchedCategory.name);
-          return;
-        }
-      }
-      setSelectedCategory('All');
-    }
-  }, [typeFilteredProducts.length, currentType]); 
+    setSelectedSubcategory('All');
+  }, [categoryParam, currentType]); 
 
-  const handleCategorySelect = (catName) => {
-    setSelectedCategory(catName);
-    if (catName === 'All') {
-        window.history.pushState("", document.title, window.location.pathname + window.location.search);
-    } else {
-        window.location.hash = encodeURIComponent(catName);
-    }
+  const handleSubcategorySelect = (catName) => {
+    setSelectedSubcategory(catName);
   };
 
   // Scroll Function for Arrow Buttons
@@ -226,36 +223,68 @@ const StoreFront = () => {
     } catch (err) { console.error(err); alert("Failed to add item to cart."); }
   };
 
-  const filteredProducts = typeFilteredProducts.filter(p => {
+  // 5. Final output combining Search & the Selected Subcategory
+  const filteredProducts = categoryFilteredProducts.filter(p => {
     const pName = p.item_name ? p.item_name.toLowerCase() : "";
-    const rawCat = p.category ? p.category.toLowerCase() : ""; 
-    const displayCat = p.category ? toTitleCase(p.category) : ""; 
+    const rawSubCat = (p.sub_category || p.subcategory || p.category || "").toLowerCase(); 
+    const displaySubCat = (p.sub_category || p.subcategory || p.category) ? toTitleCase(p.sub_category || p.subcategory || p.category) : ""; 
 
     const safeSearch = (typeof searchTerm === 'string' ? searchTerm : '').toLowerCase();
     
-    const matchesSearch = pName.includes(safeSearch) || rawCat.includes(safeSearch);
-    const matchesCategory = selectedCategory === 'All' ? true : displayCat === selectedCategory;
+    const matchesSearch = pName.includes(safeSearch) || rawSubCat.includes(safeSearch);
+    const matchesSubCategory = selectedSubcategory === 'All' ? true : displaySubCat === selectedSubcategory;
     
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesSubCategory;
   });
 
   const renderProductCard = (product) => {
-    const isOutOfStock = product.quantity_product <= 0;
-    const mrp = parseFloat(product.mrp_baseprice || 0);
-    const sellingPrice = parseFloat(product.gross_amount || 0);
+    let mrp = parseFloat(product.mrp_baseprice || 0);
+    let sellingPrice = parseFloat(product.gross_amount || 0);
+    let stockQuantity = product.quantity_product || 0;
+    let imageUrl = product.item_image_url || null;
+
+    if (product.has_variants && product.variants && product.variants.length > 0) {
+        const firstVariant = product.variants[0];
+        sellingPrice = parseFloat(firstVariant.selling_price || sellingPrice);
+        mrp = parseFloat(firstVariant.mrp || mrp); 
+        stockQuantity = firstVariant.stock !== undefined ? firstVariant.stock : stockQuantity;
+        
+        if (firstVariant.images && firstVariant.images.length > 0) {
+            const primaryImg = firstVariant.images.find(img => img.is_primary);
+            imageUrl = primaryImg ? primaryImg.image_url : firstVariant.images[0].image_url;
+        }
+    }
+
     const hasDiscount = mrp > sellingPrice;
     const discountPercent = hasDiscount ? Math.round(((mrp - sellingPrice) / mrp) * 100) : 0;
     const currency = product.currency_symbol || '₹';
 
+    const isService = product.item_type && String(product.item_type).toLowerCase().includes('service');
+    let isUnavailable = false;
+    let unavailableText = 'SOLD OUT';
+
+    if (isService) {
+        const status = product.availability_status_service || '';
+        if (status.toLowerCase() === 'busy' || status.toLowerCase() === 'offline') {
+            isUnavailable = true;
+            unavailableText = 'NOT AVAILABLE';
+        }
+    } else {
+        if (stockQuantity <= 0) {
+            isUnavailable = true;
+            unavailableText = 'SOLD OUT';
+        }
+    }
+
     return (
       <div key={product.id} className="min-product-card">
-        {/* UPDATED: Link path to remove /${slug} */}
+        {/* ✅ FIXED ROUTING: Using /marketplace/item/ instead of /${slug}/item/ */}
         <Link to={`/marketplace/item/${product.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
             <div className="min-image-box">
-                {isOutOfStock && <div className="min-out-badge">SOLD OUT</div>}
+                {isUnavailable && <div className="min-out-badge">{unavailableText}</div>}
 
-                {product.item_image_url ? (
-                    <img src={product.item_image_url} alt={product.item_name} className={`min-product-img ${isOutOfStock ? 'grayscale' : ''}`} />
+                {imageUrl ? (
+                    <img src={imageUrl} alt={product.item_name} className={`min-product-img ${isUnavailable ? 'grayscale' : ''}`} />
                 ) : ( 
                     <div className="min-placeholder-img">{product.item_name.charAt(0)}</div> 
                 )}
@@ -263,10 +292,17 @@ const StoreFront = () => {
                 <div className="min-add-overlay">
                     <button 
                         className="min-add-btn" 
-                        disabled={isOutOfStock} 
-                        onClick={(e) => handleAddToCart(product.id, e)}
+                        disabled={isUnavailable} 
+                        onClick={(e) => {
+                            if (product.has_variants) {
+                                // ✅ FIXED ROUTING
+                                navigate(`/marketplace/item/${product.slug}`);
+                            } else {
+                                handleAddToCart(product.id, e);
+                            }
+                        }}
                     >
-                        {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
+                        {isUnavailable ? unavailableText : (product.has_variants ? 'Select Options' : 'Add to Cart')}
                     </button>
                 </div>
             </div>
@@ -311,48 +347,27 @@ const StoreFront = () => {
         hasServices={hasServices}
       />
 
-      {/* --- HERO SECTION (NO CSS CLASSES = BULLETPROOF) --- */}
-      <div style={{ width: '100%', margin: 0, padding: 0, lineHeight: 0 }}>
+      {/* ✅ FIXED PADDING: Added paddingTop: '85px' to push the banner below the header */}
+      <div style={{ width: '100%', margin: 0, padding: 0, paddingTop: '0', lineHeight: 0 }}>
           {banners.length > 0 ? (
             <div style={{ position: 'relative', width: '100%', margin: 0, padding: 0 }}>
-                
-                {/* THE SPACER: Dictates the exact height based on screen width. 0% Crop. */}
                 <img 
-                    src={banners[currentBannerIndex]} 
-                    alt="spacer" 
-                    style={{ 
-                        width: '100%', 
-                        height: 'auto', 
-                        display: 'block', 
-                        visibility: 'hidden',
-                        margin: 0,
-                        padding: 0
-                    }} 
+                    src={banners[currentBannerIndex]} alt="spacer" 
+                    style={{ width: '100%', height: 'auto', display: 'block', visibility: 'hidden', margin: 0, padding: 0 }} 
                 />
                 
-                {/* THE VISIBLE BANNERS: Float perfectly inside the spacer's shape */}
                 {banners.map((banner, index) => (
                     <img 
                        key={index} 
-                       src={banner}
-                       alt={`Banner ${index}`}
+                       src={banner} alt={`Banner ${index}`}
                        style={{ 
-                           position: 'absolute',
-                           top: 0,
-                           left: 0,
-                           width: '100%',
-                           height: '100%',
-                           display: 'block',
-                           margin: 0,
-                           padding: 0,
-                           opacity: index === currentBannerIndex ? 1 : 0,
-                           transition: 'opacity 0.5s ease-in-out',
+                           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'block', margin: 0, padding: 0,
+                           opacity: index === currentBannerIndex ? 1 : 0, transition: 'opacity 0.5s ease-in-out',
                            pointerEvents: index === currentBannerIndex ? 'auto' : 'none'
                        }}
                     />
                 ))}
                 
-                {/* DOTS */}
                 {banners.length > 1 && (
                     <div style={{ position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)', zIndex: 10, display: 'flex', gap: '8px', lineHeight: 'normal' }}>
                         {banners.map((_, idx) => (
@@ -360,12 +375,9 @@ const StoreFront = () => {
                                 key={idx} 
                                 onClick={() => setCurrentBannerIndex(idx)}
                                 style={{
-                                    width: '10px',
-                                    height: '10px',
-                                    borderRadius: '50%',
+                                    width: '10px', height: '10px', borderRadius: '50%',
                                     backgroundColor: idx === currentBannerIndex ? 'white' : 'rgba(255, 255, 255, 0.5)',
-                                    cursor: 'pointer',
-                                    transition: 'background-color 0.3s ease'
+                                    cursor: 'pointer', transition: 'background-color 0.3s ease'
                                 }}
                             ></span>
                         ))}
@@ -381,24 +393,28 @@ const StoreFront = () => {
       </div>
 
       <section className="explore-section">
-        {categories.length > 0 && (
+        {subcategories.length > 0 && (
             <>
+                {/* Dynamically changes title based on the selected Category */}
                 <h2 className="explore-title">
-                   {currentType === 'services' ? 'EXPLORE OUR SERVICES' : 'EXPLORE OUR RANGE'}
+                   {categoryParam !== 'All' 
+                       ? `EXPLORE ${categoryParam.toUpperCase()}` 
+                       : currentType === 'services' 
+                           ? 'EXPLORE OUR SERVICES' 
+                           : 'EXPLORE BY CATEGORY'}
                 </h2>
                 
-                {/* NEW: Category Carousel Wrapper with Buttons */}
                 <div className="category-carousel-wrapper">
                     <button className="carousel-arrow left-arrow" onClick={() => scrollCategories('left')}>
                         <ChevronLeft size={24} />
                     </button>
 
                     <div className="category-scroll-container" ref={categoryScrollRef}>
-                        {categories.map((cat) => (
+                        {subcategories.map((cat) => (
                             <div 
                               key={cat.name} 
-                              className={`cat-card ${selectedCategory === cat.name ? 'active' : ''}`} 
-                              onClick={() => handleCategorySelect(cat.name)}
+                              className={`cat-card ${selectedSubcategory === cat.name ? 'active' : ''}`} 
+                              onClick={() => handleSubcategorySelect(cat.name)}
                             >
                                 <div className="cat-img-box">
                                     {cat.image ? (
@@ -430,11 +446,29 @@ const StoreFront = () => {
           </div>
         )}
 
-        {selectedCategory !== 'All' && (
-            <div className="view-all-container">
-                <button className="btn-view-all" onClick={() => handleCategorySelect('All')}>VIEW ALL</button>
+        {/* --- SMART DUAL BUTTONS LOGIC --- */}
+        {(selectedSubcategory !== 'All' || categoryParam !== 'All') && (
+            <div className="view-all-container" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '40px' }}>
+                
+                {/* Button 1: Reset Subcategory filter (only shows if they clicked a subcategory bubble) */}
+                {selectedSubcategory !== 'All' && (
+                    <button className="btn-view-all" onClick={() => handleSubcategorySelect('All')}>
+                        VIEW ALL IN {categoryParam !== 'All' ? categoryParam.toUpperCase() : 'CATEGORY'}
+                    </button>
+                )}
+
+                {/* Button 2: Reset Main Category filter (only shows if they are locked into a main category from the URL) */}
+                {categoryParam !== 'All' && (
+                    <button className="btn-view-all" style={{ backgroundColor: '#475569' }} onClick={() => {
+                        setSelectedSubcategory('All');
+                        navigate(location.pathname); // Navigating to the pathname clears the `?category=` query!
+                    }}>
+                        VIEW ALL STORE ITEMS
+                    </button>
+                )}
             </div>
         )}
+
       </section>
 
       <StoreFooter 

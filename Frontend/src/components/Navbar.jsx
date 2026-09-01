@@ -98,7 +98,7 @@ const Navbar = () => {
               
               {/* Refined Marketplace Button */}
               <a 
-                href="/"  //marketplace" 
+                href="/marketplace" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className={styles.marketplaceBtn}
@@ -167,7 +167,7 @@ const Navbar = () => {
             </Link>
           ))}
           <a 
-                href="/"  //marketplace" 
+                href="/marketplace" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className={styles.mobileMarketplaceBtn}

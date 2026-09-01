@@ -2219,77 +2219,439 @@ body { margin: 0; padding: 0; }
 }
 
 
-
 /* ==========================================================================
-   DESKTOP FIX: PREVENT HORIZONTAL SCROLL & TEXT OVERFLOW
+   PRODUCT VARIANTS (COLOR SWATCHES & SIZE PILLS)
    ========================================================================== */
 
-/* 1. Stop the entire page from ever scrolling horizontally */
-.product-detail-page {
-    overflow-x: hidden !important; 
-    width: 100%;
+.variant-section {
+    margin-bottom: 24px;
 }
 
-/* 2. Constrain the description container to match the rest of the page */
-.full-width-description-container {
-    width: 100%;
-    max-width: 1200px !important; /* Matches your top detail container */
-    margin: 0 auto 60px auto;
-    padding: 0 24px;
-    box-sizing: border-box !important;
+.variant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-.desc-body {
-    width: 100%;
-    box-sizing: border-box;
+.variant-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
 }
 
-/* 3. The Magic Fix: Force all text inside the description to wrap */
-.desc-text {
+.size-chart-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2563EB;
+    cursor: pointer;
+}
+
+.size-chart-link:hover {
+    text-decoration: underline;
+}
+
+.variant-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Color Image Swatches */
+.swatch-btn {
+    width: 65px;
+    height: 80px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    padding: 2px;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+}
+
+.swatch-btn img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #E2E8F0;
+}
+
+.swatch-btn.active {
+    border-color: #111827; /* Dark black border when selected */
+}
+
+/* Fallback if a color variant has no image */
+.swatch-fallback {
+    width: 100%;
+    height: 100%;
+    background: #F1F5F9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #64748B;
+    border-radius: 4px;
+}
+
+/* Size Pills */
+.pill-btn {
+    min-width: 50px;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #E2E8F0;
+    background: white;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pill-btn:hover {
+    border-color: #94A3B8;
+}
+
+.pill-btn.active {
+    border-color: #111827;
+    background-color: #111827;
+    color: white;
+}
+
+.out-of-stock-alert {
+    color: #DC2626;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+
+/* ==========================================================================
+   ACCOUNT DASHBOARD LAYOUT (WISHLIST, ORDERS, ETC.)
+   ========================================================================== */
+
+.account-page-wrapper {
+    display: flex;
+    gap: 16px;
+    max-width: 1400px; /* 🔥 Increased from 1200px to make it significantly wider */
+    width: 95%; /* Ensures it fills most of large screens */
+    margin: 32px auto;
+    padding: 0 16px;
+    align-items: flex-start;
+    min-height: 70vh;
+}
+
+.account-sidebar {
+    width: 260px; /* Slightly reduced to give the Wishlist even more space */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.account-main-content {
+    flex-grow: 1; /* This will automatically absorb all the massive new width */
+    width: 100%;
+    background: #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+}
+
+
+
+.sidebar-user-block {
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-avatar-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f1f3f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-greeting {
+    display: flex;
+    flex-direction: column;
+}
+
+.hello-text {
+    font-size: 12px;
+    color: #212121;
+}
+
+.user-name-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #212121;
+}
+
+.sidebar-nav-block {
+    background: #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    padding: 16px 0 0 0;
+}
+
+.sidebar-nav-main-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.sidebar-nav-main-link:hover {
+    background-color: #f9f9f9;
+}
+
+.nav-main-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 600;
+    color: #878787;
+    font-size: 16px;
+}
+
+.sidebar-nav-main-link.active .nav-main-left {
+    color: #2874f0;
+}
+
+.sidebar-nav-section {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+
+.sidebar-nav-section.border-none {
+    border-bottom: none;
+}
+
+.nav-section-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px 8px 24px;
+    font-weight: 600;
+    color: #878787;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.nav-sub-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-sub-link {
+    padding: 12px 24px 12px 60px;
+    text-decoration: none;
+    color: #212121;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-sub-link:hover {
+    background-color: #f9f9f9;
+    color: #2874f0;
+}
+
+.nav-sub-link.active-text {
+    color: #2874f0;
+    font-weight: 600;
+    background-color: #f5faff;
+}
+
+.gift-bal {
+    color: #388e3c;
+    font-weight: 600;
+}
+
+.sidebar-logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    border-top: 1px solid #f0f0f0;
+    cursor: pointer;
+    font-weight: 600;
+    color: #878787;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.sidebar-logout-btn:hover {
+    background-color: #f9f9f9;
+}
+
+
+
+.account-content-header {
+    padding: 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.account-content-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #212121;
+}
+
+.account-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    color: #878787;
+}
+
+.account-empty-state h3, .account-empty-state p {
+    margin: 16px 0;
+    color: #212121;
+}
+
+.btn-primary {
+    background-color: #2874f0;
+    color: white;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 2px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+/* --- WISHLIST LIST ROWS --- */
+.wishlist-list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.wishlist-list-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    transition: box-shadow 0.2s;
+}
+
+.wishlist-list-row:hover {
+    box-shadow: 0 3px 16px 0 rgba(0,0,0,.11);
+}
+
+.wishlist-row-link {
+    display: flex;
+    gap: 24px;
+    text-decoration: none;
+    flex-grow: 1;
+}
+
+.wishlist-row-img-box {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wishlist-row-img-box img {
     max-width: 100%;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    word-break: break-word !important; /* Breaks long continuous strings */
-    white-space: normal !important; /* Overrides any nowrap rules */
+    max-height: 100%;
+    object-fit: contain;
 }
 
-/* 4. Bulletproof elements rendered from the database (dangerouslySetInnerHTML) */
-.desc-text * {
-    max-width: 100% !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
+.wishlist-row-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 4px;
 }
 
-/* Stops images, videos, or tables in the description from breaking the layout */
-.desc-text img, 
-.desc-text iframe, 
-.desc-text video, 
-.desc-text table {
-    max-width: 100% !important;
-    height: auto !important;
-    display: block;
+.wishlist-row-title {
+    margin: 0;
+    font-size: 16px;
+    color: #212121;
+    font-weight: 500;
 }
 
-/* ==========================================================================
-   DESKTOP & MOBILE FIX: HORIZONTAL RATINGS
-   ========================================================================== */
-.rating-row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-    margin-bottom: 20px !important;
+.wishlist-row-pricing {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.stars {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 4px !important;
+.price-selling {
+    font-size: 20px;
+    font-weight: 600;
+    color: #212121;
 }
 
-/* Ensure the Lucide icons don't stack */
-.stars svg {
-    display: block !important;
+.price-mrp {
+    font-size: 14px;
+    color: #878787;
+    text-decoration: line-through;
+}
+
+.price-discount {
+    font-size: 14px;
+    color: #388e3c;
+    font-weight: 600;
+}
+
+.wishlist-row-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: flex-start;
+    height: fit-content;
+}
+
+.wishlist-row-delete:hover svg {
+    color: #EF4444;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .account-page-wrapper {
+        flex-direction: column;
+    }
+    .account-sidebar {
+        width: 100%;
+    }
+    .wishlist-row-img-box {
+        width: 80px;
+        height: 80px;
+    }
 }

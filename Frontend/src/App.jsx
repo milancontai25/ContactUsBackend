@@ -17,6 +17,7 @@ import Checkout from './components/Checkout'
 import StoreProductDetail from './components/StoreProductDetail';
 import OrderHistory from './components/OrderHistory';
 import StoreInfo from './pages/StoreInfo';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/marketplace/our-story" element={<StoreInfo />} />
         <Route path="/marketplace/items" element={<StoreFront />} />
         <Route path="/marketplace/item/:itemSlug" element={<StoreProductDetail />} />
+        <Route path="/marketplace/contact" element={<Contact />} />
         <Route path="/marketplace/checkout" element={<Checkout />} />
         <Route path="/marketplace/orders" element={<OrderHistory />} />
       </Routes>

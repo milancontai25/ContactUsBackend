@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, ShoppingCart, User, LogOut, Package, X, ChevronDown, Menu } from 'lucide-react';
+import { Search, ShoppingCart, User, LogOut, Package, X, ChevronDown, Menu, Heart } from 'lucide-react';
+import axios from 'axios';
 import '../assets/css/storeheader.css'; 
 
 const StoreHeader = ({ 
   slug, 
-  businessName, 
-  businessLogo, 
   searchTerm, 
   setSearchTerm, 
   isLoggedIn, 
@@ -15,23 +14,53 @@ const StoreHeader = ({
   onLogoutClick, 
   onCartClick,
   isDropdownOpen,
-  setIsDropdownOpen,
-  hasProducts, 
-  hasServices 
+  setIsDropdownOpen
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // NEW: Mobile Menu State
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const searchInputRef = useRef(null);
   
+  // --- HEADER API STATE ---
+  const [headerData, setHeaderData] = useState({
+    business_name: '',
+    logo: null,
+    has_products: true,
+    has_services: false,
+    customer_login: true
+  });
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const currentType = searchParams.get('type');
   
-  const isCategoriesActive = location.pathname === `/${slug}` && !currentType;
+  // ✅ Active States updated to include /marketplace
+  const isCategoriesActive = location.pathname === '/marketplace' && !currentType;
   const isProductsActive = currentType === 'goods';
   const isServicesActive = currentType === 'services';
-  const isOurStoryActive = location.pathname === `/${slug}/about`;
+  const isOurStoryActive = location.pathname === '/marketplace/our-story';
+  const isContactActive = location.pathname === '/marketplace/contact';
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+
+  const formatUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith('http://') || path.startsWith('https://')) return path;
+    return `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`; 
+  };
+
+  // Fetch Header Data from API
+  useEffect(() => {
+    const fetchHeaderData = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/api/v1/business/${slug}/header/`);
+        setHeaderData(res.data);
+      } catch (err) {
+        console.error("Failed to fetch header data", err);
+      }
+    };
+    if (slug) fetchHeaderData();
+  }, [slug]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -43,7 +72,6 @@ const StoreHeader = ({
     if (isSearchOpen && searchInputRef.current) searchInputRef.current.focus();
   }, [isSearchOpen]);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname, currentType]);
@@ -53,38 +81,40 @@ const StoreHeader = ({
       <div className="header-content">
         
         {/* --- LEFT: BRAND LOGO & NAME --- */}
-        <Link to={`/${slug}`} className="brand-section">
-          {businessLogo && (
+        <Link to="/marketplace" className="brand-section">
+          {headerData.logo && (
               <img 
-                src={businessLogo} 
+                src={formatUrl(headerData.logo)} 
                 className="brand-logo-img" 
                 alt="logo" 
                 onError={(e) => e.target.style.display='none'} 
               />
           )}
-          {/* RESTORED: Business Name, formatted to be smaller via CSS */}
-          <h1 className="brand-name-elegant" title={businessName}>
-              {businessName || 'LUXE'}
+          <h1 className="brand-name-elegant" title={headerData.business_name}>
+              {headerData.business_name || slug.toUpperCase()}
           </h1>
         </Link>
         
         {/* --- CENTER: DESKTOP NAVIGATION MENU --- */}
         <nav className="header-nav">
-          <Link to={`/marketplace`} className={`header-nav-link ${isCategoriesActive ? 'active' : ''}`}>
-            Categories
+          <Link to="/marketplace" className={`header-nav-link ${isCategoriesActive ? 'active' : ''}`}>
+            Collections
           </Link>
-          {hasProducts && (
-            <Link to={`/marketplace/items?type=goods`} className={`header-nav-link ${isProductsActive ? 'active' : ''}`}>
-              Products
+          {headerData.has_products && (
+            <Link to="/marketplace/items?type=goods" className={`header-nav-link ${isProductsActive ? 'active' : ''}`}>
+              Shop Now
             </Link>
           )}
-          {hasServices && (
-            <Link to={`/marketplace/items?type=services`} className={`header-nav-link ${isServicesActive ? 'active' : ''}`}>
+          {headerData.has_services && (
+            <Link to="/marketplace/items?type=services" className={`header-nav-link ${isServicesActive ? 'active' : ''}`}>
               Services
             </Link>
           )}
-          <Link to={`/marketplace/our-story`} className={`header-nav-link ${isOurStoryActive ? 'active' : ''}`}>
+          <Link to="/marketplace/our-story" className={`header-nav-link ${isOurStoryActive ? 'active' : ''}`}>
             Our Story
+          </Link>
+          <Link to="/marketplace/contact" className={`header-nav-link ${isContactActive ? 'active' : ''}`}>
+            Contact
           </Link>
         </nav>
 
@@ -135,7 +165,8 @@ const StoreHeader = ({
                 {isDropdownOpen && (
                   <div className="profile-dropdown">
                     <div className="dropdown-header">Hello, {user?.name}</div>
-                    <Link to={`/marketplace/orders`} className="dropdown-item"><Package size={16} /> My Orders</Link>
+                    <Link to="/marketplace/orders" className="dropdown-item"><Package size={16} /> My Orders</Link>
+                    <Link to="/marketplace/wishlist" className="dropdown-item"><Heart size={16} /> My Wishlist</Link>
                     <div className="dropdown-divider"></div>
                     <div className="dropdown-item text-red" onClick={onLogoutClick}><LogOut size={16} /> Logout</div>
                   </div>
@@ -153,7 +184,7 @@ const StoreHeader = ({
             <ShoppingCart size={20} />
           </button>
 
-          {/* NEW: Clickable Mobile Hamburger Menu */}
+          {/* Mobile Hamburger Menu */}
           <button 
             className="action-icon-btn mobile-menu-btn" 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -163,24 +194,30 @@ const StoreHeader = ({
         </div>
       </div>
 
-      {/* --- NEW: MOBILE NAVIGATION DROPDOWN --- */}
+      {/* --- MOBILE NAVIGATION DROPDOWN --- */}
       {isMobileMenuOpen && (
         <div className="mobile-nav-dropdown">
-          <Link to={`/marketplace`} className={`mobile-nav-link ${isCategoriesActive ? 'active' : ''}`}>
-            Categories
+          <Link to="/marketplace" className={`mobile-nav-link ${isCategoriesActive ? 'active' : ''}`}>
+            Collections
           </Link>
-          {hasProducts && (
-            <Link to={`/marketplace/items?type=goods`} className={`mobile-nav-link ${isProductsActive ? 'active' : ''}`}>
-              Products
+          {headerData.has_products && (
+            <Link to="/marketplace/items?type=goods" className={`mobile-nav-link ${isProductsActive ? 'active' : ''}`}>
+              Shop Now
             </Link>
           )}
-          {hasServices && (
-            <Link to={`/marketplace/items?type=services`} className={`mobile-nav-link ${isServicesActive ? 'active' : ''}`}>
+          {headerData.has_services && (
+            <Link to="/marketplace/items?type=services" className={`mobile-nav-link ${isServicesActive ? 'active' : ''}`}>
               Services
             </Link>
           )}
-          <Link to={`/marketplace/our-story`} className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
+          <Link to="/marketplace/our-story" className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
             Our Story
+          </Link>
+          <Link to="/marketplace/wishlist" className="mobile-nav-link">
+            My Wishlist
+          </Link>
+          <Link to="/marketplace/contact" className={`mobile-nav-link ${isContactActive ? 'active' : ''}`}>
+            Contact
           </Link>
         </div>
       )}
