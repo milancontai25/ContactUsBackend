@@ -95,7 +95,7 @@
 .cat-block-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #111827 0%, #374151 100%); 
+  background: linear-gradient(135deg, #111827 0%, #374151 100%);
 }
 
 .cat-block-overlay {
@@ -132,7 +132,7 @@
 
 .cat-block:hover .cat-block-link {
   opacity: 1;
-  transform: translateX(4px); 
+  transform: translateX(4px);
 }
 
 
@@ -148,8 +148,8 @@
   flex-direction: column;
   position: relative;
   background-color: #FFFFFF; /* Forces card to be white */
-  border-radius: 8px; 
-  overflow: hidden; 
+  border-radius: 8px;
+  overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); /* Premium subtle shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -163,8 +163,8 @@
 .elegant-image-box {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; 
-  background-color: #F3F4F6; 
+  aspect-ratio: 1 / 1;
+  background-color: #F3F4F6;
   overflow: hidden;
   border-radius: 0; /* Ensures it sits flush inside the card */
 }
@@ -195,6 +195,11 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+}
+
+.elegant-product-img.grayscale {
+  filter: grayscale(100%);
+  opacity: 0.7;
 }
 
 .elegant-placeholder-img {
@@ -278,6 +283,84 @@
 }
 
 
+/* ==========================================================================
+   PRODUCT CAROUSEL ROW (Best Selling / Trending)
+   Tunes the shared <ScrollRow /> for product cards.
+   ========================================================================== */
+
+.srow--products {
+  --srow-gap: 24px;
+  --srow-arrow-offset: -21px;
+  --srow-arrow-top: 46%;
+}
+
+/* Card width inside the track (the grid rules above no longer apply here) */
+.srow--products .srow-track > * {
+  width: 262px;
+}
+
+/* Give the lifted card + its shadow room so nothing looks clipped */
+.srow--products .srow-track {
+  padding: 8px 4px 18px;
+}
+
+@media (max-width: 1330px) {
+  /* Keep the arrows inside the viewport on mid-size screens */
+  .srow--products {
+    --srow-arrow-offset: -6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .srow--products {
+    --srow-gap: 12px;
+  }
+
+  /* Two cards visible plus a peek of the next one, so swiping is discoverable */
+  .srow--products .srow-track > * {
+    width: 46%;
+    min-width: 148px;
+  }
+}
+
+
+/* --- SEE MORE (below each section) --- */
+.see-more-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.btn-see-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: #111827;
+  border: 1px solid #111827;
+  border-radius: 50px;
+  padding: 13px 32px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-see-more:hover {
+  background: #111827;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-see-more:focus-visible {
+  outline: 2px solid #111827;
+  outline-offset: 3px;
+}
+
+
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
   .elegant-section {
@@ -287,14 +370,14 @@
   .elegant-serif-title {
     font-size: 32px;
   }
-  
+
   .category-blocks-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .cat-block {
-    height: 280px; 
+    height: 280px;
   }
 
   .cat-block-overlay {
@@ -304,16 +387,16 @@
   .cat-block-title {
     font-size: 30px;
   }
-  
+
   .elegant-product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
-  
+
   .elegant-add-overlay {
     padding: 10px 0;
   }
-  
+
   .elegant-add-btn {
     font-size: 13px;
   }
@@ -334,7 +417,7 @@
   .elegant-section {
     padding: 40px 0;
   }
-  
+
   .elegant-serif-title {
     font-size: 24px;
   }
@@ -345,12 +428,12 @@
 
   /* 2. Categories Grid - 2 Columns */
   .category-blocks-grid {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
   .cat-block {
-    height: 140px; 
+    height: 140px;
     border-radius: 8px;
   }
 
@@ -364,7 +447,7 @@
 
   /* 3. Product Grid - 2 Columns */
   .elegant-product-grid {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px 12px; /* vertical gap 20px, horizontal gap 12px */
   }
 
@@ -379,7 +462,7 @@
   .elegant-price {
     font-size: 14px;
   }
-  
+
   .elegant-mrp, .elegant-discount-text {
     font-size: 11px;
   }
@@ -393,12 +476,21 @@
     font-size: 12px;
     padding: 8px;
   }
-  
+
   .elegant-badge {
     font-size: 9px;
     padding: 3px 6px;
     top: 8px;
     left: 8px;
+  }
+
+  .see-more-row {
+    margin-top: 24px;
+  }
+
+  .btn-see-more {
+    padding: 11px 24px;
+    font-size: 12px;
   }
 }
 
@@ -407,6 +499,21 @@
   .category-blocks-grid,
   .elegant-product-grid {
     grid-template-columns: 1fr; /* Stack completely on tiny screens */
+  }
+
+  /* The carousels stay horizontal - do NOT stack them */
+  .srow--products .srow-track > * {
+    width: 64%;
+  }
+}
+
+/* Touch devices have no hover, so the Add to Cart bar would be unreachable.
+   Delete this block if you'd rather keep the slide-up behaviour everywhere. */
+@media (hover: none) and (pointer: coarse) {
+  .elegant-add-overlay {
+    transform: translateY(0);
+    background: rgba(17, 24, 39, 0.92);
+    padding: 9px 0;
   }
 }
 
@@ -503,4 +610,3 @@
     font-size: 1rem;
   }
 }
-

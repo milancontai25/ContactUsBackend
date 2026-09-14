@@ -1,293 +1,440 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap');
+
 /* ==========================================================================
    INFORMATIONAL PAGES (Story, Terms, Privacy)
+
+   Rebuilt from the previous file, which contained every rule twice plus a
+   sidebar/two-column system (.info-main-container, .info-sidebar, .info-nav,
+   .info-nav-btn, .info-content-area, .fade-in) that the page stopped using.
+   All of that is gone.
+
+   The old `overflow-x: hidden !important` on the wrapper is also gone: it
+   turns the wrapper into a scroll container, which silently kills
+   `position: sticky` for everything inside it — including the store header
+   and the section nav. Overflow is prevented at the source instead
+   (max-width on media, overflow-wrap on prose).
    ========================================================================== */
 
-/* Main Wrapper ensures the whole page is left-aligned and doesn't scroll horizontally */
 .info-page-wrapper {
-  overflow-x: hidden !important;
+  /* Matches the store header's own height so sticky offsets line up */
+  --info-header-h: 85px;
+  --info-subnav-h: 56px;
+  /* Reading measure: body text past ~75 characters per line is hard to track */
+  --info-measure: 68ch;
+
   width: 100%;
-  background-color: #FCFBF8; /* Matches your elegant theme cream color */
+  background-color: #FCFBF8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Container holds the Sidebar and the Content */
-.info-main-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+.info-page-wrapper img,
+.info-page-wrapper figure {
+  max-width: 100%;
+}
+
+/* Shared container: same 1200px as the header and footer, so the left edge
+   of the text lines up with the logo above it. */
+.info-shell {
   width: 100%;
   max-width: 1200px;
-  margin: 60px auto;
+  margin: 0 auto;
   padding: 0 24px;
-  gap: 60px;
-  flex: 1; /* Pushes footer to bottom */
+  box-sizing: border-box;
 }
 
-/* --- SIDEBAR NAVIGATION --- */
-.info-sidebar {
-  width: 250px;
-  flex-shrink: 0;
+/* --- MASTHEAD --- */
+.info-masthead {
+  padding: 64px 0 36px;
+}
+
+.info-masthead-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: #111827;
+  margin: 0 0 14px 0;
+  overflow-wrap: break-word;
+}
+
+.info-masthead-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #6B7280;
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* --- STICKY SECTION NAV --- */
+.info-subnav {
   position: sticky;
-  top: 100px; /* Sticks to the screen when scrolling down */
+  top: var(--info-header-h);
+  z-index: 20; /* under the header (900) */
+  background-color: rgba(252, 251, 248, 0.94);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
 }
 
-.sidebar-title {
-  font-size: 14px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #64748B;
-  margin-bottom: 24px;
-  border-bottom: 1px solid #E2E8F0;
-  padding-bottom: 12px;
-}
-
-.info-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.info-nav-btn {
-  background: transparent;
-  border: none;
-  padding: 12px 16px;
-  text-align: left;
-  font-size: 15px;
-  font-weight: 600;
-  color: #475569;
-  border-radius: 8px;
-  cursor: pointer;
+.info-subnav-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  height: var(--info-subnav-h);
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.2s ease;
+  gap: 30px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.info-nav-btn:hover {
-  background-color: #F1F5F9;
-  color: #111827;
-}
+.info-subnav-inner::-webkit-scrollbar { display: none; }
 
-.info-nav-btn.active {
-  background-color: #111827;
-  color: #FFFFFF;
-}
-
-/* --- MAIN CONTENT AREA --- */
-.info-content-area {
-  flex: 1;
-  max-width: 800px; /* Optimal reading width so text isn't too wide */
-  background-color: #FFFFFF;
-  padding: 50px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-  border: 1px solid #F1F5F9;
-}
-
-.info-header-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 42px;
+.info-subnav-link {
+  position: relative;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 18px 0;
+  font-family: inherit;
+  font-size: 12.5px;
   font-weight: 700;
-  color: #111827;
-  margin-top: 0;
-  margin-bottom: 32px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #6B7280;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.info-subnav-link:hover { color: #111827; }
+
+.info-subnav-link.active { color: #111827; }
+
+.info-subnav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background-color: #111827;
+}
+
+.info-subnav-link:focus-visible {
+  outline: 2px solid #111827;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* --- SECTIONS --- */
+.info-main {
+  flex: 1;
+}
+
+.info-section {
+  padding: 60px 0;
+  /* Clears the header + sticky nav when jumped to via #hash */
+  scroll-margin-top: calc(var(--info-header-h) + var(--info-subnav-h) + 24px);
+}
+
+/* A hairline is enough to separate sections; no extra boxes */
+.info-section + .info-section {
+  border-top: 1px solid #E5E7EB;
+}
+
+.info-section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 600;
   line-height: 1.2;
+  color: #111827;
+  margin: 0 0 28px 0;
+  letter-spacing: -0.3px;
 }
 
-.info-text-block {
+/* --- PROSE --- */
+.info-prose {
+  max-width: var(--info-measure);
   color: #475569;
-  font-size: 16px;
-  line-height: 1.8;
-  word-wrap: break-word !important; 
-  overflow-wrap: break-word !important;
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-wrap: break-word;
 }
 
-.info-text-block p {
-  margin-bottom: 24px;
+.info-prose p {
+  margin: 0 0 22px 0;
 }
 
-.lead-text {
-  font-size: 20px;
+.info-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.info-prose strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+.info-lead {
+  font-size: 21px;
+  line-height: 1.6;
   font-weight: 500;
   color: #1E293B;
-  line-height: 1.6;
 }
 
-.info-text-block h3 {
-  font-size: 20px;
+.info-prose h3 {
+  font-size: 19px;
   font-weight: 700;
   color: #111827;
-  margin: 40px 0 16px 0;
-  border-bottom: 1px solid #F1F5F9;
-  padding-bottom: 12px;
+  margin: 36px 0 12px 0;
+  line-height: 1.35;
 }
 
-.info-hero-image {
+/* --- STORY IMAGE (the store's own banner) --- */
+.story-figure {
+  margin: 40px 0;
+  max-width: 900px;
+}
+
+.story-figure img {
+  display: block;
   width: 100%;
-  height: 350px;
+  height: clamp(200px, 34vw, 400px);
   object-fit: cover;
+  border-radius: 8px;
+}
+
+/* --- TRENDING BREAK --- */
+.info-trending {
+  padding: 64px 0;
+  background-color: #FFFFFF;
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.info-trending .elegant-section-header {
+  margin-bottom: 32px;
+}
+
+/* .btn-see-more is a <Link> here rather than a <button> */
+.info-trending a.btn-see-more {
+  text-decoration: none;
+}
+
+/* --- LEGAL DOCUMENTS --- */
+.legal-card {
+  max-width: 900px;
+  background-color: #FFFFFF;
+  border: 1px solid #F1F5F9;
   border-radius: 12px;
-  margin: 32px 0;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
-/* Simple fade animation when switching tabs */
-.fade-in {
-  animation: fadeIn 0.4s ease-in-out;
+.legal-meta {
+  margin: 0 0 30px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #9CA3AF;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Numbered clauses: these really are a sequence, so the numerals carry
+   meaning and can be referenced ("under clause 2..."). */
+.legal-list {
+  list-style: none;
+  counter-reset: clause;
+  margin: 0;
+  padding: 0;
+}
+
+.legal-list > li {
+  counter-increment: clause;
+  position: relative;
+  padding-left: 54px;
+  margin-bottom: 34px;
+}
+
+.legal-list > li:last-child {
+  margin-bottom: 0;
+}
+
+.legal-list > li::before {
+  content: counter(clause);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #E5E7EB;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111827;
+  background-color: #FFFFFF;
+}
+
+.legal-list h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  margin: 6px 0 10px 0;
+  line-height: 1.35;
+}
+
+.legal-list p {
+  margin: 0;
+  max-width: var(--info-measure);
+  font-size: 16px;
+  line-height: 1.75;
+  color: #475569;
+  overflow-wrap: break-word;
+}
+
+.legal-contact {
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid #F1F5F9;
+}
+
+.legal-contact h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.legal-contact p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #475569;
+}
+
+.legal-contact a {
+  color: #111827;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   RESPONSIVE
    ========================================================================== */
-@media (max-width: 900px) {
-  .info-main-container {
-    flex-direction: column;
-    gap: 30px;
-    margin: 30px auto;
-  }
 
-  .info-sidebar {
-    width: 100%;
-    position: relative;
-    top: 0;
-  }
-
-  .info-nav {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .info-nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .info-nav-btn {
-    white-space: nowrap;
-  }
-
-  .info-content-area {
-    padding: 30px 24px;
-    border-radius: 12px;
-  }
-
-  .info-header-title {
-    font-size: 32px;
+@media (max-width: 1024px) {
+  .info-page-wrapper {
+    --info-header-h: 76px; /* header shrinks at this breakpoint */
   }
 }
 
-@media (max-width: 600px) {
-  .info-main-container {
+@media (max-width: 768px) {
+  .info-shell,
+  .info-subnav-inner {
     padding: 0 16px;
   }
 
-  .info-hero-image {
-    height: 200px;
+  .info-masthead {
+    padding: 40px 0 26px;
   }
 
-  .lead-text {
+  .info-subnav-inner {
+    gap: 22px;
+  }
+
+  .info-section {
+    padding: 44px 0;
+  }
+
+  .info-section-title {
+    margin-bottom: 20px;
+  }
+
+  .info-prose {
+    font-size: 16px;
+  }
+
+  .info-lead {
     font-size: 18px;
   }
-}
 
-
-/* ==========================================================================
-   INFORMATIONAL PAGES (Story, Terms, Privacy) - SINGLE COLUMN
-   ========================================================================== */
-
-/* Main Wrapper ensures the whole page is left-aligned and doesn't scroll horizontally */
-.info-page-wrapper {
-  overflow-x: hidden !important;
-  width: 100%;
-  background-color: #FCFBF8; /* Matches your elegant theme cream color */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Single Column Container for text readability */
-.info-single-column {
-  width: 100%;
-  max-width: 1200px; /* 👈 Changed from 800px to 1200px to match your header/footer width */
-  margin: 60px auto 40px auto; /* Centered */
-  padding: 0 24px;
-  box-sizing: border-box;
-  scroll-margin-top: 100px; 
-}
-
-/* --- TYPOGRAPHY --- */
-.info-header-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 42px;
-  font-weight: 700;
-  color: #111827;
-  margin-top: 0;
-  margin-bottom: 32px;
-  line-height: 1.2;
-}
-
-.info-text-block {
-  color: #475569;
-  font-size: 16px;
-  line-height: 1.8;
-  word-wrap: break-word !important; 
-  overflow-wrap: break-word !important;
-}
-
-.info-text-block p {
-  margin-bottom: 24px;
-}
-
-.lead-text {
-  font-size: 20px;
-  font-weight: 500;
-  color: #1E293B;
-  line-height: 1.6;
-}
-
-.info-text-block h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #111827;
-  margin: 40px 0 16px 0;
-  border-bottom: 1px solid #E2E8F0;
-  padding-bottom: 12px;
-}
-
-.info-hero-image {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin: 32px 0;
-}
-
-/* ==========================================================================
-   RESPONSIVE DESIGN (MOBILE)
-   ========================================================================== */
-@media (max-width: 768px) {
-  .info-single-column {
-    margin-top: 40px;
+  .info-prose h3 {
+    margin-top: 28px;
   }
 
-  .info-header-title {
-    font-size: 32px;
+  .story-figure {
+    margin: 28px 0;
   }
 
-  .info-hero-image {
-    height: 250px;
+  .info-trending {
+    padding: 44px 0;
   }
 
-  .lead-text {
-    font-size: 18px;
+  .legal-card {
+    padding: 24px 20px;
+    border-radius: 10px;
+  }
+
+  .legal-list > li {
+    padding-left: 0;
+    margin-bottom: 28px;
+  }
+
+  /* On a narrow screen the hanging numeral costs too much width, so it
+     sits inline with the clause heading instead. */
+  .legal-list > li::before {
+    position: static;
+    display: inline-grid;
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .legal-list p,
+  .legal-contact p {
+    font-size: 15.5px;
+  }
+}
+
+/* Terms and privacy pages get printed and emailed. Make that not look broken. */
+@media print {
+  .store-header,
+  .info-subnav,
+  .info-trending,
+  .modern-footer {
+    display: none !important;
+  }
+
+  .info-page-wrapper {
+    background: #FFFFFF;
+  }
+
+  .info-section {
+    padding: 24px 0;
+    border-top: none !important;
+  }
+
+  .legal-card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info-subnav-link {
+    transition: none;
   }
 }

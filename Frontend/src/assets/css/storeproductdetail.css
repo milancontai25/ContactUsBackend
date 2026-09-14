@@ -1,0 +1,889 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap');
+
+/* ==========================================================================
+   PRODUCT DETAIL PAGE
+
+   Single source of truth. Every class is `pdp-` prefixed, so none of the old
+   .detail-* rules in storefront.css can interfere — that block is pasted
+   three times in there (once at top level and twice more inside a
+   @media (max-width: 768px) wrapper, which trapped the desktop rules behind
+   a mobile query and left a stray brace). Once this page renders correctly
+   you can delete every .detail-*, .thumb-*, .main-image-frame, .desc-*,
+   .help-box-right, .swatch-*, .pill-btn and .qty-selector-big rule from
+   storefront.css.
+   ========================================================================== */
+
+.pdp-page {
+  --pdp-header-h: 85px;
+  --pdp-ink: #111827;
+  --pdp-body: #475569;
+  --pdp-muted: #6B7280;
+  --pdp-line: #E5E7EB;
+  --pdp-hairline: #F1F5F9;
+
+  background-color: #FFFFFF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--pdp-ink);
+}
+
+.pdp-page *,
+.pdp-page *::before,
+.pdp-page *::after {
+  box-sizing: border-box;
+}
+
+.pdp-shell {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- BREADCRUMB --- */
+.pdp-breadcrumb-bar {
+  border-bottom: 1px solid var(--pdp-hairline);
+  background: #FFFFFF;
+}
+
+.pdp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 13px;
+  color: var(--pdp-muted);
+}
+
+.pdp-crumb {
+  color: var(--pdp-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.pdp-crumb:hover {
+  color: var(--pdp-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pdp-crumb-sep {
+  color: #CBD5E1;
+  flex-shrink: 0;
+}
+
+.pdp-crumb-current {
+  color: var(--pdp-ink);
+  font-weight: 600;
+  /* Long product names truncate instead of wrapping the whole trail */
+  max-width: 46ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- LAYOUT --- */
+.pdp-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 56px;
+  align-items: start;
+  padding-top: 40px;
+  padding-bottom: 64px;
+  flex: 1;
+}
+
+/* --- GALLERY --- */
+.pdp-gallery {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  grid-template-areas: "thumbs stage";
+  gap: 16px;
+  /* Follows the reader down the long info column */
+  position: sticky;
+  top: calc(var(--pdp-header-h) + 24px);
+}
+
+.pdp-stage {
+  grid-area: stage;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #F8FAFC;
+  border: 1px solid var(--pdp-hairline);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdp-stage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+  transition: transform 0.25s ease;
+}
+
+/* Real magnifier rather than a zoom-in cursor that does nothing */
+@media (hover: hover) and (pointer: fine) {
+  .pdp-stage:has(.pdp-stage-img) { cursor: zoom-in; }
+  .pdp-stage:hover .pdp-stage-img { transform: scale(2); }
+}
+
+.pdp-embed,
+.pdp-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #000000;
+}
+
+.pdp-video { object-fit: contain; }
+
+.pdp-stage-empty {
+  font-size: 84px;
+  font-weight: 800;
+  color: #CBD5E1;
+}
+
+.pdp-stage-flag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #1F2937;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 3;
+}
+
+/* Thumbnails: vertical rail on desktop, horizontal strip on mobile */
+.pdp-thumbs {
+  grid-area: thumbs;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 560px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pdp-thumbs::-webkit-scrollbar { display: none; }
+
+.pdp-thumb {
+  flex: 0 0 auto;
+  width: 84px;
+  height: 84px;
+  padding: 3px;
+  background: #FFFFFF;
+  border: 1px solid var(--pdp-line);
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pdp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 7px;
+  display: block;
+}
+
+.pdp-thumb-video {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: #F1F5F9;
+  color: #334155;
+  border-radius: 7px;
+}
+
+.pdp-thumb:hover { border-color: #94A3B8; }
+
+.pdp-thumb.active {
+  border-color: var(--pdp-ink);
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.12);
+}
+
+/* --- INFO COLUMN --- */
+.pdp-info {
+  min-width: 0;
+}
+
+.pdp-info-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.pdp-eyebrow {
+  margin: 0 0 10px 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--pdp-muted);
+}
+
+.pdp-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.4px;
+  color: var(--pdp-ink);
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.pdp-icon-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.pdp-icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--pdp-line);
+  background: #FFFFFF;
+  color: var(--pdp-muted);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.pdp-icon-btn:hover:not(:disabled) {
+  border-color: var(--pdp-ink);
+  color: var(--pdp-ink);
+  background: #F9FAFB;
+}
+
+.pdp-icon-btn.is-active { border-color: #FECACA; }
+.pdp-icon-btn:disabled { cursor: wait; opacity: 0.6; }
+
+/* --- PRICE --- */
+.pdp-price-block {
+  padding-bottom: 24px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid var(--pdp-hairline);
+}
+
+.pdp-price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pdp-price {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--pdp-ink);
+}
+
+.pdp-mrp {
+  font-size: 18px;
+  font-weight: 500;
+  color: #94A3B8;
+  text-decoration: line-through;
+}
+
+.pdp-save {
+  font-size: 14px;
+  font-weight: 700;
+  color: #047857;
+  background: #ECFDF5;
+  padding: 4px 9px;
+  border-radius: 5px;
+}
+
+.pdp-tax-note {
+  margin: 8px 0 0 0;
+  font-size: 12.5px;
+  color: #9CA3AF;
+}
+
+/* --- VARIANTS --- */
+.pdp-variant {
+  margin-bottom: 26px;
+}
+
+.pdp-variant-label {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--pdp-ink);
+}
+
+.pdp-variant-value {
+  margin-left: 8px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--pdp-body);
+}
+
+.pdp-swatch-row,
+.pdp-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pdp-swatch {
+  position: relative;
+  width: 62px;
+  height: 76px;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: #FFFFFF;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.pdp-swatch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 1px solid var(--pdp-hairline);
+  display: block;
+}
+
+.pdp-swatch-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #F1F5F9;
+  color: #64748B;
+  font-weight: 700;
+}
+
+.pdp-swatch:hover { border-color: #CBD5E1; }
+.pdp-swatch.active { border-color: var(--pdp-ink); }
+
+.pdp-swatch-tick {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pdp-ink);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+}
+
+.pdp-pill {
+  min-width: 52px;
+  height: 46px;
+  padding: 0 18px;
+  border: 1px solid var(--pdp-line);
+  border-radius: 8px;
+  background: #FFFFFF;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+}
+
+.pdp-pill:hover { border-color: #94A3B8; }
+
+.pdp-pill.active {
+  background: var(--pdp-ink);
+  border-color: var(--pdp-ink);
+  color: #FFFFFF;
+}
+
+/* Combinations with no stock stay clickable (so shoppers can see the price)
+   but read as unavailable */
+.pdp-pill.is-soldout,
+.pdp-swatch.is-soldout {
+  opacity: 0.45;
+}
+
+.pdp-pill.is-soldout {
+  text-decoration: line-through;
+}
+
+/* --- STOCK --- */
+.pdp-stock {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pdp-stock-out { color: #DC2626; }
+.pdp-stock-low { color: #B45309; }
+
+/* --- ACTIONS --- */
+.pdp-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.pdp-qty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 132px;
+  height: 52px;
+  padding: 0 6px;
+  border: 1px solid var(--pdp-line);
+  border-radius: 50px;
+  background: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.pdp-qty button {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #334155;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.pdp-qty button:hover:not(:disabled) { background: #F1F5F9; }
+.pdp-qty button:disabled { color: #CBD5E1; cursor: not-allowed; }
+
+.pdp-qty span {
+  font-size: 17px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+.pdp-action-btns {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.pdp-btn {
+  flex: 1;
+  height: 52px;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.pdp-btn-secondary {
+  background: #FFFFFF;
+  color: var(--pdp-ink);
+  border: 1px solid var(--pdp-ink);
+}
+
+.pdp-btn-secondary:hover:not(:disabled) {
+  background: #F9FAFB;
+  transform: translateY(-1px);
+}
+
+.pdp-btn-primary {
+  background: var(--pdp-ink);
+  color: #FFFFFF;
+  border: 1px solid var(--pdp-ink);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.pdp-btn-primary:hover:not(:disabled) {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.pdp-btn:disabled {
+  background: #F1F5F9;
+  border-color: #F1F5F9;
+  color: #94A3B8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- INLINE NOTICE (replaces alert() with raw JSON) --- */
+.pdp-notice {
+  margin: 14px 0 0 0;
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pdp-notice.is-error {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+.pdp-notice.is-success {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+
+/* --- HELP --- */
+.pdp-help {
+  margin-top: 32px;
+  padding: 22px;
+  background: #F8FAFC;
+  border: 1px solid var(--pdp-hairline);
+  border-radius: 12px;
+}
+
+.pdp-help-title {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pdp-ink);
+}
+
+.pdp-help-hours {
+  margin: 0 0 14px 0;
+  font-size: 12.5px;
+  color: #9CA3AF;
+}
+
+.pdp-help-row {
+  margin: 0 0 8px 0;
+  font-size: 14.5px;
+  color: var(--pdp-body);
+  line-height: 1.6;
+}
+
+.pdp-help-row:last-child { margin-bottom: 0; }
+
+.pdp-help-row a {
+  color: var(--pdp-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+/* --- DESCRIPTION --- */
+.pdp-description {
+  border-top: 1px solid var(--pdp-line);
+  background: #FCFBF8;
+  padding: 56px 0 72px;
+}
+
+.pdp-description-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 600;
+  color: var(--pdp-ink);
+  margin: 0 0 24px 0;
+}
+
+/* Full width, edge to edge inside the page shell.
+   Long lines are harder to track, so the type is a notch larger with more
+   leading to compensate. If you ever want to cap the line length, set
+   --pdp-prose-max on .pdp-page (e.g. 80ch) — nothing else needs to change. */
+.pdp-prose {
+  max-width: var(--pdp-prose-max, none);
+  width: 100%;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--pdp-body);
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.pdp-prose > *:first-child { margin-top: 0; }
+.pdp-prose > *:last-child { margin-bottom: 0; }
+
+.pdp-prose p { margin: 0 0 18px 0; }
+
+.pdp-prose h1,
+.pdp-prose h2,
+.pdp-prose h3,
+.pdp-prose h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--pdp-ink);
+  margin: 28px 0 10px 0;
+  line-height: 1.4;
+}
+
+.pdp-prose ul,
+.pdp-prose ol {
+  margin: 0 0 18px 0;
+  padding-left: 22px;
+}
+
+.pdp-prose li { margin-bottom: 8px; }
+
+.pdp-prose a {
+  color: var(--pdp-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pdp-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 18px 0;
+}
+
+.pdp-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 15px;
+}
+
+.pdp-prose th,
+.pdp-prose td {
+  border: 1px solid var(--pdp-line);
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.pdp-prose th {
+  background: #F8FAFC;
+  font-weight: 700;
+  color: var(--pdp-ink);
+}
+
+.pdp-prose-empty { color: #9CA3AF; }
+
+/* --- STICKY MOBILE BUY BAR --- */
+.pdp-mobile-bar { display: none; }
+
+/* --- FOCUS --- */
+.pdp-page a:focus-visible,
+.pdp-page button:focus-visible {
+  outline: 2px solid var(--pdp-ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .pdp-layout {
+    gap: 36px;
+  }
+
+  .pdp-gallery {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .pdp-thumb {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pdp-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-top: 24px;
+  }
+
+  /* Image above, thumbnails below — normal reading order, no column-reverse */
+  .pdp-gallery {
+    position: static;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "stage"
+      "thumbs";
+    gap: 12px;
+  }
+
+  .pdp-thumbs {
+    flex-direction: row;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pdp-page {
+    --pdp-header-h: 76px;
+    /* room for the sticky buy bar */
+    padding-bottom: 78px;
+  }
+
+  .pdp-shell {
+    padding: 0 16px;
+  }
+
+  .pdp-breadcrumb {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .pdp-crumb-current {
+    max-width: 20ch;
+  }
+
+  .pdp-stage {
+    border-radius: 12px;
+  }
+
+  .pdp-thumb {
+    width: 64px;
+    height: 64px;
+  }
+
+  .pdp-price {
+    font-size: 27px;
+  }
+
+  .pdp-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pdp-qty {
+    width: 100%;
+    height: 48px;
+  }
+
+  .pdp-action-btns {
+    min-width: 0;
+  }
+
+  .pdp-description {
+    padding: 40px 0 48px;
+  }
+
+  .pdp-prose {
+    font-size: 15.5px;
+  }
+
+  /* The in-page buttons scroll away; this keeps buying one tap away */
+  .pdp-mobile-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900; /* under the cart drawer (1050) and modals */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--pdp-line);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pdp-mobile-price {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  .pdp-mobile-amount {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--pdp-ink);
+  }
+
+  .pdp-mobile-mrp {
+    font-size: 12px;
+    color: #94A3B8;
+    text-decoration: line-through;
+  }
+
+  .pdp-mobile-btns {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .pdp-mobile-btns .pdp-btn {
+    height: 44px;
+    font-size: 13.5px;
+    border-radius: 50px;
+  }
+}
+
+@media (max-width: 420px) {
+  .pdp-mobile-btns .pdp-btn {
+    font-size: 12.5px;
+    padding: 0 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp-stage-img,
+  .pdp-btn,
+  .pdp-thumb,
+  .pdp-icon-btn {
+    transition: none;
+  }
+
+  .pdp-stage:hover .pdp-stage-img {
+    transform: none;
+  }
+}
+
+@media print {
+  .store-header,
+  .pdp-mobile-bar,
+  .pdp-icon-actions,
+  .pdp-actions,
+  .modern-footer {
+    display: none !important;
+  }
+
+  .pdp-gallery { position: static; }
+  .pdp-description { background: #FFFFFF; }
+}

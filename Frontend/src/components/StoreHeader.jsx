@@ -1,43 +1,81 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, User, LogOut, Package, X, ChevronDown, Menu, Heart } from 'lucide-react';
 import axios from 'axios';
-import '../assets/css/storeheader.css'; 
+import '../assets/css/storeheader.css';
 
-const StoreHeader = ({ 
-  slug, 
-  searchTerm, 
-  setSearchTerm, 
-  isLoggedIn, 
-  user, 
-  onLoginClick, 
-  onLogoutClick, 
+/**
+ * Every prop below is optional. Pages that hand in `searchTerm` /
+ * `setSearchTerm` or `isDropdownOpen` / `setIsDropdownOpen` stay in control;
+ * pages that render <StoreHeader slug={slug} /> on its own fall back to the
+ * header's internal state. Nothing here assumes a parent is listening.
+ */
+const StoreHeader = ({
+  slug,
+  searchTerm,
+  setSearchTerm,
+  isLoggedIn = false,
+  user,
+  onLoginClick,
+  onLogoutClick,
   onCartClick,
   isDropdownOpen,
-  setIsDropdownOpen
+  setIsDropdownOpen,
+  cartCount = 0,          // renders a badge when > 0
+  onSearchSubmit,         // overrides the default navigate-to-shop
+  hasProducts,            // used until /header/ responds
+  hasServices
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const searchInputRef = useRef(null);
-  
+  const searchWrapRef = useRef(null);
+  const accountRef = useRef(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // --- CONTROLLED / UNCONTROLLED BRIDGES ---
+  const [ownDropdownOpen, setOwnDropdownOpen] = useState(false);
+  const dropdownIsControlled = typeof setIsDropdownOpen === 'function';
+  const dropdownOpen = dropdownIsControlled ? !!isDropdownOpen : ownDropdownOpen;
+
+  const setDropdownOpen = useCallback((value) => {
+    if (dropdownIsControlled) setIsDropdownOpen(value);
+    else setOwnDropdownOpen(value);
+  }, [dropdownIsControlled, setIsDropdownOpen]);
+
+  const [ownSearchTerm, setOwnSearchTerm] = useState('');
+  const searchIsControlled = typeof setSearchTerm === 'function';
+  const searchValue = searchIsControlled
+    ? (typeof searchTerm === 'string' ? searchTerm : '')
+    : ownSearchTerm;
+
+  const updateSearch = useCallback((value) => {
+    if (searchIsControlled) setSearchTerm(value);
+    else setOwnSearchTerm(value);
+  }, [searchIsControlled, setSearchTerm]);
+
   // --- HEADER API STATE ---
   const [headerData, setHeaderData] = useState({
     business_name: '',
     logo: null,
-    has_products: true,
-    has_services: false,
+    has_products: hasProducts !== undefined ? hasProducts : true,
+    has_services: hasServices !== undefined ? hasServices : false,
     customer_login: true
   });
 
-  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const currentType = searchParams.get('type');
-  
-  // ✅ Active States updated to include /marketplace
-  const isCategoriesActive = location.pathname === '/marketplace' && !currentType;
-  const isProductsActive = currentType === 'goods';
-  const isServicesActive = currentType === 'services';
+  const onShopRoute = location.pathname.startsWith('/marketplace/items');
+
+  // Active states. "Shop Now" also lights up for collection / category / search
+  // landings, which all live on /marketplace/items with no ?type=goods.
+  const isCollectionsActive = location.pathname === '/marketplace';
+  const isServicesActive = onShopRoute && (currentType === 'services' || currentType === 'service');
+  const isProductsActive = onShopRoute && !isServicesActive;
   const isOurStoryActive = location.pathname === '/marketplace/our-story';
   const isContactActive = location.pathname === '/marketplace/contact';
 
@@ -46,25 +84,35 @@ const StoreHeader = ({
   const formatUrl = (path) => {
     if (!path) return null;
     if (path.startsWith('http://') || path.startsWith('https://')) return path;
-    return `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`; 
+    return `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`;
   };
 
-  // Fetch Header Data from API
+  // Never crash when VITE_STORE_SLUG is missing
+  const storeName = headerData.business_name || (slug ? String(slug).replace(/[-_]/g, ' ') : 'Store');
+  const showLogin = headerData.customer_login !== false;
+
+  // --- FETCH HEADER DATA ---
   useEffect(() => {
+    if (!slug) return;
+    let cancelled = false;
+
     const fetchHeaderData = async () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/api/v1/business/${slug}/header/`);
-        setHeaderData(res.data);
+        if (!cancelled) setHeaderData(prev => ({ ...prev, ...res.data }));
       } catch (err) {
         console.error("Failed to fetch header data", err);
       }
     };
-    if (slug) fetchHeaderData();
+
+    fetchHeaderData();
+    return () => { cancelled = true; };
   }, [slug]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -72,154 +120,268 @@ const StoreHeader = ({
     if (isSearchOpen && searchInputRef.current) searchInputRef.current.focus();
   }, [isSearchOpen]);
 
+  // Close the menus whenever the route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
-  }, [location.pathname, currentType]);
+    setDropdownOpen(false);
+  }, [location.pathname, location.search, setDropdownOpen]);
+
+  // Don't let the page scroll behind the mobile menu
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
+  const closeSearch = useCallback(() => {
+    setIsSearchOpen(false);
+    updateSearch('');
+  }, [updateSearch]);
+
+  // Click-outside + Escape for the account menu and the search field
+  useEffect(() => {
+    const handlePointerDown = (e) => {
+      if (dropdownOpen && accountRef.current && !accountRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+      if (isSearchOpen && searchWrapRef.current && !searchWrapRef.current.contains(e.target)) {
+        if (!searchValue.trim()) setIsSearchOpen(false);
+      }
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key !== 'Escape') return;
+      if (dropdownOpen) setDropdownOpen(false);
+      if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+      if (isSearchOpen) closeSearch();
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dropdownOpen, isSearchOpen, isMobileMenuOpen, searchValue, closeSearch, setDropdownOpen]);
+
+  // Enter (or the icon) runs the search. Typing alone no longer navigates,
+  // so the shop page can keep filtering live while the category page waits
+  // for a real submit.
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const term = searchValue.trim();
+    if (!term) {
+      searchInputRef.current?.focus();
+      return;
+    }
+    if (typeof onSearchSubmit === 'function') onSearchSubmit(term);
+    else navigate(`/marketplace/items?search=${encodeURIComponent(term)}`);
+    searchInputRef.current?.blur();
+  };
+
+  const navLinks = [
+    { to: '/marketplace', label: 'Collections', active: isCollectionsActive, show: true },
+    { to: '/marketplace/items?type=goods', label: 'Shop Now', active: isProductsActive, show: headerData.has_products },
+    { to: '/marketplace/items?type=services', label: 'Services', active: isServicesActive, show: headerData.has_services },
+    { to: '/marketplace/our-story', label: 'Our Story', active: isOurStoryActive, show: true },
+    { to: '/marketplace/contact', label: 'Contact', active: isContactActive, show: true }
+  ];
 
   return (
-    <header className={`store-header ${scrolled ? 'scrolled' : ''}`}>
+    <header className={`store-header ${scrolled ? 'scrolled' : ''} ${isSearchOpen ? 'search-open' : ''}`}>
       <div className="header-content">
-        
+
         {/* --- LEFT: BRAND LOGO & NAME --- */}
         <Link to="/marketplace" className="brand-section">
           {headerData.logo && (
-              <img 
-                src={formatUrl(headerData.logo)} 
-                className="brand-logo-img" 
-                alt="logo" 
-                onError={(e) => e.target.style.display='none'} 
-              />
+            <img
+              src={formatUrl(headerData.logo)}
+              className="header-brand-logo"
+              alt=""
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
           )}
-          <h1 className="brand-name-elegant" title={headerData.business_name}>
-              {headerData.business_name || slug.toUpperCase()}
-          </h1>
+          {/* A span, not an h1: the page content owns the document heading */}
+          <span className="brand-name-elegant" title={storeName}>{storeName}</span>
         </Link>
-        
-        {/* --- CENTER: DESKTOP NAVIGATION MENU --- */}
-        <nav className="header-nav">
-          <Link to="/marketplace" className={`header-nav-link ${isCategoriesActive ? 'active' : ''}`}>
-            Collections
-          </Link>
-          {headerData.has_products && (
-            <Link to="/marketplace/items?type=goods" className={`header-nav-link ${isProductsActive ? 'active' : ''}`}>
-              Shop Now
+
+        {/* --- CENTER: DESKTOP NAVIGATION --- */}
+        <nav className="header-nav" aria-label="Store">
+          {navLinks.filter(l => l.show).map(link => (
+            <Link
+              key={link.label}
+              to={link.to}
+              className={`header-nav-link ${link.active ? 'active' : ''}`}
+              aria-current={link.active ? 'page' : undefined}
+            >
+              {link.label}
             </Link>
-          )}
-          {headerData.has_services && (
-            <Link to="/marketplace/items?type=services" className={`header-nav-link ${isServicesActive ? 'active' : ''}`}>
-              Services
-            </Link>
-          )}
-          <Link to="/marketplace/our-story" className={`header-nav-link ${isOurStoryActive ? 'active' : ''}`}>
-            Our Story
-          </Link>
-          <Link to="/marketplace/contact" className={`header-nav-link ${isContactActive ? 'active' : ''}`}>
-            Contact
-          </Link>
+          ))}
         </nav>
 
         {/* --- RIGHT: ICONS --- */}
         <div className="header-actions">
-          
+
           {/* Search */}
-          <div className="header-search-wrapper">
-            <div className="search-input-group">
+          <div className="header-search-wrapper" ref={searchWrapRef}>
+            <form className="search-input-group" onSubmit={handleSearchSubmit} role="search">
               {!isSearchOpen ? (
-                <button className="action-icon-btn" onClick={() => setIsSearchOpen(true)}>
+                <button
+                  type="button"
+                  className="action-icon-btn"
+                  onClick={() => setIsSearchOpen(true)}
+                  aria-label="Search the store"
+                >
                   <Search size={20} />
                 </button>
               ) : (
-                <Search size={18} color="#9CA3AF" className="search-active-icon" />
+                <button type="submit" className="action-icon-btn search-active-icon" aria-label="Search">
+                  <Search size={18} />
+                </button>
               )}
-              
-              <input 
+
+              <input
                 ref={searchInputRef}
-                type="text" 
+                type="search"
                 className={`header-search-input ${isSearchOpen ? 'open' : ''}`}
-                placeholder="Search..." 
-                value={typeof searchTerm === 'string' ? searchTerm : ''}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search products..."
+                aria-label="Search products"
+                tabIndex={isSearchOpen ? 0 : -1}
+                value={searchValue}
+                onChange={(e) => updateSearch(e.target.value)}
               />
-              
+
               {isSearchOpen && (
-                <button 
-                    className="action-icon-btn close-search-btn" 
-                    onClick={() => {
-                        setIsSearchOpen(false);
-                        setSearchTerm(''); 
-                    }}
+                <button
+                  type="button"
+                  className="action-icon-btn close-search-btn"
+                  onClick={closeSearch}
+                  aria-label="Close search"
                 >
-                  <X size={18} color="#6B7280" />
+                  <X size={18} />
+                </button>
+              )}
+            </form>
+          </div>
+
+          {/* Account */}
+          {(isLoggedIn || showLogin) && (
+            <div className="user-info-trigger" ref={accountRef}>
+              {isLoggedIn ? (
+                <>
+                  <button
+                    type="button"
+                    className="auth-icon-wrapper"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    aria-expanded={dropdownOpen}
+                    aria-haspopup="menu"
+                    aria-label="Your account"
+                  >
+                    <span className="user-avatar">{user?.name?.charAt(0).toUpperCase() || 'U'}</span>
+                    <ChevronDown size={14} className="auth-chevron" />
+                  </button>
+
+                  {dropdownOpen && (
+                    <div className="profile-dropdown" role="menu">
+                      <div className="dropdown-header">Hello, {user?.name || 'there'}</div>
+                      <Link to="/marketplace/orders" className="dropdown-item" role="menuitem">
+                        <Package size={16} /> My Orders
+                      </Link>
+                      <Link to="/marketplace/wishlist" className="dropdown-item" role="menuitem">
+                        <Heart size={16} /> My Wishlist
+                      </Link>
+                      <div className="dropdown-divider"></div>
+                      <button
+                        type="button"
+                        className="dropdown-item text-red"
+                        role="menuitem"
+                        onClick={() => { setDropdownOpen(false); onLogoutClick?.(); }}
+                      >
+                        <LogOut size={16} /> Log out
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <button
+                  type="button"
+                  className="action-icon-btn"
+                  onClick={() => onLoginClick?.()}
+                  aria-label="Sign in"
+                >
+                  <User size={20} />
                 </button>
               )}
             </div>
-          </div>
-
-          {/* User Auth */}
-          <div className="user-info-trigger">
-            {isLoggedIn ? (
-              <div className="auth-icon-wrapper" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                <div className="user-avatar">{user?.name?.charAt(0).toUpperCase() || 'U'}</div>
-                <ChevronDown size={14} color="#6B7280" style={{ marginLeft: '4px' }} />
-                
-                {isDropdownOpen && (
-                  <div className="profile-dropdown">
-                    <div className="dropdown-header">Hello, {user?.name}</div>
-                    <Link to="/marketplace/orders" className="dropdown-item"><Package size={16} /> My Orders</Link>
-                    <Link to="/marketplace/wishlist" className="dropdown-item"><Heart size={16} /> My Wishlist</Link>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item text-red" onClick={onLogoutClick}><LogOut size={16} /> Logout</div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <button className="action-icon-btn" onClick={onLoginClick}>
-                <User size={20} />
-              </button>
-            )}
-          </div>
+          )}
 
           {/* Cart */}
-          <button className="action-icon-btn cart-icon-wrapper" onClick={onCartClick}>
+          <button
+            type="button"
+            className="action-icon-btn cart-icon-wrapper"
+            onClick={() => onCartClick?.()}
+            aria-label={cartCount > 0 ? `Cart, ${cartCount} item${cartCount === 1 ? '' : 's'}` : 'Cart'}
+          >
             <ShoppingCart size={20} />
+            {cartCount > 0 && (
+              <span className="cart-count-badge">{cartCount > 99 ? '99+' : cartCount}</span>
+            )}
           </button>
 
-          {/* Mobile Hamburger Menu */}
-          <button 
-            className="action-icon-btn mobile-menu-btn" 
+          {/* Mobile menu */}
+          <button
+            type="button"
+            className="action-icon-btn mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-expanded={isMobileMenuOpen}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* --- MOBILE NAVIGATION DROPDOWN --- */}
+      {/* --- MOBILE NAVIGATION --- */}
       {isMobileMenuOpen && (
-        <div className="mobile-nav-dropdown">
-          <Link to="/marketplace" className={`mobile-nav-link ${isCategoriesActive ? 'active' : ''}`}>
-            Collections
-          </Link>
-          {headerData.has_products && (
-            <Link to="/marketplace/items?type=goods" className={`mobile-nav-link ${isProductsActive ? 'active' : ''}`}>
-              Shop Now
-            </Link>
-          )}
-          {headerData.has_services && (
-            <Link to="/marketplace/items?type=services" className={`mobile-nav-link ${isServicesActive ? 'active' : ''}`}>
-              Services
-            </Link>
-          )}
-          <Link to="/marketplace/our-story" className={`mobile-nav-link ${isOurStoryActive ? 'active' : ''}`}>
-            Our Story
-          </Link>
-          <Link to="/marketplace/wishlist" className="mobile-nav-link">
-            My Wishlist
-          </Link>
-          <Link to="/marketplace/contact" className={`mobile-nav-link ${isContactActive ? 'active' : ''}`}>
-            Contact
-          </Link>
-        </div>
+        <>
+          <div className="mobile-nav-overlay" onClick={() => setIsMobileMenuOpen(false)} />
+
+          <nav className="mobile-nav-dropdown" aria-label="Store">
+            {navLinks.filter(l => l.show).map(link => (
+              <Link
+                key={link.label}
+                to={link.to}
+                className={`mobile-nav-link ${link.active ? 'active' : ''}`}
+                aria-current={link.active ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <div className="mobile-nav-divider" />
+
+            {isLoggedIn ? (
+              <>
+                <Link to="/marketplace/orders" className="mobile-nav-link">My Orders</Link>
+                <Link to="/marketplace/wishlist" className="mobile-nav-link">My Wishlist</Link>
+                <button
+                  type="button"
+                  className="mobile-nav-link as-button text-red"
+                  onClick={() => { setIsMobileMenuOpen(false); onLogoutClick?.(); }}
+                >
+                  Log out
+                </button>
+              </>
+            ) : showLogin && (
+              <button
+                type="button"
+                className="mobile-nav-link as-button"
+                onClick={() => { setIsMobileMenuOpen(false); onLoginClick?.(); }}
+              >
+                Sign in
+              </button>
+            )}
+          </nav>
+        </>
       )}
     </header>
   );

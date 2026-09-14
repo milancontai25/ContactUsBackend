@@ -1,62 +1,75 @@
 /* ==========================================================================
-   MODERN FOOTER (SANS-SERIF, BLACK BG, CENTERED LAYOUT)
+   MODERN FOOTER (SANS-SERIF, BLACK BG)
+
+   The logo classes are now `.footer-logo-box` / `.footer-brand-logo`.
+   They used to be `.brand-logo-box` / `.brand-logo-img`, which storeheader.css
+   and storefront.css also declare — with !important on both sides, so load
+   order decided who won and the header logo was being resized by this file.
+   Renaming them removes the collision, so the !important flags are gone too.
    ========================================================================== */
 
 .modern-footer {
-  background-color: #000000 !important; /* Force black, override global styles */
-  color: #F3F4F6; 
+  background-color: #000000;
+  color: #F3F4F6;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   border-top: 1px solid #1F2937;
+  margin-top: auto; /* pins the footer to the bottom on short pages */
+}
+
+.modern-footer * {
+  box-sizing: border-box;
 }
 
 .footer-content {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 60px 24px 40px 24px; 
+  padding: 60px 24px 40px 24px;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr; /* Brand gets more space, then links, then contact */
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
   gap: 40px;
 }
 
 /* --- Column 1: Brand & Socials --- */
 .footer-brand {
   display: flex;
-  align-items: center; 
-  gap: 16px; 
+  align-items: center;
+  gap: 16px;
   text-decoration: none;
-  margin-bottom: 24px; 
+  margin-bottom: 24px;
+  min-width: 0;
 }
 
-/* 👇 LOGO FIXES 👇 */
-.brand-logo-box {
+.footer-logo-box {
   display: flex;
   align-items: center;
-  justify-content: flex-start; 
-  flex-shrink: 0;
-  width: 90px;  /* Make the box a perfect square */
-  height: 90px; /* Make the box a perfect square */
-  background-color: transparent !important; 
-  border-radius: 0 !important; /* Kills any rounded corners on the box */
-  overflow: visible !important;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+  width: 90px;
+  height: 90px;
+  background-color: transparent;
+  border-radius: 0;
+  color: #FFFFFF;
 }
 
-.brand-logo-img {
-  width: 100% !important;
-  height: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain !important; /* 👈 THE MAGIC FIX: Forces the entire image to shrink to fit without cropping */
-  background-color: transparent !important; 
-  border-radius: 0 !important; /* 👈 Kills any rounded corners on the image itself */
+.footer-brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* whole logo, no crop */
+  object-position: left center;
+  display: block;
+  background-color: transparent;
+  border-radius: 0;
 }
 
 .footer-brand-name {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 24px; 
-  font-weight: 900; 
+  font-size: 24px;
+  font-weight: 900;
   color: #FFFFFF;
   text-transform: uppercase;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1.15;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .social-links {
@@ -66,7 +79,7 @@
 }
 
 .social-links a {
-  color: #9CA3AF; 
+  color: #9CA3AF;
   transition: color 0.3s ease, transform 0.3s ease;
   display: flex;
   align-items: center;
@@ -74,8 +87,8 @@
 }
 
 .social-links a:hover {
-  color: #FFFFFF; 
-  transform: translateY(-3px); 
+  color: #FFFFFF;
+  transform: translateY(-3px);
 }
 
 /* --- Columns 2 & 3: Links --- */
@@ -101,7 +114,7 @@
 
 .footer-col ul li a,
 .footer-col ul li a:visited {
-  color: #E5E7EB; 
+  color: #E5E7EB;
   text-decoration: none;
   font-size: 15px;
   transition: color 0.2s ease, padding-left 0.2s ease;
@@ -110,10 +123,10 @@
 
 .footer-col ul li a:hover {
   color: #FFFFFF;
-  padding-left: 4px; /* Subtle slide-right effect on hover */
+  padding-left: 4px;
 }
 
-/* --- Column 4: Contact (CLICKABLE FIXES) --- */
+/* --- Column 4: Contact --- */
 .contact-link {
   display: flex;
   align-items: center;
@@ -122,26 +135,40 @@
   font-size: 15px;
   margin: 0 0 16px 0;
   line-height: 1.5;
-  text-decoration: none; /* Kills the ugly blue hyperlink underline */
+  text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
+  min-width: 0;
 }
 
 .contact-link:hover {
   color: #FFFFFF;
-  transform: translateX(4px); /* Matches the hover effect of the Quick Links */
+  transform: translateX(4px);
 }
 
 .contact-link svg {
-  color: #9CA3AF; 
+  color: #9CA3AF;
   flex-shrink: 0;
 }
 
-/* --- Footer Bottom (Copyright - Centered Layout) --- */
+/* Long email addresses wrap instead of stretching the column */
+.contact-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Keyboard focus */
+.modern-footer a:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --- Footer Bottom --- */
 .footer-bottom {
   max-width: 1280px;
   margin: 0 auto;
   padding: 24px;
-  border-top: 1px solid #374151; /* Distinct divider line */
+  border-top: 1px solid #374151;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -157,28 +184,41 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   RESPONSIVE DESIGN
    ========================================================================== */
 
 @media (max-width: 1024px) {
   .footer-content {
-    grid-template-columns: 1fr 1fr; /* 2x2 grid on tablets */
+    grid-template-columns: 1fr 1fr;
     gap: 40px 32px;
   }
 }
 
 @media (max-width: 640px) {
   .footer-content {
-    grid-template-columns: 1fr; /* Stack vertically on mobile */
+    grid-template-columns: 1fr;
     padding: 48px 24px 32px 24px;
     gap: 36px;
   }
-  
+
+  .footer-logo-box {
+    width: 70px;
+    height: 70px;
+  }
+
   .footer-brand-name {
     font-size: 20px;
   }
 
-  .footer-bottom {
-    padding: 24px;
+  .footer-col h4 {
+    margin-bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-links a,
+  .contact-link,
+  .footer-col ul li a {
+    transition: none;
   }
 }
