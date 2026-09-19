@@ -41,7 +41,7 @@ export const MAIN_CATEGORIES = [
       {
         id: 'beverage-raw-materials',
         name: 'Beverage Raw Materials',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Beverage.jpeg'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/beverage.png'
       },
       {
         id: 'bulk-commodities',
@@ -64,7 +64,7 @@ export const MAIN_CATEGORIES = [
       {
         id: 'energy-products',
         name: 'Energy Products',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Jet.jpeg'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Jet.png'
       },
       {
         id: 'base-metals',
@@ -74,7 +74,7 @@ export const MAIN_CATEGORIES = [
       {
         id: 'scrap-metals',
         name: 'Scrap Metals',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Copper.jpeg'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Copper.png'
       },
       {
         id: 'industrial-raw-materials',
@@ -543,7 +543,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 902, subcategoryId: 'energy-products', name: 'Aviation Turbine Fuel (Jet A1)', category: 'Energy', 
     description: 'Kerosene-type aviation fuel manufactured to rigorous international specifications for commercial airlines.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Jet.jpeg',
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Jet.png',
     origin: 'Global', specifications: { Flash_Point: '38°C Min', Freezing_Point: '-47°C Max', Sulfur: '0.3% Max' } 
   },
   { 
@@ -559,7 +559,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 1001, subcategoryId: 'base-metals', name: 'Aluminium Ingots (A7, A8, A9)', category: 'Metals', 
     description: 'High-purity primary aluminium ingots widely used in automotive, aerospace, and construction manufacturing.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Aluminium.jpeg', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Aluminium.png', 
     origin: 'UAE / Malaysia', specifications: { Purity: '99.7% Min (A7)', Weight: '20-25kg / Ingot', Form: 'Solid Ingot' } 
   },
   { 
@@ -593,7 +593,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 1101, subcategoryId: 'scrap-metals', name: 'Copper Scrap', category: 'Scrap', 
     description: 'Mixed copper scrap including pipes, tubes, and sheets, carefully sorted and ready for industrial smelting and refining.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Copper.jpeg',
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Copper.png',
     origin: 'Global', specifications: { Cu_Content: '95% - 99%', Form: 'Mixed Scrap', Impurities: 'Low' } 
   },
   { 
