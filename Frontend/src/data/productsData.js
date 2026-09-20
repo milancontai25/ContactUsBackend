@@ -23,7 +23,7 @@ export const MAIN_CATEGORIES = [
       {
         id: 'seeds-herbs',
         name: 'Seeds & Herbs',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Seeds%20%26%20Herbs.png'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SeedsHerbs.jpeg'
       }
     ]
   },
@@ -41,7 +41,7 @@ export const MAIN_CATEGORIES = [
       {
         id: 'beverage-raw-materials',
         name: 'Beverage Raw Materials',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/beverage.png'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/beverage.jpeg'
       },
       {
         id: 'bulk-commodities',
@@ -51,7 +51,7 @@ export const MAIN_CATEGORIES = [
       {
         id: 'animal-feed',
         name: 'Animal Feed & Feed Ingredients',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Animal.jpg'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Animal.jpeg'
       }
     ]
   },
@@ -237,7 +237,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 301, subcategoryId: 'pulses-rice', name: '1121 Basmati Rice', category: 'Rice', 
     description: 'Extra-long grain premium export Basmati rice, renowned for its exquisite fragrance, non-sticky texture, and exceptional elongation upon cooking.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/1121BasmatiRice(PremiumExport).png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/1121.png', 
     origin: 'India', specifications: { Grain_Length: '8.35mm+', Broken: '1% Max', Moisture: '12.5% Max' } 
   },
   { 
@@ -249,31 +249,31 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 303, subcategoryId: 'pulses-rice', name: 'Golden Sella Basmati Rice', category: 'Rice', 
     description: 'Parboiled Basmati rice with a characteristic golden hue. The parboiling process ensures the grains never stick and absorb flavors perfectly.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/GoldenSellaBasmatiRice(PremiumExport).png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Golden.png', 
     origin: 'India', specifications: { Type: 'Parboiled', Grain_Length: '8.30mm+', Color: 'Golden' } 
   },
   { 
     id: 304, subcategoryId: 'pulses-rice', name: 'White Shella Basmati Rice', category: 'Rice', 
     description: 'Premium parboiled white Basmati rice. Highly preferred in catering and commercial kitchens for its high yield and separation of grains.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/WhiteShellaBasmatiRice(PremiumExport).png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/white.png', 
     origin: 'India', specifications: { Type: 'Parboiled', Grain_Length: '8.30mm+', Color: 'Creamy White' } 
   },
   { 
     id: 305, subcategoryId: 'pulses-rice', name: 'IR64 Non-Basmati Rice', category: 'Rice', 
     description: 'Widely exported long-grain white rice, favored globally for its affordability, good taste, and volume expansion after cooking.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/IR64NonBasmatiRice.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/IR64.png', 
     origin: 'India / Thailand', specifications: { Broken: '5% / 25%', Grain_Length: '6.0mm+', Moisture: '14% Max' } 
   },
   { 
     id: 306, subcategoryId: 'pulses-rice', name: 'Sona Masoori Rice', category: 'Rice', 
     description: 'Lightweight, aromatic medium-grain rice with low starch content, highly popular for daily dietary consumption.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SonaMasoori.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/sona.png', 
     origin: 'India', specifications: { Grain_Type: 'Medium', Sortex: '100% Clean', Admixture: '1% Max' } 
   },
   { 
     id: 307, subcategoryId: 'pulses-rice', name: 'Swarna Rice', category: 'Rice', 
     description: 'Healthy short-grain rice variety that is highly economical, easy to digest, and a staple for global bulk imports.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Swarna.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/swarna.png', 
     origin: 'India', specifications: { Grain_Type: 'Short', Broken: '5% Max', Moisture: '14% Max' } 
   },
   { 
@@ -285,31 +285,31 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 309, subcategoryId: 'pulses-rice', name: 'Moong Dal (Yellow Lentils)', category: 'Pulses', 
     description: 'Easily digestible split and skinned yellow lentils, essential for soups, curries, and savory snacks.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/MoongDal.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/moong.png', 
     origin: 'India / Myanmar', specifications: { Purity: '99%', Sortex: 'Color Sorted', Packaging: '50kg PP Bags' } 
   },
   { 
     id: 310, subcategoryId: 'pulses-rice', name: 'Urad Dal (Black Gram)', category: 'Pulses', 
     description: 'Whole and split black gram, rich in protein and widely used for traditional batters and heavy curries.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/UradDal.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/urad.png', 
     origin: 'India', specifications: { Form: 'Whole / Split / Washed', Purity: '99%', Foreign_Matter: '1% Max' } 
   },
   { 
     id: 311, subcategoryId: 'pulses-rice', name: 'Kabuli Chana (White Chickpeas)', category: 'Pulses', 
     description: 'Large, uniform white chickpeas with a creamy texture, highly nutritious and perfect for hummus and culinary dishes.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/KabuliChana.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/kabuli.png', 
     origin: 'Russia / India', specifications: { Caliber: '8mm / 9mm / 12mm', Moisture: '12% Max', Broken: '2% Max' } 
   },
   { 
     id: 312, subcategoryId: 'pulses-rice', name: 'Desi Chana (Black Chickpeas)', category: 'Pulses', 
     description: 'Smaller, darker, and rough-coated chickpeas known for their intense nutty flavor and high dietary fiber content.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/DesiChana.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/desi.png', 
     origin: 'India / Australia', specifications: { Purity: '99%', Size: 'Medium', Packaging: '25kg / 50kg Bags' } 
   },
   { 
     id: 313, subcategoryId: 'pulses-rice', name: 'Kidney Beans (Rajma)', category: 'Pulses', 
     description: 'Premium dark red and speckled kidney beans, retaining their shape perfectly during cooking while absorbing deep flavors.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/KidneyBeans.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/kidney.png', 
     origin: 'China / India', specifications: { Type: 'Dark Red / Light Speckled', Moisture: '14% Max', Purity: '99.5%' } 
   },
 
@@ -319,13 +319,13 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 401, subcategoryId: 'seeds-herbs', name: 'Natural & Hulled Sesame Seeds', category: 'Seeds', 
     description: 'Premium white and black sesame seeds, rich in oil content and perfectly suited for bakery, confectionery, and oil extraction.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SesameSeeds.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SesameSeeds.jpeg', 
     origin: 'India / Africa', specifications: { Purity: '99.9%', Oil_Content: '48% Min', Moisture: '6% Max' } 
   },
   { 
     id: 402, subcategoryId: 'seeds-herbs', name: 'Flax Seeds (Linseed)', category: 'Seeds', 
     description: 'High-quality brown and golden flax seeds, rich in Omega-3 fatty acids and dietary fiber. Sortex cleaned for maximum purity.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/FlaxSeeds.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/FlaxSeeds.jpeg', 
     origin: 'Russia / India', specifications: { Purity: '99.5%', Moisture: '8% Max', Form: 'Whole Seeds' } 
   },
   { 
@@ -337,61 +337,61 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 404, subcategoryId: 'seeds-herbs', name: 'Coriander Seeds', category: 'Seeds', 
     description: 'Sun-dried whole coriander seeds providing a citrusy, nutty flavor. Available in Eagle and Parrot grades.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CorianderSeeds.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CorianderSeeds.jpeg', 
     origin: 'India / Bulgaria', specifications: { Purity: '99%', Split: '5% Max', Moisture: '9% Max' } 
   },
   { 
     id: 405, subcategoryId: 'seeds-herbs', name: 'Fennel Seeds', category: 'Seeds', 
     description: 'Sweet and highly aromatic green fennel seeds, widely used in culinary dishes, herbal teas, and natural medicine formulations.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/FennelSeeds.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/FennelSeeds.jpeg', 
     origin: 'India / Egypt', specifications: { Purity: '99%', Color: 'Natural Green', Moisture: '10% Max' } 
   },
   { 
     id: 406, subcategoryId: 'seeds-herbs', name: 'Dried Basil Leaves', category: 'Herbs', 
     description: 'Premium dried sweet basil leaves, carefully processed and rubbed to retain their vibrant aroma and essential oils.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Basil.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Basil.jpeg', 
     origin: 'Egypt / Turkey', specifications: { Form: 'Dried Rubbed', Moisture: '10% Max', Color: 'Bright Green' } 
   },
   { 
     id: 407, subcategoryId: 'seeds-herbs', name: 'Dried Mint Leaves', category: 'Herbs', 
     description: 'Refreshing dried peppermint and spearmint leaves, ideal for herbal teas, extracts, and culinary garnishes.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Mint.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Mint.jpeg', 
     origin: 'Egypt / India', specifications: { Form: 'Crushed / Whole', Essential_Oil: '1.5% Min', Purity: '99%' } 
   },
   { 
     id: 408, subcategoryId: 'seeds-herbs', name: 'Neem Leaves', category: 'Herbs', 
     description: 'Organic dried neem leaves, heavily utilized in Ayurvedic medicine, natural cosmetics, and agricultural extracts.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Neem.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Neem.jpeg', 
     origin: 'India', specifications: { Grade: 'A-Grade', Drying: 'Shadow Dried', Packaging: 'Bales / Cartons' } 
   },
   { 
     id: 409, subcategoryId: 'seeds-herbs', name: 'Curry Leaves', category: 'Herbs', 
     description: 'Aromatic dried curry leaves, meticulously processed to preserve their distinct flavor for authentic Asian and Indian cuisines.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CurryLeaves.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CurryLeaves.jpeg', 
     origin: 'India', specifications: { Form: 'Dried Whole Leaves', Color: 'Natural Green', Moisture: '8% Max' } 
   },
   { 
     id: 410, subcategoryId: 'seeds-herbs', name: 'Organic Ashwagandha', category: 'Herbs', 
     description: 'Premium dried Ashwagandha (Withania Somnifera) roots and leaves, prized globally as a powerful adaptogen for wellness supplements.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Ashwagandha.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Ashwagandha.jpeg', 
     origin: 'India', specifications: { Grade: 'Organic Certified', Form: 'Roots / Cut', Moisture: '8% Max' } 
   },
   { 
     id: 411, subcategoryId: 'seeds-herbs', name: 'Tulsi (Holy Basil)', category: 'Herbs', 
     description: 'Sacred Tulsi leaves (Rama, Krishna, and Vana varieties), sun-dried to maintain their therapeutic properties for herbal infusions.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Tulsi.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Tulsi.jpeg', 
     origin: 'India', specifications: { Variety: 'Rama / Krishna / Vana', Drying: 'Sun Dried', Moisture: '10% Max' } 
   },
   { 
     id: 412, subcategoryId: 'seeds-herbs', name: 'Senna Leaves & Pods', category: 'Herbs', 
     description: 'High-grade Senna leaves and pods (Cassia Angustifolia), widely utilized in the pharmaceutical industry for digestive health products.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SennaLeaves.png',
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SennaLeaves.jpeg',
     origin: 'India', specifications: { Sennoside: '2.5% Min', Purity: '99%', Packaging: 'Compressed Bales' } 
   },
   { 
     id: 413, subcategoryId: 'seeds-herbs', name: 'Chia Seeds', category: 'Seeds', 
     description: 'Nutrient-dense black and white chia seeds, packed with plant-based protein, dietary fiber, and Omega-3 fatty acids.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChiaSeeds.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChiaSeeds.jpeg', 
     origin: 'India', specifications: { Purity: '99.9%', Moisture: '8% Max', Packaging: '25kg Kraft Bags' } 
   },
   { 
@@ -403,7 +403,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 415, subcategoryId: 'seeds-herbs', name: 'Sunflower Seeds', category: 'Seeds', 
     description: 'High-quality striped and black sunflower seeds, available in-shell or as bakery-grade hulled kernels.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SunflowerSeeds.png',
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SunflowerSeeds.jpeg',
     origin: 'Ukraine / Bulgaria', specifications: { Type: 'Kernels / In-shell', Purity: '99.9%', Moisture: '8% Max' } 
   },
 
@@ -413,7 +413,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 501, subcategoryId: 'dry-fruits-nuts', name: 'Almonds (All Grades)', category: 'Nuts', 
     description: 'High-grade nonpareil almonds, rich in protein and ideal for snacking or commercial roasting.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Almonds(AllGrades).png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Almonds.jpeg', 
     origin: 'USA', specifications: { Size: '23/25 per Oz', Type: 'Nonpareil', Packaging: '25lbs / 50lbs Carton' } 
   },
   { 
@@ -469,7 +469,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 702, subcategoryId: 'bulk-commodities', name: 'Edible & Industrial Salt', category: 'Salt', 
     description: 'Pure refined salt for food processing, as well as raw sea salt and rock salt for industrial applications.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Edible&IndustrialSalt.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/EdibleIndustrialSalt.jpeg', 
     origin: 'Egypt / India', specifications: { NaCl: '99% Min', Iodine: 'Optional (Food Grade)', Packaging: '50kg / Jumbo Bags' } 
   },
   { 
@@ -503,7 +503,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 801, subcategoryId: 'animal-feed', name: 'Soybean Meal (SBM 46%)', category: 'Feed', 
     description: 'High-protein soybean meal primarily used as a highly digestible staple in poultry, swine, and livestock feed formulations.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SoybeanMeal(SBM).png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/SoybeanMeal.png', 
     origin: 'USA / Argentina', specifications: { Protein: '46% Min', Fiber: '3.5% Max', Moisture: '12% Max' } 
   },
   { 
@@ -527,7 +527,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 805, subcategoryId: 'animal-feed', name: 'Corn Gluten Meal (60% Protein)', category: 'Feed', 
     description: 'Premium corn gluten meal offering exceptionally high protein content, rich in amino acids for aquafeed, poultry, and pet food.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CornGlutenMea(Protein).png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CornGlutenMea.png', 
     origin: 'USA / China', specifications: { Protein: '60% Min', Moisture: '10% Max', Fat: '2.5% Max' } 
   },
 
@@ -599,19 +599,19 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 1102, subcategoryId: 'scrap-metals', name: 'Copper Millberry Scrap (ISRI BERRY)', category: 'Scrap', 
     description: 'Clean, untinned, uncoated, unalloyed copper wire and cable, completely free of brittle burnt wire.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Millberry.jpeg', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CopperMillberry.jpeg', 
     origin: 'Europe / USA', specifications: { ISRI_Code: 'BERRY', Cu_Content: '99.9% Min', Impurities: '0.1% Max' } 
   },
   { 
     id: 1103, subcategoryId: 'scrap-metals', name: 'Aluminium UBC Scrap (ISRI TALC)', category: 'Scrap', 
     description: 'Used Beverage Cans (UBC) pressed into dense briquettes or bales for highly efficient aluminium recycling.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/UBC.jpeg', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/AluminiumUBC.jpeg', 
     origin: 'Global', specifications: { ISRI_Code: 'TALC', Purity: '98%', Moisture: '2% Max' } 
   },
   { 
     id: 1104, subcategoryId: 'scrap-metals', name: 'HMS 1 & 2 Scrap (ISRI 200-206)', category: 'Scrap', 
     description: 'Heavy Melting Steel scrap (Ratio 80/20), widely used globally as a primary raw material in electric arc furnaces.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Melting.jpeg', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/HMS.jpeg', 
     origin: 'UK / USA', specifications: { Ratio: '80/20', Density: 'High', Thickness: '1/4 inch Min' } 
   },
   { 
