@@ -10,57 +10,133 @@ import AuthCustomer from './AuthCustomer';
 import '../assets/css/storefront.css';
 import '../assets/css/storeproductdetail.css';
 
-/* Stored descriptions are often typed into a plain textarea that hard-wraps,
-   so they arrive with <br> tags dropped mid-sentence (and sometimes mid-word:
-   "full-<br>grain"). Rejoin those, keep deliberate breaks, and emit real
-   paragraphs. Anything that already contains block tags came from a rich-text
-   editor and is left completely alone. */
+/* Stored descriptions arrive with <br> tags dropped wherever whatever tool
+   typed them ran out of room — mid-sentence, and often mid-word ("croc-<br>
+   embossed", "luxury a<br>ppeal"). Those are wrap artifacts, not breaks the
+   seller asked for, so they get stitched back together.
+
+   The tell is length. A wrapper cuts every line at the same column, so the
+   longest chunks in the text are machine cuts and anything clearly shorter is
+   where a person pressed Enter. A machine cut is rejoined with no space,
+   because it slices between two characters and never eats one; a break after
+   a finished sentence is left alone. */
 const BLOCK_TAG_RE = /<\s*(p|div|ul|ol|li|table|h[1-6]|section|article|blockquote|figure)\b/i;
+// `<br>`, `<br/>`, `<br />`, `<BR>`, `<br class="x">` — the old pattern only
+// caught the first three, so any decorated tag slipped through untouched.
+// Two copies on purpose: .test() on a /g regex advances lastIndex, which
+// would make the next call start mid-string.
+const BR_TEST = /<\s*br\b[^>]*>/i;
+const BR_ALL = /<\s*br\b[^>]*>/gi;
+const BREAK = '\u0000';
 
 const normalizeDescription = (raw) => {
   if (!raw) return '';
-  const html = String(raw);
-  if (BLOCK_TAG_RE.test(html)) return html;
 
-  const chunks = html
-    .replace(/\r\n?/g, '\n')
-    .replace(/<\s*br\s*\/?\s*>/gi, '\n')
-    .split('\n');
+  const html = String(raw).replace(/\r\n?/g, '\n');
+  // Rich-text markup is kept as-is; only plain text gets wrapped in <p>.
+  const hasBlocks = BLOCK_TAG_RE.test(html);
 
-  const endsSentence = (s) => /[.!?:;•]["')\]]?\s*$/.test(s);
-  const endsDash = (s) => /[-–—]$/.test(s);
+  /* Only a real <br> marks a break. Newlines that are just how the HTML was
+     stored are whitespace and must not be mistaken for one, or the joiner
+     glues across them and fuses two words together. */
+  const source = BR_TEST.test(html)
+    ? html.replace(BR_ALL, BREAK).replace(/\n+/g, ' ')
+    : html.replace(/\n/g, BREAK);
 
-  const paragraphs = [];
+  /* Kept untrimmed on purpose. A wrapper that happens to cut on a space
+     leaves that space in the text, and that is the clearest evidence there
+     is of whether the two halves are one word or two. */
+  const raws = source.split(BREAK);
+
+  const widest = raws.reduce((max, c) => Math.max(max, c.trim().length), 0);
+  // Short descriptions don't get wrapped, so don't go looking for cuts in them
+  const cutAt = widest >= 70 ? widest - 4 : Infinity;
+
+  const endsSentence = (s) => /[.!?]["')\]]?$/.test(s);
+
+  const lines = [];
   let current = '';
+  let prevEndsSpace = false;
 
-  chunks.forEach((rawChunk) => {
-    const chunk = rawChunk.trim();
+  raws.forEach((raw) => {
+    const chunk = raw.trim();
 
-    if (!chunk) {                          // blank line = real paragraph break
-      if (current) { paragraphs.push(current); current = ''; }
+    if (!chunk) {                                  // blank line = real break
+      if (current) { lines.push(current); current = ''; }
+      prevEndsSpace = false;
       return;
     }
-    if (!current) { current = chunk; return; }
+    if (!current) {
+      current = chunk;
+      prevEndsSpace = /\s$/.test(raw);
+      return;
+    }
 
-    if (endsDash(current)) {
-      // "full-" + "grain" is one word; "aesthetics —" + "perfect" needs a space
-      current += /-$/.test(current) ? chunk : ` ${chunk}`;
-    } else if (current.length >= 55 && !endsSentence(current)) {
-      current += ` ${chunk}`;              // hard-wrap artifact
-    } else if (chunk.length <= 2) {
-      current += ` ${chunk}`;              // stray symbol stranded on its own line
+    const spaced = prevEndsSpace || /^\s/.test(raw);
+
+    if (/-$/.test(current) && !spaced) {
+      current += chunk;                            // "croc-" + "embossed"
+    } else if (/^[.,;:!?)\]]/.test(chunk)) {
+      current += chunk;                            // punctuation left stranded
+    } else if (spaced) {
+      current += ` ${chunk}`;                      // the cut landed on a space
+    } else if (current.length >= cutAt && !endsSentence(current)) {
+      current += chunk;                            // cut by the wrapper mid-word
+    } else if (!endsSentence(current)) {
+      current += ` ${chunk}`;                      // mid-sentence, real word gap
     } else {
-      paragraphs.push(current);            // short + finished: a deliberate break
+      lines.push(current);                         // finished thought: keep it
       current = chunk;
     }
+
+    prevEndsSpace = /\s$/.test(raw);
   });
 
-  if (current) paragraphs.push(current);
+  if (current) lines.push(current);
 
-  return paragraphs
-    .map(p => `<p>${p.replace(/\s+/g, ' ').trim()}</p>`)
-    .join('');
+  const clean = lines
+    .map(l => l.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+
+  return hasBlocks
+    ? clean.join('<br>')
+    : clean.map(l => `<p>${l}</p>`).join('');
 };
+
+/* Store-wide policy, identical on every item. Declared outside the component
+   so it isn't rebuilt on each render — edit the copy here once and it updates
+   across the whole catalogue. */
+const SHIPPING_POINTS = [
+  'Orders are packed and dispatched within 1–2 business days.',
+  'Delivery is completed within 15 days of the order being placed.',
+  'A tracking link is sent by email and SMS as soon as the parcel leaves us.',
+  'Returns are accepted within 7 days of delivery — unused, in original packaging, with tags intact.',
+  'Refunds reach the original payment method 5–7 business days after the return arrives with us.',
+  'Received something damaged or incorrect? Tell us within 48 hours with a photo and we will replace it at no cost.',
+];
+
+const FAQS = [
+  {
+    q: 'How long will my order take to arrive?',
+    a: 'Every order is delivered within 15 days of being placed. Metro addresses usually receive theirs a good deal sooner.',
+  },
+  {
+    q: 'Can I track my order?',
+    a: 'Yes. Once the parcel is handed to the courier you will get a tracking link by email and SMS, and it stays live until delivery.',
+  },
+  {
+    q: 'What payment methods do you accept?',
+    a: 'Credit and debit cards, UPI, net banking and the major wallets. Payments run through an encrypted gateway and we never store your card details.',
+  },
+  {
+    q: 'Can I change or cancel my order?',
+    a: 'Reach out before the order is dispatched and we will amend or cancel it. After dispatch, use the 7-day return window instead.',
+  },
+  {
+    q: 'Do you offer exchanges?',
+    a: 'Size and colour exchanges are available within 7 days of delivery, as long as the replacement is in stock.',
+  },
+];
 
 const StoreProductDetail = () => {
   const { itemSlug } = useParams();
@@ -101,6 +177,7 @@ const StoreProductDetail = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [activeTab, setActiveTab] = useState('description');
 
   const noticeTimer = useRef(null);
 
@@ -154,6 +231,7 @@ const StoreProductDetail = () => {
     const fetchProductAndBiz = async () => {
       try {
         setLoading(true);
+        setActiveTab('description'); // new item, start on the description again
         const PRODUCT_API_URL = `${API_BASE_URL}/api/v1/business/${slug}/items/${itemSlug}/`;
         const SUMMARY_API_URL = `${API_BASE_URL}/api/v1/business/${slug}/items/summary/`;
 
@@ -471,11 +549,17 @@ const StoreProductDetail = () => {
   const activeMedia = mediaList[activeIndex] || null;
 
   const descriptionHeading = (() => {
-    if (isService || (!hasProducts && hasServices)) return "Service Description";
-    return "Product Description";
+    if (isService || (!hasProducts && hasServices)) return 'Service description';
+    return 'Product description';
   })();
 
   const descriptionHtml = normalizeDescription(product.description);
+
+  const tabs = [
+    { id: 'description', label: descriptionHeading },
+    { id: 'shipping', label: 'Shipping & Returns' },
+    { id: 'faqs', label: 'FAQs' },
+  ];
 
   const actionButtons = (compact = false) => (
     <>
@@ -735,7 +819,7 @@ const StoreProductDetail = () => {
           )}
 
           {/* Help */}
-          {(contactInfo.phone || contactInfo.email) && (
+          {(contactInfo.phone || contactInfo.email || !isService) && (
             <div className="pdp-help">
               <h2 className="pdp-help-title">Have a question?</h2>
               <p className="pdp-help-hours">We reply 24 / 7</p>
@@ -749,21 +833,93 @@ const StoreProductDetail = () => {
                   Email <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
                 </p>
               )}
+              {!isService && (
+                <p className="pdp-help-row pdp-help-delivery">
+                  Delivery within <strong>15 days</strong> of your order being placed
+                </p>
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {/* --- DESCRIPTION --- */}
+      {/* --- DESCRIPTION / SHIPPING / FAQS --- */}
       <section className="pdp-description">
         <div className="pdp-shell">
-          <h2 className="pdp-description-title">{descriptionHeading}</h2>
 
-          {descriptionHtml ? (
-            <div className="pdp-prose" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-          ) : (
-            <p className="pdp-prose pdp-prose-empty">No description available for this item yet.</p>
+          <div className="pdp-tabs" role="tablist" aria-label="More about this item">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                id={`pdp-tab-${tab.id}`}
+                aria-controls={`pdp-panel-${tab.id}`}
+                aria-selected={activeTab === tab.id}
+                className={`pdp-tab ${activeTab === tab.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {activeTab === 'description' && (
+            <div
+              className="pdp-panel"
+              id="pdp-panel-description"
+              role="tabpanel"
+              aria-labelledby="pdp-tab-description"
+            >
+              {descriptionHtml ? (
+                <div className="pdp-prose" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+              ) : (
+                <p className="pdp-prose pdp-prose-empty">No description available for this item yet.</p>
+              )}
+            </div>
           )}
+
+          {activeTab === 'shipping' && (
+            <div
+              className="pdp-panel pdp-prose"
+              id="pdp-panel-shipping"
+              role="tabpanel"
+              aria-labelledby="pdp-tab-shipping"
+            >
+              <ul>
+                {SHIPPING_POINTS.map((point, i) => <li key={i}>{point}</li>)}
+              </ul>
+              {(contactInfo.phone || contactInfo.email) && (
+                <p>
+                  For anything to do with a delivery or a return, reach us on{' '}
+                  {contactInfo.phone && (
+                    <a href={`tel:${String(contactInfo.phone).replace(/[^0-9+]/g, '')}`}>{contactInfo.phone}</a>
+                  )}
+                  {contactInfo.phone && contactInfo.email && ' or '}
+                  {contactInfo.email && <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>}.
+                </p>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'faqs' && (
+            <div
+              className="pdp-panel"
+              id="pdp-panel-faqs"
+              role="tabpanel"
+              aria-labelledby="pdp-tab-faqs"
+            >
+              <div className="pdp-faq">
+                {FAQS.map((faq, i) => (
+                  <details key={i} className="pdp-faq-item">
+                    <summary className="pdp-faq-q">{faq.q}</summary>
+                    <div className="pdp-prose pdp-faq-a"><p>{faq.a}</p></div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </section>
 

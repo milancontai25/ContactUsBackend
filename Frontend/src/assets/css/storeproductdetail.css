@@ -20,6 +20,9 @@
   --pdp-muted: #6B7280;
   --pdp-line: #E5E7EB;
   --pdp-hairline: #F1F5F9;
+  /* Description runs the full width of the shell. Set this to a value like
+     72ch if you ever want to cap the line length instead. */
+  --pdp-prose-max: none;
 
   background-color: #FFFFFF;
   min-height: 100vh;
@@ -605,19 +608,81 @@
   overflow-wrap: anywhere;
 }
 
-/* --- DESCRIPTION --- */
+/* Sits apart from the contact rows — it's a promise, not a way to reach us */
+.pdp-help-delivery {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pdp-hairline);
+}
+
+.pdp-help-delivery strong {
+  color: var(--pdp-ink);
+  font-weight: 700;
+}
+
+/* --- DESCRIPTION / SHIPPING / FAQS --- */
 .pdp-description {
   border-top: 1px solid var(--pdp-line);
   background: #FCFBF8;
-  padding: 56px 0 72px;
+  padding: 44px 0 72px;
 }
 
-.pdp-description-title {
+/* The alignment problem: a <button> carries UA padding (~1px 6px in Chrome),
+   which nudged the first label off the shell's 24px gutter, so it never lined
+   up with the breadcrumb and title above it. Zero inline padding on the tab
+   puts the label flush with the rest of the column. */
+.pdp-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 44px;
+  margin: 0 0 34px 0;
+  border-bottom: 1px solid var(--pdp-line);
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pdp-tabs::-webkit-scrollbar { display: none; }
+
+.pdp-tab {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 0 0 14px 0;
+  border: none;
+  background: transparent;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(22px, 2.6vw, 30px);
-  font-weight: 600;
-  color: var(--pdp-ink);
-  margin: 0 0 24px 0;
+  font-size: clamp(18px, 2.1vw, 22px);
+  font-weight: 500;          /* constant across states so widths never shift */
+  line-height: 1.3;
+  color: #A8A29E;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+/* Sits on top of the hairline rather than beside it */
+.pdp-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--pdp-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+.pdp-tab:hover { color: var(--pdp-body); }
+.pdp-tab.active { color: var(--pdp-ink); }
+.pdp-tab.active::after { transform: scaleX(1); }
+
+.pdp-panel { animation: pdp-panel-in 0.25s ease both; }
+
+@keyframes pdp-panel-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* Full width, edge to edge inside the page shell.
@@ -632,6 +697,21 @@
   color: var(--pdp-body);
   overflow-wrap: break-word;
   text-wrap: pretty;
+}
+
+/* Words were still splitting at the right edge ("practica|l", "Mater|ial"),
+   which means a `word-break: break-all` somewhere in storefront.css outranks
+   a plain rule here. !important is the blunt instrument, but it's the only
+   thing that reliably wins against an unknown selector in a legacy file, and
+   the scope is narrow — the description body and nothing else.
+   Long URLs still break; whole words don't. */
+.pdp-page .pdp-prose,
+.pdp-page .pdp-prose * {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;   /* legacy alias, still honoured */
+  hyphens: none !important;
 }
 
 .pdp-prose > *:first-child { margin-top: 0; }
@@ -693,12 +773,59 @@
 
 .pdp-prose-empty { color: #9CA3AF; }
 
+/* --- FAQ ACCORDION --- */
+.pdp-faq {
+  border-top: 1px solid var(--pdp-hairline);
+  max-width: var(--pdp-prose-max, none);
+}
+
+.pdp-faq-item { border-bottom: 1px solid var(--pdp-hairline); }
+
+.pdp-faq-q {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pdp-ink);
+  cursor: pointer;
+}
+
+.pdp-faq-q::-webkit-details-marker { display: none; }
+
+/* Chevron drawn from borders — no extra icon import for five rows */
+.pdp-faq-q::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--pdp-muted);
+  border-bottom: 2px solid var(--pdp-muted);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.pdp-faq-item[open] .pdp-faq-q::after {
+  transform: rotate(225deg) translateY(-2px);
+}
+
+.pdp-faq-a {
+  padding: 0 0 20px 0;
+  font-size: 16px;
+}
+
+.pdp-faq-a p { margin: 0; }
+
 /* --- STICKY MOBILE BUY BAR --- */
 .pdp-mobile-bar { display: none; }
 
 /* --- FOCUS --- */
 .pdp-page a:focus-visible,
-.pdp-page button:focus-visible {
+.pdp-page button:focus-visible,
+.pdp-page summary:focus-visible {
   outline: 2px solid var(--pdp-ink);
   outline-offset: 3px;
   border-radius: 6px;
@@ -746,6 +873,10 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 2px;
+  }
+
+  .pdp-tabs {
+    gap: 34px;
   }
 }
 
@@ -798,11 +929,28 @@
   }
 
   .pdp-description {
-    padding: 40px 0 48px;
+    padding: 32px 0 48px;
+  }
+
+  /* Three labels won't fit at once — the row scrolls sideways, so keep a
+     little breathing room at the end to hint there's more */
+  .pdp-tabs {
+    gap: 26px;
+    margin-bottom: 26px;
+  }
+
+  .pdp-tab {
+    font-size: 16.5px;
+    padding-bottom: 12px;
   }
 
   .pdp-prose {
     font-size: 15.5px;
+  }
+
+  .pdp-faq-q,
+  .pdp-faq-a {
+    font-size: 15px;
   }
 
   /* The in-page buttons scroll away; this keeps buying one tap away */
@@ -856,6 +1004,14 @@
 }
 
 @media (max-width: 420px) {
+  .pdp-tabs {
+    gap: 20px;
+  }
+
+  .pdp-tab {
+    font-size: 15.5px;
+  }
+
   .pdp-mobile-btns .pdp-btn {
     font-size: 12.5px;
     padding: 0 4px;
@@ -866,8 +1022,14 @@
   .pdp-stage-img,
   .pdp-btn,
   .pdp-thumb,
-  .pdp-icon-btn {
+  .pdp-icon-btn,
+  .pdp-tab::after,
+  .pdp-faq-q::after {
     transition: none;
+  }
+
+  .pdp-panel {
+    animation: none;
   }
 
   .pdp-stage:hover .pdp-stage-img {
@@ -883,6 +1045,11 @@
   .modern-footer {
     display: none !important;
   }
+
+  /* Only the open panel prints, so the inactive labels are noise */
+  .pdp-tab:not(.active) { display: none; }
+  .pdp-tabs { border-bottom: none; }
+  .pdp-panel { animation: none; }
 
   .pdp-gallery { position: static; }
   .pdp-description { background: #FFFFFF; }

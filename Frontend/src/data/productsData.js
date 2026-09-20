@@ -8,12 +8,12 @@ export const MAIN_CATEGORIES = [
       {
         id: 'organic-spices',
         name: 'Organic & Spices',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/1%20Organic%20SpicesOrganic%20Spices.png'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/OrganicSpices.jpeg'
       },
       {
         id: 'pulses-rice',
         name: 'Pulses & Rice',
-        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Pulses%20and%20Rice.png'
+        img: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Pulses%20and%20Rice.jpeg'
       },
       {
         id: 'edible-oils',
@@ -167,67 +167,67 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 201, subcategoryId: 'organic-spices', name: 'Black Pepper', category: 'Spices', 
     description: 'Premium bold black pepper seeds (Tellicherry/Malabar), highly aromatic with intense pungency. Mechanically cleaned and sorted.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Blackpaper.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Blackpaper.jpeg', 
     origin: 'India / Vietnam', specifications: { Grade: 'Asta / 500 GL', Moisture: '12% Max', Packaging: '25kg PP Bags' } 
   },
   { 
     id: 202, subcategoryId: 'organic-spices', name: 'Cardamom', category: 'Spices', 
     description: 'A-grade whole green cardamom pods with vibrant color, intense aroma, and rich essential oil content.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cardamom.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cardamom.jpeg', 
     origin: 'Guatemala / India', specifications: { Size: '8mm+', Color: 'Deep Green', Packaging: '5kg Carton' } 
   },
   { 
     id: 203, subcategoryId: 'organic-spices', name: 'Cloves', category: 'Spices', 
     description: 'Hand-selected aromatic Lal Pari cloves, rich in eugenol oil, perfect for culinary and medicinal extraction.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cloves.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cloves.jpeg', 
     origin: 'Indonesia / Madagascar', specifications: { Grade: 'Premium Lal Pari', Essential_Oil: '15% Min', Moisture: '12% Max' } 
   },
   { 
     id: 204, subcategoryId: 'organic-spices', name: 'Cinnamon', category: 'Spices', 
     description: 'Authentic Ceylon and Cassia cinnamon sticks, offering a warm, sweet, and woody flavor profile.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cinnamon.png',
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Cinnamon.jpeg',
     origin: 'Sri Lanka / Vietnam', specifications: { Type: 'Ceylon / Cassia', Length: '3 to 5 inches', Packaging: 'Carton Box' } 
   },
   { 
     id: 205, subcategoryId: 'organic-spices', name: 'Nutmeg', category: 'Spices', 
     description: 'Premium whole nutmeg with shell and without shell, renowned for its warm, spicy aroma and high oil content.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Nutmeg.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Nutmeg.jpeg', 
     origin: 'Indonesia / India', specifications: { Grade: 'ABCD', Moisture: '10% Max', Processing: 'Sun Dried' } 
   },
   { 
     id: 206, subcategoryId: 'organic-spices', name: 'Turmeric Powder', category: 'Spices', 
     description: 'Finely ground, bright yellow turmeric powder with high curcumin content, sourced directly from organic farms.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/TurmericPowder.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/TurmericPowder.jpeg', 
     origin: 'India', specifications: { Curcumin: '5-7%', Moisture: '10% Max', Mesh_Size: '60-80 Mesh' } 
   },
   { 
     id: 207, subcategoryId: 'organic-spices', name: 'Chili Powder', category: 'Spices', 
     description: 'Vibrant red, highly pungent chili powder milled from premium sun-dried chilies (Teja/Guntur varieties).', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChiliPowder.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/ChiliPowder.jpeg', 
     origin: 'India', specifications: { Heat_Level: '30,000 - 50,000 SHU', Color: 'ASTA 60-80', Purity: '100%' } 
   },
   { 
     id: 208, subcategoryId: 'organic-spices', name: 'Coriander Powder', category: 'Spices', 
     description: 'Freshly milled coriander powder providing a citrusy, nutty flavor essential for spice blending and cooking.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CorianderPowder.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/CorianderPowder.jpeg', 
     origin: 'India', specifications: { Moisture: '10% Max', Purity: '99%', Packaging: '25kg Paper Bags' } 
   },
   { 
     id: 209, subcategoryId: 'organic-spices', name: 'Organic Ashwagandha', category: 'Herbs & Spices', 
     description: 'Premium dried Ashwagandha (Withania Somnifera) roots and powder, prized in Ayurvedic medicine for wellness supplements.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Ashwagandha.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/Ashwagandha.jpeg', 
     origin: 'India', specifications: { Grade: 'Organic Certified', Form: 'Roots / Powder', Moisture: '8% Max' } 
   },
   { 
     id: 210, subcategoryId: 'organic-spices', name: 'Turmeric Fingers', category: 'Spices', 
     description: 'Polished and unpolished raw turmeric fingers, naturally sun-dried to preserve their deep color and essential oils.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/TurmericFingers.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/TurmericFingers.jpeg', 
     origin: 'India', specifications: { Type: 'Salem / Nizamabad', Curcumin: '4-6%', Polish: 'Single / Double' } 
   },
   { 
     id: 211, subcategoryId: 'organic-spices', name: 'Organic Dry Ginger', category: 'Spices', 
     description: 'High-quality organic dried ginger (whole and split), offering a sharp, spicy flavor for culinary and herbal tea use.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/DryGingerOrganic.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/DryGingerOrganic.jpeg', 
     origin: 'India / Nigeria', specifications: { Form: 'Whole Dried', Moisture: '12% Max', Oil_Content: '1.5% Min' } 
   },
 
@@ -279,7 +279,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 308, subcategoryId: 'pulses-rice', name: 'Masoor Dal (Red Lentils)', category: 'Pulses', 
     description: 'Premium quality split red lentils, sortex cleaned, fast-cooking, and packed with dietary fiber and plant-based protein.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/MasoorDal.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/masoor.png', 
     origin: 'Canada / Australia', specifications: { Purity: '99.5%', Foreign_Matter: '0.5% Max', Moisture: '12% Max' } 
   },
   { 
@@ -303,7 +303,7 @@ export const DETAILED_PRODUCTS = [
   { 
     id: 312, subcategoryId: 'pulses-rice', name: 'Desi Chana (Black Chickpeas)', category: 'Pulses', 
     description: 'Smaller, darker, and rough-coated chickpeas known for their intense nutty flavor and high dietary fiber content.', 
-    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/desi.png', 
+    image_url: 'https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/desichana.png', 
     origin: 'India / Australia', specifications: { Purity: '99%', Size: 'Medium', Packaging: '25kg / 50kg Bags' } 
   },
   { 

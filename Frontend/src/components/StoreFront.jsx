@@ -751,7 +751,7 @@ const StoreFront = () => {
       />
 
       {/* --- BANNER --- */}
-      <div style={{ width: '100%', margin: 0, padding: 0, paddingTop: '0', lineHeight: 0 }}>
+      {/* <div style={{ width: '100%', margin: 0, padding: 0, paddingTop: '0', lineHeight: 0 }}>
         {banners.length > 0 ? (
           <div style={{ position: 'relative', width: '100%', margin: 0, padding: 0 }}>
             <img
@@ -793,7 +793,7 @@ const StoreFront = () => {
             <p style={{ margin: 0, color: '#D1D5DB' }}>Quality products, honest savings. Delivered to your door.</p>
           </div>
         )}
-      </div>
+      </div> */}
 
       {/* --- SHOP: FILTERS + RESULTS --- */}
       <div className="shop-wrapper">
