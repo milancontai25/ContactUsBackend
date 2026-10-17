@@ -97,7 +97,7 @@ const Navbar = () => {
             <div className={styles.navRight}>
               
               {/* Refined Marketplace Button */}
-              <a 
+              {/* <a 
                 href="/marketplace" 
                 target="_blank" 
                 rel="noopener noreferrer" 
@@ -107,7 +107,7 @@ const Navbar = () => {
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className={styles.marketplaceIcon}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </a>
+              </a> */}
 
               {/* Phone Layout */}
               <div className={styles.phoneContainer}>
@@ -166,7 +166,7 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <a 
+          {/* <a 
                 href="/marketplace" 
                 target="_blank" 
                 rel="noopener noreferrer" 
@@ -174,7 +174,7 @@ const Navbar = () => {
               >
                 Visit Marketplace
                
-              </a>
+              </a> */}
           
         </div>
 

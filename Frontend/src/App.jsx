@@ -11,13 +11,13 @@ import ServicesPage from './pages/ServicesPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import ProductCategoryPage from './pages/ProductCategoryPage';
-import StoreFront from './components/StoreFront'
-import StoreCategory from './components/StoreCategory'
-import Checkout from './components/Checkout'
-import StoreProductDetail from './components/StoreProductDetail';
-import OrderHistory from './components/OrderHistory';
-import StoreInfo from './pages/StoreInfo';
-import Contact from './pages/Contact';
+// import StoreFront from './components/StoreFront'
+// import StoreCategory from './components/StoreCategory'
+// import Checkout from './components/Checkout'
+// import StoreProductDetail from './components/StoreProductDetail';
+// import OrderHistory from './components/OrderHistory';
+// import StoreInfo from './pages/StoreInfo';
+// import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -35,14 +35,13 @@ function App() {
         <Route path="/service/:slug" element={<ServiceDetailPage />} />
         <Route path="/blog/:slug" element={<BlogDetailPage />} />
 
-        <Route path="/marketplace" element={<StoreCategory />} />
-        {/* Replace "marketplace" with ":slug" if your stores are dynamic! */}
+        {/* <Route path="/marketplace" element={<StoreCategory />} />
         <Route path="/marketplace/our-story" element={<StoreInfo />} />
         <Route path="/marketplace/items" element={<StoreFront />} />
         <Route path="/marketplace/item/:itemSlug" element={<StoreProductDetail />} />
         <Route path="/marketplace/contact" element={<Contact />} />
         <Route path="/marketplace/checkout" element={<Checkout />} />
-        <Route path="/marketplace/orders" element={<OrderHistory />} />
+        <Route path="/marketplace/orders" element={<OrderHistory />} /> */}
       </Routes>
     </Router>
   );

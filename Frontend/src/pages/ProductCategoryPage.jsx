@@ -160,7 +160,7 @@ const ProductCategoryPage = () => {
 
               <div className={styles.assuranceVisuals}>
                 <img 
-                  src="https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/aboutus.jpg" 
+                  src="https://ramsam-trends-llc-bucket.s3.us-east-2.amazonaws.com/images/aboutus.jpg" 
                   alt="Global Logistics" 
                   className={styles.assuranceImg}
                 />

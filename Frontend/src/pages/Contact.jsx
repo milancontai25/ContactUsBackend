@@ -142,7 +142,7 @@ const Contact = () => {
             {/* Card 3: Visit */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className={styles.card}>
               <div className={styles.cardImageWrapper}>
-                <img src="https://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/visit%20office.jpg" alt="Visit Our Office" className={styles.cardImg} />
+                <img src="https://ramsam-trends-llc-bucket.s3.us-east-2.amazonaws.com/images/visit%20office.jpg" alt="Visit Our Office" className={styles.cardImg} />
               </div>
               <div className={styles.floatingIcon}>
                 <LocationIcon />

@@ -129,7 +129,7 @@ const ContactPage = () => {
             {/* Card 1: Mail */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className={styles.card}>
               <div className={styles.cardImageWrapper}>
-                <img src="http://ramsam-trends-bucket.s3.ap-south-1.amazonaws.com/images/send%20mail.jpg" alt="Send Us Mail" className={styles.cardImg} />
+                <img src="https://ramsam-trends-llc-bucket.s3.us-east-2.amazonaws.com/images/send%20mail.jpg" alt="Send Us Mail" className={styles.cardImg} />
               </div>
               <div className={styles.floatingIcon}>
                 <MailIcon />
